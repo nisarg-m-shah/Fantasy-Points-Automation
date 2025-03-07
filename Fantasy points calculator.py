@@ -9,7 +9,7 @@ class Score:
 
     def __init__(self,url):
         self.url = url
-        self.winner,self.man_of_the_match,self.innings_list,self.batsmen_list,self.match_score,self.did_not_bat,self.bowlers_info = self.scorecard()
+        self.player_list,self.winner,self.man_of_the_match,self.innings_list,self.batsmen_list,self.match_score,self.did_not_bat,self.bowlers_info = self.scorecard()
 
     def find_team(self,text):
         def check_list(team_list):
@@ -42,6 +42,7 @@ class Score:
         match_score = pd.DataFrame()
         did_not_bat = pd.DataFrame()
         bowlers_info = pd.DataFrame()
+        player_list = pd.DataFrame()
 
         winner = soup.find('p',class_="ds-text-tight-s ds-font-medium ds-truncate ds-text-typo").text.strip()
         winner = self.find_team(winner)
@@ -78,6 +79,10 @@ class Score:
                 try:
                     batsman_stats = batter.find_all('td')
                     name = batsman_stats[0].text.strip()
+                    if '†' in name:
+                        name = name.replace('†','').strip()
+                    if '(c)' in name:
+                        name = name.replace('(c)','').strip()
                     dismissal = batsman_stats[1].text.strip()
                     runs = int(batsman_stats[2].text.strip())
                     balls = int(batsman_stats[3].text.strip())
@@ -97,6 +102,7 @@ class Score:
                         'Strike Rate': strike_rate
                     }
                     batsmen_list = batsmen_list._append(batsmen_stat, ignore_index = True)
+                    player_list = player_list._append({'Team':batting_innings, 'Player': name}, ignore_index = True)
                     d += 1
                 except:
                     pass
@@ -107,8 +113,12 @@ class Score:
                 batsmen = did_not_bat_row.find_all('div', class_='ds-popper-wrapper ds-inline')
                 for batsman in batsmen:
                     batsman_name = (batsman.get_text(strip=True)).replace(",", "")
+                    if '†' in batsman_name:
+                        batsman_name = batsman_name.replace('†','').strip()
+                    if '(c)' in batsman_name:
+                        batsman_name = batsman_name.replace('(c)','').strip()
                     did_not_bat = did_not_bat._append({'Innings Number': innings_number, 'Innings Name': batting_innings, 'Batsman':batsman_name}, ignore_index = True)
-
+                    player_list = player_list._append({'Team':batting_innings, 'Player': batsman_name}, ignore_index = True)
                     
             #Extracting Bowling Info
             bowling_table = innings_table.find('table', class_='ds-w-full ds-table ds-table-md ds-table-auto')
@@ -125,8 +135,6 @@ class Score:
                 headers = list(map(lambda x: "Runs" if x == "R" else x, headers))
                 headers = list(map(lambda x: "Wickets" if x == "W" else x, headers))
                 headers = list(map(lambda x: "Economy" if x == "ECON" else x, headers))
-                headers = list(map(lambda x: "Wides" if x == "WD" else x, headers))
-                headers = list(map(lambda x: "No Balls" if x == "NB" else x, headers))
                 
                 bowler_rows = bowling_table.find('tbody').find_all('tr')
                 #try:
@@ -138,20 +146,23 @@ class Score:
 
                     try:
                         for i in range(len(headers)):
-                            if headers[i] in ["Maidens","Runs", "Wickets","0s","4s","6s","Wides","No Balls"]:
+                            if headers[i] in ["Maidens","Runs", "Wickets","0s"]:
                                 bowler_data[headers[i]] = int(bowler_row_data[i].text.strip())
-                            elif headers[i] == ["Overs","Economy"]:
+                            elif headers[i] in ["Overs","Economy"]:
                                 bowler_data[headers[i]] = float(bowler_row_data[i].text.strip())
-                            else:
+                            elif headers[i] == "Bowler":
                                 bowler_data[headers[i]] = (bowler_row_data[i].text.strip())
 
                         # Append the bowler's data to the list
                         bowlers_info = bowlers_info._append(bowler_data, ignore_index = True)
                     except:
                         pass
-        return winner, man_of_the_match, innings_list, batsmen_list, match_score, did_not_bat, bowlers_info
+        return player_list, winner, man_of_the_match, innings_list, batsmen_list, match_score, did_not_bat, bowlers_info
     
     def printing_scorecard(self):
+        print("Player List:")
+        print(self.player_list)
+        print()
         for innings in self.innings_list:
             print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ")  
             print(innings + ":")
