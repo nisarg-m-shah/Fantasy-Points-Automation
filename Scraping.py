@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from IPython.display import display
+import dill
+
 
 class Score:
     team_names_sf = ["KKR","GT","MI","CSK","RR","RCB","PBKS","DC","SRH","LSG"]
@@ -36,7 +38,6 @@ class Score:
         response = requests.get(self.url, headers=headers)
         soup = BeautifulSoup(response.content, "html.parser")
         
-        # Initialize lists to store data for the match
         innings_list = []
         batsmen_list = pd.DataFrame()
         match_score = pd.DataFrame()
@@ -53,15 +54,12 @@ class Score:
             if "Player Of The Match" in row.text:
                 man_of_the_match = row.find('td',class_="ds-text-typo").text.strip()
         
-        # Find all divs with class "ds-rounded-lg ds-mt-2" (which contain innings tables)
         innings_tables = soup.find_all('div', class_='ds-rounded-lg ds-mt-2')
 
-        # Loop through each innings table div
         for innings_table in innings_tables:
 
             innings_number = innings_tables.index(innings_table) + 1
 
-            # Find the div that contains the team name and innings number
             team_innings_div = innings_table.find('div', class_='ds-flex ds-px-4 ds-border-b ds-border-line ds-py-3 ds-bg-ui-fill-translucent-hover')
             batting_innings = team_innings_div.text.strip().replace('\xa0',' ')
             batting_innings = self.find_team(batting_innings)
@@ -71,7 +69,6 @@ class Score:
             
             batsmen_table = innings_table.find('table', class_='ds-w-full ds-table ds-table-md ds-table-auto ci-scorecard-table')
         
-            # Batsmen details extraction
             batting_info = batsmen_table.find('tbody')
             batting_info = batting_info.find_all('tr')
 
@@ -90,7 +87,6 @@ class Score:
                     sixes = int(batsman_stats[6].text.strip())
                     strike_rate = float(batsman_stats[7].text.strip())
                             
-                    # Append the details to the list
                     batsmen_stat = {'Innings Number': innings_number,
                         'Innings Name': batting_innings,
                         'Batsman': name,
@@ -107,7 +103,6 @@ class Score:
                 except:
                     pass
 
-            # Extract "Did Not Bat" information
             did_not_bat_row = batsmen_table.find('tr', class_='!ds-border-b-0')
             if did_not_bat_row:
                 batsmen = did_not_bat_row.find_all('div', class_='ds-popper-wrapper ds-inline')
@@ -120,10 +115,8 @@ class Score:
                     did_not_bat = did_not_bat._append({'Innings Number': innings_number, 'Innings Name': batting_innings, 'Batsman':batsman_name}, ignore_index = True)
                     player_list = player_list._append({'Team':batting_innings, 'Player': batsman_name}, ignore_index = True)
                     
-            #Extracting Bowling Info
             bowling_table = innings_table.find('table', class_='ds-w-full ds-table ds-table-md ds-table-auto')
 
-            # Check if the bowling table is present
             if bowling_table:
                 headers = []
                 head_data = bowling_table.find_all('th')
@@ -137,7 +130,6 @@ class Score:
                 headers = list(map(lambda x: "Economy" if x == "ECON" else x, headers))
                 
                 bowler_rows = bowling_table.find('tbody').find_all('tr')
-                #try:
                 for row in bowler_rows:
                     bowler_data = {}
                     bowler_data['Innings Number'] = innings_number
@@ -152,8 +144,6 @@ class Score:
                                 bowler_data[headers[i]] = float(bowler_row_data[i].text.strip())
                             elif headers[i] == "Bowler":
                                 bowler_data[headers[i]] = (bowler_row_data[i].text.strip())
-
-                        # Append the bowler's data to the list
                         bowlers_info = bowlers_info._append(bowler_data, ignore_index = True)
                     except:
                         pass
@@ -172,7 +162,6 @@ class Score:
             print(self.batsmen_list[self.batsmen_list['Innings Name'] == innings].drop(columns=['Innings Number', 'Innings Name']))
             print()
 
-            # Print "Did Not Bat" information)
             if self.did_not_bat.empty == False:
                 if self.did_not_bat[self.did_not_bat['Innings Name'] == innings].empty == False:
                     print("Did Not Bat:")
@@ -192,3 +181,48 @@ url = "https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/ko
 match1 = Score(url)
 match1.printing_scorecard()
         
+# class Player
+# class Team
+class Series:
+    def __init__(self,url):
+        self.url = url
+        self.match_links = self.match_link_generator()
+        self.match_objects = []
+        for match in self.match_links:
+            try:
+                self.match_objects.append(Score(match))
+            except:
+                pass
+    
+    def match_link_generator(self):
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
+        }
+
+        response = requests.get(self.url, headers=headers)
+        soup = BeautifulSoup(response.content, "html.parser")
+        match_links = []
+        match_boxes = soup.find_all('div')
+        for match_box in match_boxes:
+            try:
+                link_part = match_box.find('a',class_="ds-no-tap-higlight")['href']
+                if "indian-premier-league" in link_part or "ipl-2025" in link_part:
+                    match_link = "https://www.espncricinfo.com" + link_part
+                    if match_link not in match_links:
+                        match_links.append(match_link)
+            except:
+                pass
+        return match_links
+    
+#ipl2024 = Series("https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/match-schedule-fixtures-and-results")
+#print(ipl.match_links)
+
+ipl2025 = Series("https://www.espncricinfo.com/series/ipl-2025-1449924/match-schedule-fixtures-and-results")
+print(ipl2025.match_links)
+print(len(ipl2025.match_links))     
+
+# Save list of objects to a file
+with open("ipl2025matches.pkl", "wb") as file:
+    dill.dump(ipl2025, file)
+
+print("Players list saved successfully!")
