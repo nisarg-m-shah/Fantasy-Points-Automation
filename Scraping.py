@@ -45,43 +45,46 @@ def match_squads_generator(ipl_url, match_number):
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
     }
-    response = requests.get(ipl_url, headers=headers)
-    soup = BeautifulSoup(response.content, "html.parser")
+    try:
+        response = requests.get(ipl_url, headers=headers)
+        soup = BeautifulSoup(response.content, "html.parser")
 
-    matches = soup.find_all('div', class_='cb-col-75 cb-col')
-    match = matches[int(match_number) - 1]
-    match_link = "https://www.cricbuzz.com" + match.find('a')['href']
-    
-    if 'live-cricket-scores' in match_link:
-        match_link = match_link.replace('live-cricket-scores', 'cricket-match-squads')
-    elif 'cricket-scores' in match_link:
-        match_link = match_link.replace('cricket-scores', 'cricket-match-squads')
+        matches = soup.find_all('div', class_='cb-col-75 cb-col')
+        match = matches[int(match_number) - 1]
+        match_link = "https://www.cricbuzz.com" + match.find('a')['href']
+        
+        if 'live-cricket-scores' in match_link:
+            match_link = match_link.replace('live-cricket-scores', 'cricket-match-squads')
+        elif 'cricket-scores' in match_link:
+            match_link = match_link.replace('cricket-scores', 'cricket-match-squads')
 
-    response_squads = requests.get(match_link, headers=headers)
-    soup_squads = BeautifulSoup(response_squads.content, "html.parser")
-    team_matchup = soup_squads.find('h1',class_='cb-nav-hdr cb-font-18 line-ht24').text.strip()
-    team1_name = team_matchup.split(' vs ')[0]
-    team2_name = team_matchup.split(' vs ')[1].split(',')[0].strip()
+        response_squads = requests.get(match_link, headers=headers)
+        soup_squads = BeautifulSoup(response_squads.content, "html.parser")
+        team_matchup = soup_squads.find('h1',class_='cb-nav-hdr cb-font-18 line-ht24').text.strip()
+        team1_name = team_matchup.split(' vs ')[0]
+        team2_name = team_matchup.split(' vs ')[1].split(',')[0].strip()
 
-    required_classes_team1 = {'cb-col', 'cb-col-100', 'pad10', 'cb-player-card-left'}
+        required_classes_team1 = {'cb-col', 'cb-col-100', 'pad10', 'cb-player-card-left'}
 
-    players_team1 = [
-    a for a in soup_squads.find_all('a', class_=True) 
-    if required_classes_team1.issubset(set(a['class']))
-]
-    required_classes_team2 = {'cb-col', 'cb-col-100', 'pad10', 'cb-player-card-right'}
+        players_team1 = [
+        a for a in soup_squads.find_all('a', class_=True) 
+        if required_classes_team1.issubset(set(a['class']))
+    ]
+        required_classes_team2 = {'cb-col', 'cb-col-100', 'pad10', 'cb-player-card-right'}
 
-    players_team2 = [
-    a for a in soup_squads.find_all('a', class_=True) 
-    if required_classes_team2.issubset(set(a['class']))
-]
-    #players_team2 = soup_squads.find_all('a', class_='cb-col cb-col-100 pad10 cb-player-card-right')
+        players_team2 = [
+        a for a in soup_squads.find_all('a', class_=True) 
+        if required_classes_team2.issubset(set(a['class']))
+    ]
+        #players_team2 = soup_squads.find_all('a', class_='cb-col cb-col-100 pad10 cb-player-card-right')
 
-    team1 = extract_team_players(players_team1, "cb-plus-match-change-icon cb-bg-min cb-match-change-left")
-    team2 = extract_team_players(players_team2, "cb-plus-match-change-icon cb-bg-min cb-match-change-right")
-    teams = {team1_name:team1,team2_name:team2}
+        team1 = extract_team_players(players_team1, "cb-plus-match-change-icon cb-bg-min cb-match-change-left")
+        team2 = extract_team_players(players_team2, "cb-plus-match-change-icon cb-bg-min cb-match-change-right")
+        teams = {team1_name:team1,team2_name:team2}
 
-    return teams
+        return teams
+    except:
+        return {}
 
 def dismissals_scraper(soup,innings_id):
     innings = soup.find('div',id=innings_id)
@@ -100,54 +103,61 @@ def match_dismissals_output(ipl_url, match_number):
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
     }
-    response = requests.get(ipl_url, headers=headers)
-    soup = BeautifulSoup(response.content, "html.parser")
+    try:
+        response = requests.get(ipl_url, headers=headers)
+        soup = BeautifulSoup(response.content, "html.parser")
 
-    matches = soup.find_all('div', class_='cb-col-75 cb-col')
-    match = matches[int(match_number) - 1]
-    match_link = "https://www.cricbuzz.com" + match.find('a')['href']
-    
-    if 'live-cricket-scores' in match_link:
-        match_link = match_link.replace('live-cricket-scores', 'live-cricket-scorecard')
-    elif 'cricket-scores' in match_link:
-        match_link = match_link.replace('cricket-scores', 'live-cricket-scorecard')
+        matches = soup.find_all('div', class_='cb-col-75 cb-col')
+        match = matches[int(match_number) - 1]
+        match_link = "https://www.cricbuzz.com" + match.find('a')['href']
+        
+        if 'live-cricket-scores' in match_link:
+            match_link = match_link.replace('live-cricket-scores', 'live-cricket-scorecard')
+        elif 'cricket-scores' in match_link:
+            match_link = match_link.replace('cricket-scores', 'live-cricket-scorecard')
 
-    response_score = requests.get(match_link, headers=headers)
-    soup_score = BeautifulSoup(response_score.content, "html.parser")
-    innings1,dismissals1 = dismissals_scraper(soup_score,"innings_1")
-    innings2,dismissals2 = dismissals_scraper(soup_score,"innings_2")   
-    dismissals = {innings2:dismissals1,innings1:dismissals2}
-    return dismissals
+        response_score = requests.get(match_link, headers=headers)
+        soup_score = BeautifulSoup(response_score.content, "html.parser")
+        innings1,dismissals1 = dismissals_scraper(soup_score,"innings_1")
+        innings2,dismissals2 = dismissals_scraper(soup_score,"innings_2")   
+        dismissals = {innings2:dismissals1,innings1:dismissals2}
+        return dismissals
+    except:
+        print("Error",match_number,"not scraping properly")
 
 def find_full_name(team,short_name):
-    team_copy = []
-    for player in team:
-        if len(player)>len(short_name):
-            count = 0
-            parts = short_name.split(' ')
-            for part in parts:
-                if part not in player:
-                    count += 1
-            if count == 0:
-                team_copy.append(player)
-        else:
-            count = 0
-            parts = player.split(' ')
-            for part in parts:
-                if part not in short_name:
-                    count += 1
-            if count == 0:
-                team_copy.append(player)
-
     try:
-        best_match, score, _ = process.extractOne(short_name, team_copy)
-        if score > 85:
-            return best_match
-        else:
-            return short_name
-            print(short_name,"not found")
+        team_copy = []
+        for player in team:
+            if len(player)>len(short_name):
+                count = 0
+                parts = short_name.split(' ')
+                for part in parts:
+                    if part not in player:
+                        count += 1
+                if count == 0:
+                    team_copy.append(player)
+            else:
+                count = 0
+                parts = player.split(' ')
+                for part in parts:
+                    if part not in short_name:
+                        count += 1
+                if count == 0:
+                    team_copy.append(player)
+
+        try:
+            best_match, score, _ = process.extractOne(short_name, team_copy)
+            if score > 80:
+                return best_match
+            else:
+                return short_name
+                #print(short_name,"not found")
+        except:
+            #print(short_name,"not found")
+            pass
     except:
-        print(short_name,"not found")
+        return None
 
 def dismissals_final_generator(ipl_url,game_number):
     players = match_squads_generator(ipl_url,game_number)
@@ -161,57 +171,76 @@ def dismissals_final_generator(ipl_url,game_number):
     runouters_secondary = {}
     lbw = {}
     bowled = {}
+    try:
+        for key in dismissals.keys():
+            for dismissal in dismissals[key]:
+                if dismissal.startswith("c and b "):  # Catchers
+                    catcher_name = dismissal.split("c and b ")[1]
+                    catchers.setdefault(key, []).append(catcher_name)
+                elif dismissal.startswith("c "):  # Catchers
+                    catcher_name = dismissal.split("c ",1)[1].split(' b ')[0]
+                    catchers.setdefault(key, []).append(catcher_name)
+                elif dismissal.startswith("st "):  # Stumpers
+                    stumper_name = dismissal.split("st ",1)[1].split(' b ')[0]
+                    stumpers.setdefault(key, []).append(stumper_name)
+                elif dismissal.startswith("run out ("):  # Stumpers
+                    runouter_name = dismissal.split("run out (",1)[1].split(')')
+                    #print(runouter_name)
+                    runouters = runouter_name[-2].split('/')
+                    if len(runouters) == 2:
+                        runouter_second_name = runouters[1]
+                        runouters_secondary.setdefault(key, []).append(runouter_second_name)
+                    runouter_main_name = runouters[0]
+                    runouters_main.setdefault(key, []).append(runouter_main_name)
+                elif dismissal.startswith("b "):  # Stumpers
+                    bowled_name = dismissal.split("b ",1)[1]
+                    bowled.setdefault(key, []).append(bowled_name)
+                elif dismissal.startswith("lbw b "):  # Stumpers
+                    bowled_name = dismissal.split("lbw b ",1)[1]
+                    lbw.setdefault(key, []).append(bowled_name)    
+    except:
+        pass
 
-    for key in dismissals.keys():
-        for dismissal in dismissals[key]:
-            if dismissal.startswith("c and b "):  # Catchers
-                catcher_name = dismissal.split("c and b ")[1]
-                catchers.setdefault(key, []).append(catcher_name)
-            elif dismissal.startswith("c "):  # Catchers
-                catcher_name = dismissal.split("c ",1)[1].split(' b ')[0]
-                catchers.setdefault(key, []).append(catcher_name)
-            elif dismissal.startswith("st "):  # Stumpers
-                stumper_name = dismissal.split("st ",1)[1].split(' b ')[0]
-                stumpers.setdefault(key, []).append(stumper_name)
-            elif dismissal.startswith("run out ("):  # Stumpers
-                runouter_name = dismissal.split("run out (",1)[1].split(')')
-                #print(runouter_name)
-                runouters = runouter_name[-2].split('/')
-                if len(runouters) == 2:
-                    runouter_second_name = runouters[1]
-                    runouters_secondary.setdefault(key, []).append(runouter_second_name)
-                runouter_main_name = runouters[0]
-                runouters_main.setdefault(key, []).append(runouter_main_name)
-            elif dismissal.startswith("b "):  # Stumpers
-                bowled_name = dismissal.split("b ",1)[1]
-                bowled.setdefault(key, []).append(bowled_name)
-            elif dismissal.startswith("lbw b "):  # Stumpers
-                bowled_name = dismissal.split("lbw b ",1)[1]
-                lbw.setdefault(key, []).append(bowled_name)    
+    mapped_catchers = mapped_stumpers = mapped_main_runouters = mapped_secondary_runouters = mapped_bowled = mapped_lbw = {}
+    try:
+        mapped_catchers = [full_name for team, names in catchers.items() 
+        for name in names 
+        if (full_name := find_full_name(players[team], name)) is not None]
+    except:
+        pass
+    try:
+        mapped_stumpers = [full_name for team, names in stumpers.items() 
+        for name in names 
+        if (full_name := find_full_name(players[team], name)) is not None]
+    except:
+        pass
+    try:
+        mapped_main_runouters = [   full_name for team, names in runouters_main.items() 
+        for name in names 
+        if (full_name := find_full_name(players[team], name)) is not None]
+    except:
+        pass
 
-    mapped_catchers = [full_name for team, names in catchers.items() 
-    for name in names 
-    if (full_name := find_full_name(players[team], name)) is not None]
+    try:
+        mapped_secondary_runouters = [   full_name for team, names in runouters_secondary.items() 
+        for name in names 
+        if (full_name := find_full_name(players[team], name)) is not None]
+    except:
+        pass
 
-    mapped_stumpers = [full_name for team, names in stumpers.items() 
-    for name in names 
-    if (full_name := find_full_name(players[team], name)) is not None]
+    try:
+        mapped_bowled = [   full_name for team, names in bowled.items() 
+        for name in names 
+        if (full_name := find_full_name(players[team], name)) is not None]
+    except:
+        pass
 
-    mapped_main_runouters = [   full_name for team, names in runouters_main.items() 
-    for name in names 
-    if (full_name := find_full_name(players[team], name)) is not None]
-
-    mapped_secondary_runouters = [   full_name for team, names in runouters_secondary.items() 
-    for name in names 
-    if (full_name := find_full_name(players[team], name)) is not None]
-
-    mapped_bowled = [   full_name for team, names in bowled.items() 
-    for name in names 
-    if (full_name := find_full_name(players[team], name)) is not None]
-
-    mapped_lbw = [   full_name for team, names in lbw.items() 
-    for name in names 
-    if (full_name := find_full_name(players[team], name)) is not None]
+    try:
+        mapped_lbw = [   full_name for team, names in lbw.items() 
+        for name in names 
+        if (full_name := find_full_name(players[team], name)) is not None]
+    except:
+        pass
 
     # Step 4: Display results
     #print("Catchers:", mapped_catchers)
@@ -420,17 +449,46 @@ class Series:
     def __init__(self,url,cricbuzz_page_link):
         self.url = url
         self.cricbuzz_page_link = cricbuzz_page_link
-        self.match_links = self.match_link_generator()
+        self.match_objects = {}
+        self.match_links = []
+        match_links = self.match_link_generator()
         #self.player_list,self.team_links = self.TeamLinks()
-        self.match_objects = []
-        for match in self.match_links:
-            try:
-                match_object = Score(match,self.cricbuzz_page_link)
-                self.match_objects.append(match_object)
-            except:
-                self.match_links.pop(self.match_links.index(match))
-                print("Match Number",match ,"Abandoned")
-    
+        try:
+            with open("ipl2024matches.pkl", "rb") as file:
+                ipl = dill.load(file)
+        except:
+            ipl = {}
+        match_objects = ipl
+        match_links_list = list(ipl.keys())
+        if len(match_links)>len(match_links_list):
+            for match in match_links:
+                if match not in match_links_list:
+                    try:
+                        match_object = Score(match,self.cricbuzz_page_link)
+                        url = match_object.url
+                        #match_number = match_number_generator(url)
+                        match_objects[url] = match_object
+                        print("Match updated:",url)
+                    except:
+                        print("Match Number",match,"Abandoned")
+            if len(list(match_objects.keys())) == len(match_links):
+                self.match_links = match_links
+                self.match_objects = match_objects
+                with open("ipl2024matches.pkl", "wb") as file:
+                    dill.dump(match_objects, file)
+                print("LOADING SUCCESSFUL")
+            else:
+                print("No. of match objects",len(match_objects))
+                print("Number of extracted links",len(match_links))
+                print("Missing Links:")
+                for match_url in match_links:
+                    if match_url not in list(match_objects.keys()):
+                        print(match_url)
+        else:
+            print("DATA UP TO DATE")
+            self.match_objects = match_objects
+            self.match_links = match_links
+
     def match_link_generator(self):
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
@@ -440,13 +498,18 @@ class Series:
         soup = BeautifulSoup(response.content, "html.parser")
         match_links = []
         match_boxes = soup.find_all('div')
-        for match_box in match_boxes:                               
+        for match_box in match_boxes:     
+            match_block = match_box.find('a',class_="ds-no-tap-higlight")
             try:
-                link_part = match_box.find('a',class_="ds-no-tap-higlight")['href']
-                if "indian-premier-league" in link_part or "ipl-2025" in link_part:
-                    match_link = "https://www.espncricinfo.com" + link_part
-                    if match_link not in match_links:
-                        match_links.append(match_link)
+                link_part = match_block['href']
+                abandoned = match_block.find('p',class_='ds-text-tight-s ds-font-medium ds-line-clamp-2 ds-text-typo').text.strip()
+                # print("Match Result:",abandoned)
+                # print("Match url",link_part)
+                if 'bandoned without a ball bowled' not in abandoned and 'bandoned with a toss' not in abandoned:
+                    if "indian-premier-league" in link_part or "ipl-2025" in link_part and 'full-scorecard' in link_part:
+                        match_link = "https://www.espncricinfo.com" + link_part
+                        if match_link not in match_links:
+                            match_links.append(match_link)
             except:
                 pass
         return match_links
@@ -483,16 +546,16 @@ class Series:
     #                 player_list[key].append(player_name)
     #     return player_list,team_links
 if __name__ == "__main__":
-    cricbuzz_page_link = "https://www.cricbuzz.com/cricket-series/7607/indian-premier-league-2024/matches" 
-    match_link = "https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/sunrisers-hyderabad-vs-punjab-kings-69th-match-1426307/full-scorecard"
-    match = Score(match_link,cricbuzz_page_link)
-    match.printing_scorecard()          
+    # cricbuzz_page_link = "https://www.cricbuzz.com/cricket-series/7607/indian-premier-league-2024/matches" 
+    # match_link = "https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/sunrisers-hyderabad-vs-punjab-kings-69th-match-1426307/full-scorecard"
+    # match = Score(match_link,cricbuzz_page_link)
+    # match.printing_scorecard()          
 
 
-    # cricbuzz_page_link = "https://www.cricbuzz.com/cricket-series/7607/indian-premier-league-2024/matches"   
-    # ipl24_url = "https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/match-schedule-fixtures-and-results"
-    # ipl2024 = Series(ipl24_url,cricbuzz_page_link)
-    # print(ipl2024.match_links)
+    cricbuzz_page_link = "https://www.cricbuzz.com/cricket-series/7607/indian-premier-league-2024/matches"   
+    ipl24_url = "https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/match-schedule-fixtures-and-results"
+    ipl2024 = Series(ipl24_url,cricbuzz_page_link)
+    print(len(ipl2024.match_objects))
 
     #cricbuzz_page_link = "https://www.cricbuzz.com/cricket-series/9237/indian-premier-league-2025/matches"   
     #ipl25_url = "https://www.espncricinfo.com/series/ipl-2025-1449924/match-schedule-fixtures-and-results"

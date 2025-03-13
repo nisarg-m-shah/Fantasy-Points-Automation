@@ -4,10 +4,6 @@ from Scraping import find_full_name
 import pandas as pd
 import time
 
-# Load the object (class definition is included!)
-with open("ipl2024matches.pkl", "rb") as file:
-    ipl2024 = dill.load(file)
-
 class Player:
     def __init__(self,player_name,match_object):
         self.player_name = player_name
@@ -261,35 +257,39 @@ class Match:
                 points_list = player_object.points_list
                 general_player_points_list[player] = points_list
         self.general_player_points_list = pd.DataFrame.from_dict(general_player_points_list,orient='index').fillna(0).infer_objects(copy=False)  # Ensure proper dtype inference
+if __name__ == '__main__':
+    # Load the object (class definition is included!)
+    with open("ipl2024matches.pkl", "rb") as file:
+        ipl2024 = dill.load(file)
 
-begin = time.time()
-match_objects = ipl2024.match_objects
-print(len(match_objects))
+    begin = time.time()
+    match_objects = ipl2024
+    print(len(match_objects))
 
-url = "https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/royal-challengers-bengaluru-vs-kolkata-knight-riders-10th-match-1422128/full-scorecard"             
-cricbuzz_page_link = "https://www.cricbuzz.com/cricket-series/7607/indian-premier-league-2024/matches"   
-match_object = Score(url,cricbuzz_page_link)
+    url = "https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/royal-challengers-bengaluru-vs-kolkata-knight-riders-10th-match-1422128/full-scorecard"             
+    cricbuzz_page_link = "https://www.cricbuzz.com/cricket-series/7607/indian-premier-league-2024/matches"   
+    match_object = Score(url,cricbuzz_page_link)
 
-# match_object = match_objects[60]
-match_object.printing_scorecard()
-#teams = {'Participant1':['Ravisrinivasan Sai Kishore','Sai Sudharsan','Sai Kishore','Noor Ahmad']}
-teams = {'Participant1':['Phil Salt','Kohli','Narine','V Iyer']}
-match = Match(teams,match_object)
-print()
-team_breakdown = match.match_points_breakdown
-print(team_breakdown)
-print()
-General_points_list = match.general_player_points_list
-# sai = General_points_list.loc['Ravisrinivasan Sai Kishore']
-# print(sai)
-print(General_points_list)
+    # match_object = match_objects[60]
+    match_object.printing_scorecard()
+    #teams = {'Participant1':['Ravisrinivasan Sai Kishore','Sai Sudharsan','Sai Kishore','Noor Ahmad']}
+    teams = {'Participant1':['Phil Salt','Kohli','Narine','V Iyer']}
+    match = Match(teams,match_object)
+    print()
+    team_breakdown = match.match_points_breakdown
+    print(team_breakdown)
+    print()
+    General_points_list = match.general_player_points_list
+    # sai = General_points_list.loc['Ravisrinivasan Sai Kishore']
+    # print(sai)
+    print(General_points_list)
 
-end = time.time()
-total_time_taken = end-begin
-minutes = str(int(total_time_taken/60))
-seconds = str(round(total_time_taken % 60,3))
-total_time_taken = minutes+"m "+seconds+"s"
-print(f"Total runtime of the program is {total_time_taken}")        
+    end = time.time()
+    total_time_taken = end-begin
+    minutes = str(int(total_time_taken/60))
+    seconds = str(round(total_time_taken % 60,3))
+    total_time_taken = minutes+"m "+seconds+"s"
+    print(f"Total runtime of the program is {total_time_taken}")        
 
 
 
