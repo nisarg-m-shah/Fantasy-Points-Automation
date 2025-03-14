@@ -3,7 +3,8 @@ import time
 
 begin = time.time()
 
-subprocess.run(["python", "Output.py"])  # Runs file.py in a new process
+subprocess.run(["python", "Packages.py"])
+subprocess.run(["python", "Output.py"])  
 subprocess.run(["python", "GoogleSheets.py"])
 
 end = time.time()
