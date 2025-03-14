@@ -3,6 +3,7 @@ from Scraping import Series,Score
 from Scraping import find_full_name
 import pandas as pd
 import time
+import re
 
 class Player:
     def __init__(self,player_name,match_object):
@@ -209,13 +210,17 @@ class Team:
         self.total_points = 0
         for player_number in range(len(team)):
             player = team[player_number]
-            player = find_full_name(full_player_list,player)
-            player_object = Player(player,self.match_object)
-            player_points = player_object.player_points
-            if player_number == 0:
-                player_points *= 2
-            elif player_number == 1:
-                player_points *= 1.5               
+            player_name = find_full_name(full_player_list,player)
+            if player_name == None:
+                player_points = 0
+            else:
+                player = player_name   
+                player_object = Player(player,self.match_object)
+                player_points = player_object.player_points
+                if player_number == 0:
+                    player_points *= 2
+                elif player_number == 1:
+                    player_points *= 1.5            
             self.points_list[player] = player_points
             self.total_points += player_points
         if self.total_points.is_integer():
@@ -239,7 +244,8 @@ class Match:
                 try:
                     individual_player_points = points_list[player]
                 except:
-                    print(points_list)
+                    pass
+                    #print(points_list)
                 player_points_list[player] = individual_player_points
             player_points_list['Total Points'] = total_points
             match_points_breakdown[participant] = player_points_list

@@ -4,6 +4,8 @@ import pandas as pd
 from IPython.display import display
 import dill
 from rapidfuzz import process
+import re
+
 
 def match_number_generator(match_link):
     parts = (match_link.split('/')[-2].split('-')[-3:-1])
@@ -132,30 +134,62 @@ def find_full_name(team,short_name):
             if len(player)>len(short_name):
                 count = 0
                 parts = short_name.split(' ')
+                parts_dup = []
+                for part in parts:
+                    word = ""
+                    for letter_number in range(len(part)):
+                        char = part[letter_number]
+                        word += char
+                        if letter_number == len(part)-1:
+                            parts_dup.append(word)
+                            break
+                        if part[letter_number+1].isupper():
+                            parts_dup.append(word)
+                            word = ""
+                parts = parts_dup
                 for part in parts:
                     if part not in player:
                         count += 1
                 if count == 0:
-                    team_copy.append(player)
+                    #team_copy.append(player)
+                    return player
             else:
                 count = 0
                 parts = player.split(' ')
+                parts_dup = []
+                for part in parts:
+                    word = ""
+                    for letter_number in range(len(part)):
+                        char = part[letter_number]
+                        word += char
+                        if letter_number == len(part)-1:
+                            parts_dup.append(word)
+                            break
+                        if part[letter_number+1].isupper():
+                            parts_dup.append(word)
+                            word = ""
+                parts = parts_dup
                 for part in parts:
                     if part not in short_name:
                         count += 1
+                # if short_name == 'Mahendra Singh Dhoni':
+                #     print(player,parts,short_name,count)
                 if count == 0:
-                    team_copy.append(player)
+                    #print("Success",player)
+                    #team_copy.append(player)
+                    return player
+                
 
-        try:
-            best_match, score, _ = process.extractOne(short_name, team_copy)
-            if score > 80:
-                return best_match
-            else:
-                return short_name
-                #print(short_name,"not found")
-        except:
-            #print(short_name,"not found")
-            pass
+        # try:
+        #     best_match, score, _ = process.extractOne(short_name, team_copy)
+        #     if score > 10:
+        #         return best_match
+        #     else:
+        #         return short_name
+        #         #print(short_name,"not found")
+        # except:
+        #     #print(short_name,"not found")
+        #     pass
     except:
         return None
 
