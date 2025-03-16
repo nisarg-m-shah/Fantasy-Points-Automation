@@ -12,4 +12,4 @@ total_time_taken = end-begin
 minutes = str(int(total_time_taken/60))
 seconds = str(round(total_time_taken % 60,3))
 total_time_taken = minutes+"m "+seconds+"s"
-print(f"Total runtime of the program is {total_time_taken}")    
+print(f"Total runtime is {total_time_taken}")    
