@@ -3,9 +3,9 @@ import time
 
 begin = time.time()
 
-subprocess.run(["python", "Packages.py"])
+#subprocess.run(["python", "Packages.py"])
 subprocess.run(["python", "Output.py"])  
-subprocess.run(["python", "GoogleSheets.py"])
+#subprocess.run(["python", "GoogleSheets.py"])
 
 end = time.time()
 total_time_taken = end-begin

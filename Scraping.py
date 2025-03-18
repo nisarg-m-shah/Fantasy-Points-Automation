@@ -129,7 +129,9 @@ def match_dismissals_output(ipl_url, match_number):
 
 def find_full_name(team,short_name):
     try:
-        team_copy = []
+        if "Varun Chak" in short_name:
+            return "Varun Chakaravarthy"
+        player = ""
         for player in team:
             if len(player)>len(short_name):
                 count = 0
@@ -175,17 +177,16 @@ def find_full_name(team,short_name):
                 if count == 0:
                     return player
                 
-
-        # try:
-        #     best_match, score, _ = process.extractOne(short_name, team_copy)
-        #     if score > 10:
-        #         return best_match
-        #     else:
-        #         return short_name
-        #         #print(short_name,"not found")
-        # except:
-        #     #print(short_name,"not found")
-        #     pass
+        if player == "":
+            try:
+                best_match, score, _ = process.extractOne(short_name, team)
+                if score > 70:
+                    return best_match
+                else:
+                    print(short_name,"not found")
+            except:
+                print(short_name,"not found")
+                pass
     except:
         return None
 
