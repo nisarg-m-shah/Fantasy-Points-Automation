@@ -131,6 +131,8 @@ def find_full_name(team,short_name):
     try:
         if "Varun Chak" in short_name:
             return "Varun Chakaravarthy"
+        if "Reddy" in short_name and "Nitish" in short_name:
+            return "Nitish Reddy"
         player = ""
         for player in team:
             if len(player)>len(short_name):
@@ -450,15 +452,16 @@ class Score:
         print("Man of the Match: ",self.man_of_the_match)
         
 class Series:
-    def __init__(self,url,cricbuzz_page_link):
+    def __init__(self,url,cricbuzz_page_link,database_name):
         self.url = url
         self.cricbuzz_page_link = cricbuzz_page_link
+        self.database_name = database_name
         self.match_objects = {}
         self.match_links = []
         match_links = self.match_link_generator()
         #self.player_list,self.team_links = self.TeamLinks()
         try:
-            with open("ipl2024matches.pkl", "rb") as file:
+            with open(self.database_name, "rb") as file:
                 ipl = dill.load(file)
         except:
             ipl = {}
@@ -472,13 +475,13 @@ class Series:
                         url = match_object.url
                         #match_number = match_number_generator(url)
                         match_objects[url] = match_object
-                        print(" :",url)
+                        print("Added:",url)
                     except:
                         print("Match Number",match,"Abandoned")
             if len(list(match_objects.keys())) == len(match_links):
                 self.match_links = match_links
                 self.match_objects = match_objects
-                with open("ipl2024matches.pkl", "wb") as file:
+                with open(self.database_name, "wb") as file:
                     dill.dump(match_objects, file)
                 print("LOADING SUCCESSFUL")
             else:

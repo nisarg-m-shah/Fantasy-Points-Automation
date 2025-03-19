@@ -32,11 +32,12 @@ if __name__ == '__main__':
     begin = time.time()
     team_names_sf = ["KKR","GT","MI","CSK","RR","RCB","PBKS","DC","SRH","LSG"]
     team_names_ff = ["Kolkata Knight Riders", "Gujarat Titans", "Mumbai Indians", "Chennai Super Kings","Rajasthan Royals","Royal Challengers Bengaluru", "Punjab Kings","Delhi Capitals","Sunrisers Hyderabad","Lucknow Super Giants"]
-    cricbuzz_page_link = "https://www.cricbuzz.com/cricket-series/7607/indian-premier-league-2024/matches" #Change thi later
+    cricbuzz_page_link = "https://www.cricbuzz.com/cricket-series/7607/indian-premier-league-2024/matches" #Change this later
     ipl24_url = "https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/match-schedule-fixtures-and-results" #Change this later
     #cricbuzz_page_link = "https://www.cricbuzz.com/cricket-series/9237/indian-premier-league-2025/matches"
     #ipl24_url = "https://www.espncricinfo.com/series/ipl-2025-1449924/match-schedule-fixtures-and-results"
-    ipl2024 = Series(ipl24_url,cricbuzz_page_link) #Change this later
+    database = "ipl2024matches.pkl" #Change this later
+    ipl2024 = Series(ipl24_url,cricbuzz_page_link,database) #Change this later
     match_objects = ipl2024.match_objects
 
     teams = {'Gujju Gang':['Varun Chakaravarthy','Travis Head','Rahul Chahar','Mukesh Choudhary','Harshit Rana','Ishant Sharma','Jaydev Unadkat','Mukesh Kumar','Abdul Samad','Riyan Parag','Khaleel Ahmed','Avesh Khan','Faf du Plessis','Arjun Tendulkar','Mohammed Shami','Shivam Dube','Lockie Ferguson','Josh Hazlewood','Prabhsimran Singh','Rishabh Pant','Corbin Bosch','Mohammed Siraj','Prasidh Krishna','Marcus Stoinis','Harpreet Brar','Rahmanullah Gurbaz','Rashid Khan','Washington Sundar'],
@@ -57,17 +58,17 @@ if __name__ == '__main__':
              } #for example Change this later
     
     orange_cap,purple_cap = op_caps("https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/stats") #ipl-2025-1449924 #Change this later
-
+    
     #url = "https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/kolkata-knight-riders-vs-sunrisers-hyderabad-3rd-match-1422121/full-scorecard"             
     cricbuzz_page_link = "https://www.cricbuzz.com/cricket-series/7607/indian-premier-league-2024/matches"   
     match_urls = list(match_objects.keys())
+    matches_already_checked = []
     spreadsheet = {}
     spreadsheet['Team Final Points'] = {}
-    for match_number in range(1,74):
-        try:
-            match_url = match_urls[match_number-1]
-        except:
-            break
+    spreadsheet['Player Final Points'] = {}
+    for match_number in range(1,len(match_objects)+1):
+        match_url = match_urls[match_number-1]
+        if match_url in
         match_object = match_objects[match_url]
         #match_object.printing_scorecard()
         match_name = match_url.split('/')[-2]
@@ -98,6 +99,8 @@ if __name__ == '__main__':
         General_points_list = match.general_player_points_list
 
         spreadsheet[(match_name+" - Points Breakdown")] = General_points_list
+        spreadsheet[(match_name+" - Points Breakdown")]
+
         spreadsheet[(match_name+" - CFC Points")] = team_breakdown
         final_points = spreadsheet['Team Final Points']
         for team in list(team_breakdown.index):
@@ -108,7 +111,6 @@ if __name__ == '__main__':
             final_points[team]['Total Points'] += final_points[team][match_name]
         print(match_name,"added")
 
-    final_points = spreadsheet['Team Final Points']
     for team in list(final_points.keys()):
         orange_cap_points = 0
         purple_cap_points = 0
@@ -121,7 +123,46 @@ if __name__ == '__main__':
         final_points[team]['Purple Cap'] = purple_cap_points
     print("Purple Cap, Orange Cap, Total Points added")
     spreadsheet['Team Final Points'] = dict(sorted(final_points.items(), key=lambda x: x[1]['Total Points'], reverse=True))
-        
+
+    player_list_points = []
+    match_list_points = []
+    for key in spreadsheet.keys():
+        if " - Points Breakdown" in key:
+            match_breakdown = spreadsheet[key]
+            match_name = key.split(' - Points Breakdown')[0]
+            for player in list(match_breakdown.index):
+                spreadsheet['Player Final Points'].setdefault(player,{}).setdefault("Total Points",0)
+                spreadsheet['Player Final Points'].setdefault(player,{}).setdefault("Orange Cap",0)
+                spreadsheet['Player Final Points'].setdefault(player,{}).setdefault("Purple Cap",0)
+                spreadsheet['Player Final Points'].setdefault(player,{}).setdefault(match_name,0)
+                spreadsheet['Player Final Points'][player]['Total Points'] += match_breakdown['Player Points'][player]
+                spreadsheet['Player Final Points'][player][match_name] = match_breakdown['Player Points'][player]
+            for player in list(spreadsheet['Player Final Points'].keys()):
+                if player not in player_list_points:
+                    player_list_points.append(player)
+                if match_name not in match_list_points:
+                    match_list_points.append(match_name)
+                try:
+                    hululu = spreadsheet['Player Final Points'][player][match_name]
+                except:
+                    spreadsheet['Player Final Points'][player][match_name] = 0
+    for player in spreadsheet['Player Final Points'].keys():  
+        if player not in player_list_points:
+            player_list_points.append(player)      
+        if player == orange_cap:
+            spreadsheet['Player Final Points'][player]['Orange Cap'] += 500
+            spreadsheet['Player Final Points'][player]['Total Points'] += 500
+        if player == purple_cap:
+            spreadsheet['Player Final Points'][player]['Purple Cap'] += 500
+            spreadsheet['Player Final Points'][player]['Total Points'] += 500
+    for player in player_list_points:
+        for match in match_list_points:
+            try:
+                hululu2 = spreadsheet['Player Final Points'][player][match]
+            except:
+                spreadsheet['Player Final Points'][player][match] = 0
+            
+    print("Player Points Added")
 
     file_path = "CFC Fantasy League.xlsx"
     # Write to Excel
