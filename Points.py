@@ -160,7 +160,7 @@ class Player:
         except:
             dots = 0
             dot_points = 0
-        bowled_wickets = bowled.count(self.player_name) 
+        bowled_wickets = bowled.count(self.player_name)
         lbw_wickets = lbw.count(self.player_name)   
         if balls_bowled != 0:
             if abs((runs_conceded*6/balls_bowled) - economy)>0.01:
@@ -240,7 +240,6 @@ class Team:
                         #self.points_list['Player Points'] = player_points
                     else:
                         player_points *= 2
-                        #print(player,booster)
                 elif player_number == 1:
                     player_points *= 1.5            
             self.points_list[player] = player_points

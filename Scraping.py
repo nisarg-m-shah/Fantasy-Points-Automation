@@ -233,45 +233,31 @@ def dismissals_final_generator(ipl_url,game_number):
         pass
 
     mapped_catchers = mapped_stumpers = mapped_main_runouters = mapped_secondary_runouters = mapped_bowled = mapped_lbw = {}
-    try:
-        mapped_catchers = [full_name for team, names in catchers.items() 
-        for name in names 
-        if (full_name := find_full_name(players[team], name)) is not None]
-    except:
-        pass
-    try:
-        mapped_stumpers = [full_name for team, names in stumpers.items() 
-        for name in names 
-        if (full_name := find_full_name(players[team], name)) is not None]
-    except:
-        pass
-    try:
-        mapped_main_runouters = [   full_name for team, names in runouters_main.items() 
-        for name in names 
-        if (full_name := find_full_name(players[team], name)) is not None]
-    except:
-        pass
 
-    try:
-        mapped_secondary_runouters = [   full_name for team, names in runouters_secondary.items() 
-        for name in names 
-        if (full_name := find_full_name(players[team], name)) is not None]
-    except:
-        pass
+    mapped_catchers = [full_name for team, names in catchers.items() 
+    for name in names 
+    if (full_name := find_full_name(players[team], name)) is not None]
 
-    try:
-        mapped_bowled = [   full_name for team, names in bowled.items() 
-        for name in names 
-        if (full_name := find_full_name(players[team], name)) is not None]
-    except:
-        pass
+    mapped_stumpers = [full_name for team, names in stumpers.items() 
+    for name in names 
+    if (full_name := find_full_name(players[team], name)) is not None]
 
-    try:
-        mapped_lbw = [   full_name for team, names in lbw.items() 
-        for name in names 
-        if (full_name := find_full_name(players[team], name)) is not None]
-    except:
-        pass
+    mapped_main_runouters = [full_name for team, names in runouters_main.items() 
+    for name in names 
+    if (full_name := find_full_name(players[team], name)) is not None]
+
+    mapped_secondary_runouters = [full_name for team, names in runouters_secondary.items() 
+    for name in names 
+    if (full_name := find_full_name(players[team], name)) is not None]
+
+    mapped_bowled = [full_name for team, names in bowled.items() 
+    for name in names 
+    if (full_name := find_full_name(players[team], name)) is not None]
+
+
+    mapped_lbw = [   full_name for team, names in lbw.items() 
+    for name in names 
+    if (full_name := find_full_name(players[team], name)) is not None]
 
     return players,mapped_catchers,mapped_stumpers,mapped_main_runouters, mapped_secondary_runouters, mapped_bowled, mapped_lbw
 
@@ -478,9 +464,9 @@ class Series:
             ipl = {}
         match_objects = ipl
         match_links_list = list(ipl.keys())
-        if len(match_links)>len(match_links_list):
+        if len(match_links)>=len(match_links_list):
             for match in match_links:
-                if match not in match_links_list:
+                if match not in match_links_list or match == match_links_list[len(match_links_list)-1]:
                     try:
                         match_object = Score(match,self.cricbuzz_page_link)
                         url = match_object.url
