@@ -250,7 +250,7 @@ class Team:
         self.points_list = {**points_entry, **self.points_list}
 
 class Match:
-    def __init__(self,teams,match_object,boosters):
+    def __init__(self, teams, match_object, boosters):
         self.teams = teams
         self.boosters = boosters
         self.match_object = match_object
@@ -263,30 +263,48 @@ class Match:
                 booster = boosters[participant][url]
             except:
                 booster = ""
-            team_object = Team(team,self.match_object,booster)
+
+            team_object = Team(team, self.match_object, booster)
             points_list = team_object.points_list
             total_points = team_object.total_points
+
+            # Store points in a separate dict to preserve order
             player_points_list = {}
             for player in points_list.keys():
-                try:
-                    individual_player_points = points_list[player]
-                except:
-                    pass
-                    #print(points_list)
-                player_points_list[player] = individual_player_points
-            player_points_list['Total Points'] = total_points
-            match_points_breakdown[participant] = player_points_list
+                player_points_list[player] = points_list[player]
 
-        self.match_points_breakdown = pd.DataFrame.from_dict(match_points_breakdown,orient='index').fillna(0).infer_objects(copy=False)  # Ensure proper dtype inference
+            # Create an ordered dictionary with Total Points first, then Booster, then players
+            ordered_player_points = {
+                "Total Points": total_points,
+                "Booster": boosters[participant].get(url, "None")  # Get booster or "None" if not present
+            }
+            ordered_player_points.update(player_points_list)  # Append player points
 
+            match_points_breakdown[participant] = ordered_player_points
+
+        # Convert to DataFrame with proper column ordering
+        self.match_points_breakdown = pd.DataFrame.from_dict(
+            match_points_breakdown, orient='index'
+        ).fillna(0).infer_objects(copy=False)
+
+        # Ensure column order
+        columns_order = ["Total Points", "Booster"] + [
+            col for col in self.match_points_breakdown.columns if col not in ["Total Points", "Booster"]
+        ]
+        self.match_points_breakdown = self.match_points_breakdown[columns_order]
+
+        # Process general player points
         player_list = self.match_object.player_list
         general_player_points_list = {}
         for team in player_list.keys():
             for player in player_list[team]:   
-                player_object = Player(player,self.match_object,"")
+                player_object = Player(player, self.match_object, "")
                 points_list = player_object.points_list
                 general_player_points_list[player] = points_list
-        self.general_player_points_list = pd.DataFrame.from_dict(general_player_points_list,orient='index').fillna(0).infer_objects(copy=False)  # Ensure proper dtype inference
+
+        self.general_player_points_list = pd.DataFrame.from_dict(
+            general_player_points_list, orient='index'
+        ).fillna(0).infer_objects(copy=False)
 if __name__ == '__main__':
     # # Load the object (class definition is included!)
     # with open("ipl2024matches.pkl", "rb") as file:
