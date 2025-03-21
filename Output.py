@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from Points import Match
 from collections import OrderedDict
+import json
 
 
 def excel_to_dict(file_path):
@@ -230,6 +231,9 @@ if __name__ == '__main__':
                     
         print("Player Points Added")
 
+        with open("CFC Fantasy League.json", "w") as json_file:
+            json.dump(spreadsheet, json_file, indent=4)
+        print("JSON file created successfully!")
 
         # Write to Excel
         with pd.ExcelWriter(file_path, engine="xlsxwriter") as writer:
@@ -246,6 +250,11 @@ if __name__ == '__main__':
             print(f"Excel file saved successfully as {file_path} in the current folder.")
     except:
         print("No New Data was Added")
+        with open("CFC Fantasy League.json", "w") as json_file:
+            json.dump(spreadsheet, json_file, indent=4)
+        print("JSON file created successfully!")
+        
+    
 
     end = time.time()
     total_time_taken = end-begin
