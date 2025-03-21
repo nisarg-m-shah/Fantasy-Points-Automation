@@ -108,6 +108,21 @@ if __name__ == '__main__':
         spreadsheet = {}
         spreadsheet['Team Final Points'] = {}
         spreadsheet['Player Final Points'] = {}
+        with open(json_filename, "w") as json_file:
+            json.dump(spreadsheet, json_file, indent=4, cls=NumpyEncoder)
+        print("JSON file created successfully!")
+        columns = ["Total Points", "Orange Cap", "Purple Cap"]
+        teams = [
+    "Gujju Gang", "Hilarious Hooligans", "Tormented Titans", 
+    "La Furia Roja", "Supa Jinx Strikas", "Raging Raptors", "The Travelling Bankers"
+]
+        df = pd.DataFrame(index=teams, columns=columns)
+
+        # Write to an Excel file
+        with pd.ExcelWriter(file_path, engine="xlsxwriter") as writer:
+            df.to_excel(writer, sheet_name="Team Final Points")  
+
+        print(f"Excel file '{file_path}' created successfully!")
 
     match_objects = ipl.match_objects
 
@@ -292,15 +307,13 @@ if __name__ == '__main__':
                     df = pd.DataFrame(data)
                 else:
                     df = data  # If it's already a DataFrame
-
+                if df.empty:
+                    df = pd.DataFrame(columns=["Placeholder"])  
                 df.to_excel(writer, sheet_name=sheet_name)  # Keep index for readability
-
+                
             print(f"Excel file saved successfully as {file_path} in the current folder.")
     except:
         print("No New Data was Added")
-        with open(json_filename, "w") as json_file:
-            json.dump(spreadsheet, json_file, indent=4, cls=NumpyEncoder)
-        print("JSON file created successfully!")
 
     end = time.time()
     total_time_taken = end-begin
