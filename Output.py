@@ -1,5 +1,5 @@
 import dill
-from Scraping import Series
+from Scraping import Series,match_number_generator
 import requests
 import time
 from bs4 import BeautifulSoup
@@ -116,14 +116,25 @@ if __name__ == '__main__':
         spreadsheet = {}
         spreadsheet['Team Final Points'] = {}
         spreadsheet['Player Final Points'] = {}
-        with open(json_filename, "w") as json_file:
-            json.dump(spreadsheet, json_file, indent=4, cls=NumpyEncoder)
-        print("JSON file created successfully!")
-        columns = ["Total Points", "Orange Cap", "Purple Cap"]
+
+        columns = ["Total Points"]
         team_list = [
     "Gujju Gang", "Hilarious Hooligans", "Tormented Titans", 
     "La Furia Roja", "Supa Jinx Strikas", "Raging Raptors", "The Travelling Bankers"
 ]
+
+        data = {
+            "Team Final Points": {
+                team: {column: 0 for column in columns} for team in team_list
+            },
+            "Player Final Points": {}  # Keep this empty for now
+        }
+
+        # Write the JSON to the file
+        with open(json_filename, "w") as file:
+            json.dump(data, file, indent=4, cls=NumpyEncoder)
+        print("JSON file created successfully!")
+
         df = pd.DataFrame(index=team_list, columns=columns)
 
         # Write to an Excel file
@@ -198,17 +209,18 @@ if __name__ == '__main__':
             #final_points[team]['Total Points'] += final_points[team][match_name]
         print(match_name,"added")
     try:
-        for team in list(spreadsheet['Team Final Points'].keys()):
-            orange_cap_points = 0
-            purple_cap_points = 0
-            if orange_cap in teams[team]:
-                orange_cap_points = 500
-            if purple_cap in teams[team]:
-                purple_cap_points = 500
-            #final_points[team]['Total Points'] += orange_cap_points + purple_cap_points
-            spreadsheet['Team Final Points'][team]['Orange Cap'] = orange_cap_points
-            spreadsheet['Team Final Points'][team]['Purple Cap'] = purple_cap_points
-        print("Purple Cap, Orange Cap, Total Points added")
+        if number_of_matches>=9:
+            for team in list(spreadsheet['Team Final Points'].keys()):
+                orange_cap_points = 0
+                purple_cap_points = 0
+                if orange_cap in teams[team]:
+                    orange_cap_points = 500
+                if purple_cap in teams[team]:
+                    purple_cap_points = 500
+                #final_points[team]['Total Points'] += orange_cap_points + purple_cap_points
+                spreadsheet['Team Final Points'][team]['Orange Cap'] = orange_cap_points
+                spreadsheet['Team Final Points'][team]['Purple Cap'] = purple_cap_points
+            print("Purple Cap, Orange Cap, Total Points added")
 
         player_list_points = []
         match_list_points = []

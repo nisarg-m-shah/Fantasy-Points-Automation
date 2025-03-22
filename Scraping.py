@@ -475,24 +475,24 @@ class Series:
             ipl = {}
         match_objects = ipl
         match_links_list = list(ipl.keys())
-        last_match_stored = ""
-        if len(match_links_list)!=0:
-            last_match_stored = match_links_list[len(match_links_list)-1]
         if len(match_links)>=len(match_links_list):
             for match in match_links:
-                if match not in match_links_list or match == last_match_stored:
-                    if match == last_match_stored and 'full-scorecard' in last_match_stored:
-                        break
+                url = match
+                if match not in match_links_list or match == match_links[-1]:
+                    # if match == last_match_stored:
+                    #     if 'full-scorecard' in last_match_stored:
+                    #         break
+                    #     else:
+                    #         url = url.replace('live-cricket-score','full-scorecard')
                     try:
-                        match_object = Score(match,self.cricbuzz_page_link)
-                        url = match_object.url
-                        #match_number = match_number_generator(url)
-                        match_objects[url] = match_object
+                        match_object = Score(url,self.cricbuzz_page_link)
+                        match_objects[match] = match_object
                         print("Added:",url)
                     except:
                         print("Match Number",match,"Abandoned")
             if len(list(match_objects.keys())) == len(match_links):
                 self.match_links = match_links
+                #print(match_links)
                 self.match_objects = match_objects
                 with open(self.database_name, "wb") as file:
                     dill.dump(match_objects, file)
