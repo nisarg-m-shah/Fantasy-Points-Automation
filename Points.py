@@ -93,7 +93,7 @@ class Player:
           
         strike_rate_points = 0
         duck_points = 0
-        if runs == 0 and (dismissal not in ['not out', None]):
+        if runs == 0 and (dismissal not in ['not out', None]) and role != "BOWL":
             duck_points = -10
         if balls != 0:
             if (strike_rate - (runs*100/balls)) > 0.01:
