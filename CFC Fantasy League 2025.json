@@ -1,10 +1,10 @@
 {
     "Team Final Points": {
         "The Travelling Bankers": {
-            "Total Points": 446,
+            "Total Points": 448,
             "Orange Cap": 0,
             "Purple Cap": 0,
-            "KKR vs RCB": 446
+            "KKR vs RCB": 448
         },
         "Tormented Titans": {
             "Total Points": 361,
@@ -12,17 +12,17 @@
             "Purple Cap": 0,
             "KKR vs RCB": 361
         },
-        "La Furia Roja": {
-            "Total Points": 247,
-            "Orange Cap": 0,
-            "Purple Cap": 0,
-            "KKR vs RCB": 247
-        },
         "Gujju Gang": {
             "Total Points": 240,
             "Orange Cap": 0,
             "Purple Cap": 0,
             "KKR vs RCB": 240
+        },
+        "La Furia Roja": {
+            "Total Points": 222,
+            "Orange Cap": 0,
+            "Purple Cap": 0,
+            "KKR vs RCB": 222
         },
         "Raging Raptors": {
             "Total Points": 201,
@@ -37,36 +37,30 @@
             "KKR vs RCB": 136
         },
         "Hilarious Hooligans": {
-            "Total Points": 69,
+            "Total Points": 115,
             "Orange Cap": 0,
             "Purple Cap": 0,
-            "KKR vs RCB": 69
+            "KKR vs RCB": 115
         }
     },
     "Player Final Points": {
         "Krunal Pandya": {
-            "Total Points": 667,
+            "Total Points": 167,
             "Orange Cap": 0,
-            "Purple Cap": 500,
+            "Purple Cap": 0,
             "KKR vs RCB": 167
-        },
-        "Ajinkya Rahane": {
-            "Total Points": 635,
-            "Orange Cap": 500,
-            "Purple Cap": 0,
-            "KKR vs RCB": 135
-        },
-        "Virat Kohli": {
-            "Total Points": 631,
-            "Orange Cap": 500,
-            "Purple Cap": 0,
-            "KKR vs RCB": 131
         },
         "Sunil Narine": {
             "Total Points": 148,
             "Orange Cap": 0,
             "Purple Cap": 0,
             "KKR vs RCB": 148
+        },
+        "Ajinkya Rahane": {
+            "Total Points": 135,
+            "Orange Cap": 0,
+            "Purple Cap": 0,
+            "KKR vs RCB": 135
         },
         "Philip Salt": {
             "Total Points": 135,
@@ -80,11 +74,23 @@
             "Purple Cap": 0,
             "KKR vs RCB": 132
         },
+        "Virat Kohli": {
+            "Total Points": 131,
+            "Orange Cap": 0,
+            "Purple Cap": 0,
+            "KKR vs RCB": 131
+        },
         "Rajat Patidar": {
             "Total Points": 77,
             "Orange Cap": 0,
             "Purple Cap": 0,
             "KKR vs RCB": 77
+        },
+        "Liam Livingstone": {
+            "Total Points": 76,
+            "Orange Cap": 0,
+            "Purple Cap": 0,
+            "KKR vs RCB": 76
         },
         "Yash Dayal": {
             "Total Points": 59,
@@ -116,29 +122,17 @@
             "Purple Cap": 0,
             "KKR vs RCB": 40
         },
-        "Suyash Sharma": {
-            "Total Points": 39,
-            "Orange Cap": 0,
-            "Purple Cap": 0,
-            "KKR vs RCB": 39
-        },
         "Rinku Singh": {
             "Total Points": 39,
             "Orange Cap": 0,
             "Purple Cap": 0,
             "KKR vs RCB": 39
         },
-        "Spencer Johnson": {
-            "Total Points": 30,
+        "Suyash Sharma": {
+            "Total Points": 39,
             "Orange Cap": 0,
             "Purple Cap": 0,
-            "KKR vs RCB": 30
-        },
-        "Liam Livingstone": {
-            "Total Points": 30,
-            "Orange Cap": 0,
-            "Purple Cap": 0,
-            "KKR vs RCB": 30
+            "KKR vs RCB": 39
         },
         "Devdutt Padikkal": {
             "Total Points": 27,
@@ -153,10 +147,10 @@
             "KKR vs RCB": 20
         },
         "Vaibhav Arora": {
-            "Total Points": 11,
+            "Total Points": 13,
             "Orange Cap": 0,
             "Purple Cap": 0,
-            "KKR vs RCB": 11
+            "KKR vs RCB": 13
         },
         "Venkatesh Iyer": {
             "Total Points": 8,
@@ -175,6 +169,12 @@
             "Orange Cap": 0,
             "Purple Cap": 0,
             "KKR vs RCB": 6
+        },
+        "Spencer Johnson": {
+            "Total Points": 5,
+            "Orange Cap": 0,
+            "Purple Cap": 0,
+            "KKR vs RCB": 5
         },
         "Tim David": {
             "Total Points": 0,
@@ -503,7 +503,7 @@
             "Second Runout Points": 0
         },
         {
-            "Player Points": 30,
+            "Player Points": 5,
             "Man of the Match": 0,
             "Role": "BOWL",
             "Player Batting Points": 1,
@@ -517,15 +517,15 @@
             "Strike Rate Points": 0,
             "Duck Points": 0,
             "Batting Milestone Points": 0,
-            "Player Bowling Points": 19,
+            "Player Bowling Points": -6,
             "Maidens": 0,
             "Maidens Points": 0,
             "Wickets": 0,
             "Wicket Points": 0,
             "Dots": 7,
             "Dot Points": 14,
-            "Economy": 10.5,
-            "Economy Points": 5,
+            "Economy": 13.28,
+            "Economy Points": -20,
             "Bowled Wickets": 0,
             "Bowled Wickets Points": 0,
             "LBW Wickets": 0,
@@ -620,7 +620,7 @@
             "Second Runout Points": 0
         },
         {
-            "Player Points": 11,
+            "Player Points": 13,
             "Man of the Match": 0,
             "Role": "BOWL",
             "Player Batting Points": 0,
@@ -634,14 +634,14 @@
             "Strike Rate Points": 0,
             "Duck Points": 0,
             "Batting Milestone Points": 0,
-            "Player Bowling Points": 11,
+            "Player Bowling Points": 13,
             "Maidens": 0,
             "Maidens Points": 0,
             "Wickets": 1,
             "Wicket Points": 25,
-            "Dots": 3,
-            "Dot Points": 6,
-            "Economy": 15.37,
+            "Dots": 4,
+            "Dot Points": 8,
+            "Economy": 14.0,
             "Economy Points": -20,
             "Bowled Wickets": 0,
             "Bowled Wickets Points": 0,
@@ -776,18 +776,18 @@
             "Second Runout Points": 0
         },
         {
-            "Player Points": 30,
+            "Player Points": 76,
             "Man of the Match": 0,
             "Role": "AR",
-            "Player Batting Points": 6,
-            "Runs": 4,
-            "Runs Points": 4,
-            "Fours": 1,
-            "Fours Points": 2,
-            "Sixes": 0,
-            "Sixes Points": 0,
-            "Strike Rate": 400.0,
-            "Strike Rate Points": 0,
+            "Player Batting Points": 52,
+            "Runs": 15,
+            "Runs Points": 15,
+            "Fours": 2,
+            "Fours Points": 4,
+            "Sixes": 1,
+            "Sixes Points": 3,
+            "Strike Rate": 300.0,
+            "Strike Rate Points": 30,
             "Duck Points": 0,
             "Batting Milestone Points": 0,
             "Player Bowling Points": 24,
@@ -1311,7 +1311,7 @@
             "Mahipal Lomror": 0.0
         },
         {
-            "Total Points": 69,
+            "Total Points": 115,
             "Booster": "None",
             "Varun Chakaravarthy": 0.0,
             "Travis Head": 0.0,
@@ -1352,7 +1352,7 @@
             "Vijaykumar Vyshak": 0.0,
             "Himmat Singh": 0.0,
             "Ayush Badoni": 0.0,
-            "Liam Livingstone": 30.0,
+            "Liam Livingstone": 76.0,
             "Nathan Ellis": 0.0,
             "Moeen Ali": 0.0,
             "Karn Sharma": 0.0,
@@ -1675,7 +1675,7 @@
             "Mahipal Lomror": 0.0
         },
         {
-            "Total Points": 247,
+            "Total Points": 222,
             "Booster": "None",
             "Varun Chakaravarthy": 0.0,
             "Travis Head": 0.0,
@@ -1778,7 +1778,7 @@
             "Will Jacks": 0.0,
             "Azmatullah Omarzai": 0.0,
             "Adam Zampa": 0.0,
-            "Spencer Johnson": 30.0,
+            "Spencer Johnson": 5.0,
             "Jamie Overton": 0.0,
             "Shashank Singh": 0.0,
             "Rovman Powell": 0.0,
@@ -2221,7 +2221,7 @@
             "Mahipal Lomror": 0.0
         },
         {
-            "Total Points": 446,
+            "Total Points": 448,
             "Booster": "None",
             "Varun Chakaravarthy": 0.0,
             "Travis Head": 0.0,
@@ -2393,7 +2393,7 @@
             "Rahul Tripathi": 0.0,
             "Lungi Ngidi": 0.0,
             "Matheesha Pathirana": 0.0,
-            "Vaibhav Arora": 11.0,
+            "Vaibhav Arora": 13.0,
             "Nicholas Pooran": 0.0,
             "Jake Fraser-McGurk": 0.0,
             "Sam Curran": 0.0,
