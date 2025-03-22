@@ -8,7 +8,7 @@ import re
 
 
 def match_number_generator(match_link):
-    parts = int(match_link.split('/')[-2].split('-')[-3:-1])
+    parts = (match_link.split('/')[-2].split('-')[-3:-1])
     if parts[1] == 'match':
         match_number = parts[0][:-2]
     elif parts[0] == 'qualifier':
@@ -20,7 +20,7 @@ def match_number_generator(match_link):
         match_number = 72
     elif parts[1] == 'final':
         match_number = 74
-    return match_number
+    return int(match_number)
 
 def extract_team_players(players_list, impact_sub_class):
     team = []
