@@ -242,7 +242,6 @@ class Team:
                         player_points *= 2
                 elif player_number == 1:
                     player_points *= 1.5
-                    player_points -= 5
                 elif player_number == 2 and int(match_number) >35:  
                     player_points *= 3          
             self.points_list[player] = player_points
