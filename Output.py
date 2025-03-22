@@ -177,6 +177,7 @@ if __name__ == '__main__':
         
         match_url = match_urls[match_number-1] 
         match_object = match_objects[match_url]
+        #match_object.printing_scorecard()
         match_name = match_name_generator(match_url)
         match = Match(teams,match_object,boosters)
         team_breakdown = match.match_points_breakdown

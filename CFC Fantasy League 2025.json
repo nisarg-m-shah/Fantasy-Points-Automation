@@ -18,17 +18,17 @@
             "Purple Cap": 0,
             "KKR vs RCB": 240
         },
+        "Raging Raptors": {
+            "Total Points": 236,
+            "Orange Cap": 0,
+            "Purple Cap": 0,
+            "KKR vs RCB": 236
+        },
         "La Furia Roja": {
             "Total Points": 222,
             "Orange Cap": 0,
             "Purple Cap": 0,
             "KKR vs RCB": 222
-        },
-        "Raging Raptors": {
-            "Total Points": 206,
-            "Orange Cap": 0,
-            "Purple Cap": 0,
-            "KKR vs RCB": 206
         },
         "Supa Jinx Strikas": {
             "Total Points": 136,
@@ -45,10 +45,10 @@
     },
     "Player Final Points": {
         "Krunal Pandya": {
-            "Total Points": 167,
+            "Total Points": 197,
             "Orange Cap": 0,
             "Purple Cap": 0,
-            "KKR vs RCB": 167
+            "KKR vs RCB": 197
         },
         "Sunil Narine": {
             "Total Points": 148,
@@ -893,8 +893,8 @@
             "Second Runout Points": 0
         },
         {
-            "Player Points": 167,
-            "Man of the Match": 0,
+            "Player Points": 197,
+            "Man of the Match": 30,
             "Role": "AR",
             "Player Batting Points": 0,
             "Runs": 0,
@@ -2039,7 +2039,7 @@
             "Mahipal Lomror": 0.0
         },
         {
-            "Total Points": 206,
+            "Total Points": 236,
             "Booster": "None",
             "Varun Chakaravarthy": 0.0,
             "Travis Head": 0.0,
@@ -2188,7 +2188,7 @@
             "Robin Minz": 0.0,
             "Shahbaz Ahmed": 0.0,
             "Mohsin Khan": 0.0,
-            "Krunal Pandya": 167.0,
+            "Krunal Pandya": 197.0,
             "Mitchell Starc": 0.0,
             "Sanju Samson": 0.0,
             "Jos Buttler": 0.0,

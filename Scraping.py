@@ -319,10 +319,9 @@ class Score:
             if "Player Of The Match" in row.text:
                 man_of_the_match = row.find('td',class_="ds-text-typo").text.strip()
                 man_of_the_match = find_full_name(full_player_list,man_of_the_match)
+                c1+=1
                 break
-            else:
-                c1 +=1
-        if c1!=0:
+        if c1==0:
             man_of_the_match = ""
         
         innings_tables = soup.find_all('div', class_='ds-rounded-lg ds-mt-2')
