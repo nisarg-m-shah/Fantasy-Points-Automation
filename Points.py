@@ -1,6 +1,5 @@
 import dill
-from Scraping import Series,Score
-from Scraping import find_full_name
+from Scraping import Series,Score,find_full_name,match_number_generator
 import pandas as pd
 import time
 import re
@@ -219,6 +218,7 @@ class Team:
     def __init__(self,team,match_object,booster):
         self.team = team
         self.match_object = match_object
+        match_number = match_number_generator(self.match_object.url)
         self.booster = booster
         full_player_list = self.match_object.full_player_list
         self.points_list = {}
@@ -241,7 +241,10 @@ class Team:
                     else:
                         player_points *= 2
                 elif player_number == 1:
-                    player_points *= 1.5            
+                    player_points *= 1.5
+                    player_points -= 5
+                elif player_number == 2 and match_number >=35:  
+                    player_points *= 3          
             self.points_list[player] = player_points
             self.total_points += player_points
         if self.total_points.is_integer():

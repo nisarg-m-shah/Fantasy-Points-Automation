@@ -8,7 +8,7 @@ import re
 
 
 def match_number_generator(match_link):
-    parts = (match_link.split('/')[-2].split('-')[-3:-1])
+    parts = int(match_link.split('/')[-2].split('-')[-3:-1])
     if parts[1] == 'match':
         match_number = parts[0][:-2]
     elif parts[0] == 'qualifier':
