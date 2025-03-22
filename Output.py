@@ -92,16 +92,17 @@ if __name__ == '__main__':
     begin = time.time()
     team_names_sf = ["KKR","GT","MI","CSK","RR","RCB","PBKS","DC","SRH","LSG"]
     team_names_ff = ["Kolkata Knight Riders", "Gujarat Titans", "Mumbai Indians", "Chennai Super Kings","Rajasthan Royals","Royal Challengers Bengaluru", "Punjab Kings","Delhi Capitals","Sunrisers Hyderabad","Lucknow Super Giants"]
-    #cricbuzz_page_link = "https://www.cricbuzz.com/cricket-series/7607/indian-premier-league-2024/matches" #Change this later
-    #ipl_url = "https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/match-schedule-fixtures-and-results" #Change this later
-    cricbuzz_page_link = "https://www.cricbuzz.com/cricket-series/9237/indian-premier-league-2025/matches"
-    ipl_url = "https://www.espncricinfo.com/series/ipl-2025-1449924/match-schedule-fixtures-and-results"
-    #database = "ipl2024matches.pkl" #Change this later
-    database = "ipl2025matches.pkl"
+    cricbuzz_page_link = "https://www.cricbuzz.com/cricket-series/7607/indian-premier-league-2024/matches" #Change this later
+    ipl_url = "https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/match-schedule-fixtures-and-results" #Change this later
+    # cricbuzz_page_link = "https://www.cricbuzz.com/cricket-series/9237/indian-premier-league-2025/matches"
+    # ipl_url = "https://www.espncricinfo.com/series/ipl-2025-1449924/match-schedule-fixtures-and-results"
+    database = "ipl2024matches.pkl" #Change this later
+    #database = "ipl2025matches.pkl"
     ipl = Series(ipl_url,cricbuzz_page_link,database) #Change this later
-    #file_path = "CFC Fantasy League.xlsx"
-    file_path = "CFC Fantasy League 2025.xlsx"
-    json_filename = "CFC Fantasy League 2025.json"
+    file_path = "CFC Fantasy League.xlsx"
+    #file_path = "CFC Fantasy League 2025.xlsx"
+    json_filename = "CFC Fantasy League.json"
+    #json_filename = "CFC Fantasy League 2025.json"
     try:
         spreadsheet = excel_to_dict(file_path)
     except:
@@ -151,11 +152,10 @@ if __name__ == '__main__':
              'The Travelling Bankers':{}
              }
     
-    #orange_cap,purple_cap = op_caps("https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/stats") #ipl-2025-1449924 #Change this later
-    orange_cap,purple_cap = op_caps("https://www.espncricinfo.com/series/ipl-2025-1449924/stats")
+    orange_cap,purple_cap = op_caps("https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/stats") #ipl-2025-1449924 #Change this later
+    #orange_cap,purple_cap = op_caps("https://www.espncricinfo.com/series/ipl-2025-1449924/stats")
 
     #url = "https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/kolkata-knight-riders-vs-sunrisers-hyderabad-3rd-match-1422121/full-scorecard"             
-    #cricbuzz_page_link = "https://www.cricbuzz.com/cricket-series/7607/indian-premier-league-2024/matches"   
     match_urls = list(match_objects.keys())
     number_of_matches = len(match_objects)
     for match_number in range(number_of_matches,0,-1):

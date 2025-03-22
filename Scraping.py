@@ -475,9 +475,14 @@ class Series:
             ipl = {}
         match_objects = ipl
         match_links_list = list(ipl.keys())
+        last_match_stored = ""
+        if len(match_links_list)!=0:
+            last_match_stored = match_links_list[len(match_links_list)-1]
         if len(match_links)>=len(match_links_list):
             for match in match_links:
-                if match not in match_links_list or match == match_links_list[len(match_links_list)-1]:
+                if match not in match_links_list or match == last_match_stored:
+                    if match == last_match_stored and 'full-scorecard' in last_match_stored:
+                        break
                     try:
                         match_object = Score(match,self.cricbuzz_page_link)
                         url = match_object.url
@@ -530,7 +535,7 @@ class Series:
                             if match_link not in match_links:
                                 match_links.append(match_link)
                         elif 'live-cricket-score' in link_part:
-                            match_link = "https://www.espncricinfo.com" + link_part
+                            match_link = "https://www.espncricinfo.com" + link_part.replace('live-cricket-score','full-scorecard')
                             if match_link not in match_links:
                                 match_links.append(match_link)
                             break
