@@ -301,12 +301,12 @@ class Match:
         general_player_points_list = {}
         for team in player_list.keys():
             for player in player_list[team]:   
-                #print(player)
+                #print(player
+                player_object = Player(player, self.match_object, "")
+                points_list = player_object.points_list
                 player = find_full_name(names,player)
                 if player == None:
                     continue
-                player_object = Player(player, self.match_object, "")
-                points_list = player_object.points_list
                 #print(points_list)
                 general_player_points_list[player] = points_list
 
