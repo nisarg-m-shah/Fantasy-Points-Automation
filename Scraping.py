@@ -133,6 +133,8 @@ def find_full_name(team,short_name):
             return "Varun Chakaravarthy"
         if "Reddy" in short_name and "Nitish" in short_name:
             return "Nitish Reddy"
+        if "Salt" in short_name and "Phil" in short_name:
+            return "Philip Salt"
         player = ""
         for player in team:
             if len(player)>len(short_name):
