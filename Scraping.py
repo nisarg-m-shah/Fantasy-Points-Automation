@@ -5,7 +5,13 @@ from IPython.display import display
 import dill
 from rapidfuzz import process
 import re
+from selenium import webdriver
+# import undetected_chromedriver as uc
+from selenium_stealth import stealth
+from fake_useragent import UserAgent
 
+ua = UserAgent()
+random_user_agent = ua.random
 
 def match_number_generator(match_link):
     parts = (match_link.split('/')[-2].split('-')[-3:-1])
@@ -44,12 +50,27 @@ def clean_player_name(text):
     return text.strip().split('  ')[0].split('(C & WK)')[0].split(' (C)')[0].split(' (WK)')[0].strip()
 
 def match_squads_generator(ipl_url, match_number):
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
-    }
+    # Set up Selenium with stealth mode
+    options = webdriver.ChromeOptions()
+    options.add_argument(f"user-agent={random_user_agent}")
+    options.add_argument("--headless")
+    options.add_argument("--log-level=3")  # Suppresses warnings and errors
+    options.add_argument("--ignore-certificate-errors")
+    driver = webdriver.Chrome(options=options)
+
+    stealth(driver,
+        languages=["en-US", "en"],
+        vendor="Google Inc.",
+        platform="Win32",
+        webgl_vendor="Intel Inc.",
+        renderer="Intel Iris OpenGL Engine",
+        fix_hairline=True,
+    )
     try:
-        response = requests.get(ipl_url, headers=headers)
-        soup = BeautifulSoup(response.content, "html.parser")
+        driver.get(ipl_url)
+
+        # Get page source and parse with BeautifulSoup
+        soup = BeautifulSoup(driver.page_source, "html.parser")
 
         matches = soup.find_all('div', class_='cb-col-75 cb-col')
         match = matches[int(match_number) - 1]
@@ -60,8 +81,10 @@ def match_squads_generator(ipl_url, match_number):
         elif 'cricket-scores' in match_link:
             match_link = match_link.replace('cricket-scores', 'cricket-match-squads')
 
-        response_squads = requests.get(match_link, headers=headers)
-        soup_squads = BeautifulSoup(response_squads.content, "html.parser")
+        driver.get(match_link)
+
+        # response_squads = requests.get(match_link, headers=headers)
+        soup_squads = BeautifulSoup(driver.page_source, "html.parser")
         team_matchup = soup_squads.find('h1',class_='cb-nav-hdr cb-font-18 line-ht24').text.strip()
         team1_name = team_matchup.split(' vs ')[0]
         team2_name = team_matchup.split(' vs ')[1].split(',')[0].strip()
@@ -83,6 +106,7 @@ def match_squads_generator(ipl_url, match_number):
         team1 = extract_team_players(players_team1, "cb-plus-match-change-icon cb-bg-min cb-match-change-left")
         team2 = extract_team_players(players_team2, "cb-plus-match-change-icon cb-bg-min cb-match-change-right")
         teams = {team1_name:team1,team2_name:team2}
+        driver.quit()
 
         return teams
     except:
@@ -102,30 +126,48 @@ def dismissals_scraper(soup,innings_id):
     return innings_name,dismissals
 
 def match_dismissals_output(ipl_url, match_number):
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
-    }
-    try:
-        response = requests.get(ipl_url, headers=headers)
-        soup = BeautifulSoup(response.content, "html.parser")
+    # Set up Selenium with stealth mode
+    options = webdriver.ChromeOptions()
+    options.add_argument(f"user-agent={random_user_agent}")
+    options.add_argument("--log-level=3")  # Suppresses warnings and errors
+    options.add_argument("--ignore-certificate-errors")
+    options.add_argument("--headless")
+    driver = webdriver.Chrome(options=options)
 
-        matches = soup.find_all('div', class_='cb-col-75 cb-col')
-        match = matches[int(match_number) - 1]
-        match_link = "https://www.cricbuzz.com" + match.find('a')['href']
-        
-        if 'live-cricket-scores' in match_link:
-            match_link = match_link.replace('live-cricket-scores', 'live-cricket-scorecard')
-        elif 'cricket-scores' in match_link:
-            match_link = match_link.replace('cricket-scores', 'live-cricket-scorecard')
+    stealth(driver,
+        languages=["en-US", "en"],
+        vendor="Google Inc.",
+        platform="Win32",
+        webgl_vendor="Intel Inc.",
+        renderer="Intel Iris OpenGL Engine",
+        fix_hairline=True,
+    )
+# try:
+    driver.get(ipl_url)
 
-        response_score = requests.get(match_link, headers=headers)
-        soup_score = BeautifulSoup(response_score.content, "html.parser")
-        innings1,dismissals1 = dismissals_scraper(soup_score,"innings_1")
-        innings2,dismissals2 = dismissals_scraper(soup_score,"innings_2")   
-        dismissals = {innings2:dismissals1,innings1:dismissals2}
-        return dismissals
-    except:
-        print("Error",match_number,"not scraping properly")
+    # Get page source and parse with BeautifulSoup
+    soup = BeautifulSoup(driver.page_source, "html.parser")
+
+    #print(soup.prettify())
+
+    matches = soup.find_all('div', class_='cb-col-75 cb-col')
+    match = matches[int(match_number) - 1]
+    match_link = "https://www.cricbuzz.com" + match.find('a')['href']
+    
+    if 'live-cricket-scores' in match_link:
+        match_link = match_link.replace('live-cricket-scores', 'live-cricket-scorecard')
+    elif 'cricket-scores' in match_link:
+        match_link = match_link.replace('cricket-scores', 'live-cricket-scorecard')
+
+    driver.get(match_link)
+    soup_score = BeautifulSoup(driver.page_source, "html.parser")
+    innings1,dismissals1 = dismissals_scraper(soup_score,"innings_1")
+    innings2,dismissals2 = dismissals_scraper(soup_score,"innings_2")   
+    dismissals = {innings2:dismissals1,innings1:dismissals2}
+    driver.quit()
+    return dismissals
+# except:
+#     print("Error",match_number,"not scraping properly")
 
 def find_full_name(team,short_name):
     try:
@@ -290,12 +332,26 @@ class Score:
         raise ValueError("Error: No match found in either list")
 
     def scorecard(self):
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
-        }
-        #catches, stumpings, runouts = 0,0,0
-        response = requests.get(self.url, headers=headers)
-        soup = BeautifulSoup(response.content, "html.parser")
+        # Set up Selenium with stealth mode
+        options = webdriver.ChromeOptions()
+        options.add_argument(f"user-agent={random_user_agent}")
+        options.add_argument("--headless")
+        options.add_argument("--log-level=3")  # Suppresses warnings and errors
+        options.add_argument("--ignore-certificate-errors")
+        driver = webdriver.Chrome(options=options)
+
+        stealth(driver,
+            languages=["en-US", "en"],
+            vendor="Google Inc.",
+            platform="Win32",
+            webgl_vendor="Intel Inc.",
+            renderer="Intel Iris OpenGL Engine",
+            fix_hairline=True,
+        )
+        driver.get(self.url)
+
+        # Get page source and parse with BeautifulSoup
+        soup = BeautifulSoup(driver.page_source, "html.parser")
         
         innings_list = []
         batsmen_list = pd.DataFrame()
@@ -304,6 +360,7 @@ class Score:
 
         match_number = match_number_generator(self.url)
         player_list,catchers,stumpers,main_runouters,secondary_runouters,bowled,lbw = dismissals_final_generator(self.cricbuzz_page_link,match_number)
+        #print(player_list)
         team_names = list(player_list.keys())
         full_player_list = [player for team in team_names for player in player_list[team]]
         try:
@@ -411,6 +468,7 @@ class Score:
                         pass
         #dismissal_list = batsmen_list['Dismissal'].tolist()
         #print(dismissal_list)
+        driver.quit()
         return full_player_list,player_list, winner, man_of_the_match, catchers, stumpers, main_runouters, secondary_runouters, bowled, lbw, innings_list, batsmen_list, bowlers_info
     
     def printing_scorecard(self):
@@ -509,12 +567,28 @@ class Series:
             self.match_links = match_links
 
     def match_link_generator(self):
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
-        }
+        # Set up Selenium with stealth mode
+        options = webdriver.ChromeOptions()
+        options.add_argument(f"user-agent={random_user_agent}")
+        options.add_argument("--headless")
+        options.add_argument("--log-level=3")  # Suppresses warnings and errors
+        options.add_argument("--ignore-certificate-errors")
+        driver = webdriver.Chrome(options=options)
 
-        response = requests.get(self.url, headers=headers)
-        soup = BeautifulSoup(response.content, "html.parser")
+        stealth(driver,
+            languages=["en-US", "en"],
+            vendor="Google Inc.",
+            platform="Win32",
+            webgl_vendor="Intel Inc.",
+            renderer="Intel Iris OpenGL Engine",
+            fix_hairline=True,
+        )
+        driver.get(self.url)
+
+        # Get page source and parse with BeautifulSoup
+        soup = BeautifulSoup(driver.page_source, "html.parser")
+        
+        #print(soup.prettify())
         match_links = []
         match_boxes = soup.find_all('div')
         for match_box in match_boxes:     
@@ -538,12 +612,21 @@ class Series:
                             if match_link not in match_links:
                                 match_links.append(match_link)
                             break
+                #print(match_link)
             except:
                 pass
+        driver.quit()
         return match_links
     
 if __name__ == "__main__":  
-    cricbuzz_page_link = "https://www.cricbuzz.com/cricket-series/7607/indian-premier-league-2024/matches"   
-    ipl24_url = "https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/match-schedule-fixtures-and-results"
-    ipl2024 = Series(ipl24_url,cricbuzz_page_link)
+    cricbuzz_page_link = "https://www.cricbuzz.com/cricket-series/9237/indian-premier-league-2025/matches"   
+    # ipl24_url = "https://www.espncricinfo.com/series/ipl-2025-1449924/match-schedule-fixtures-and-results"
+    # database = "ipl2025matches.pkl"
+    # ipl2024 = Series(ipl24_url,cricbuzz_page_link,database)
+    # print(ipl2024.match_links)
+    # ipl2024.match_objects['https://www.espncricinfo.com/series/ipl-2025-1449924/gujarat-titans-vs-punjab-kings-5th-match-1473442/full-scorecard'].printing_scorecard()
+    url = 'https://www.espncricinfo.com/series/ipl-2025-1449924/gujarat-titans-vs-punjab-kings-5th-match-1473442/full-scorecard'
+    match_object = Score(url,cricbuzz_page_link)
+    match_object.printing_scorecard()
+
 
