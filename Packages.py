@@ -20,7 +20,9 @@ packages = {
     "xlsxwriter": "xlsxwriter",
     "oauth2client": "oauth2client",
     "gspread": "gspread",
-    "openpyxl": "openpyxl"
+    "openpyxl": "openpyxl",
+    "selenium_stealth": "selenium_stealth",
+    "fake_useragent": "fake_useragent"
 }
 
 for pip_name, import_name in packages.items():

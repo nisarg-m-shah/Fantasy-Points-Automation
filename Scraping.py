@@ -9,9 +9,13 @@ from selenium import webdriver
 # import undetected_chromedriver as uc
 from selenium_stealth import stealth
 from fake_useragent import UserAgent
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 ua = UserAgent()
-random_user_agent = ua.random
+#random_user_agent = ua.random
+valid_user_agent = ua.chrome
 
 def match_number_generator(match_link):
     parts = (match_link.split('/')[-2].split('-')[-3:-1])
@@ -52,10 +56,8 @@ def clean_player_name(text):
 def match_squads_generator(ipl_url, match_number):
     # Set up Selenium with stealth mode
     options = webdriver.ChromeOptions()
-    options.add_argument(f"user-agent={random_user_agent}")
+    options.add_argument(f"user-agent={valid_user_agent}")
     options.add_argument("--headless")
-    options.add_argument("--log-level=3")  # Suppresses warnings and errors
-    options.add_argument("--ignore-certificate-errors")
     driver = webdriver.Chrome(options=options)
 
     stealth(driver,
@@ -68,6 +70,7 @@ def match_squads_generator(ipl_url, match_number):
     )
     try:
         driver.get(ipl_url)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
 
         # Get page source and parse with BeautifulSoup
         soup = BeautifulSoup(driver.page_source, "html.parser")
@@ -82,6 +85,7 @@ def match_squads_generator(ipl_url, match_number):
             match_link = match_link.replace('cricket-scores', 'cricket-match-squads')
 
         driver.get(match_link)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
 
         # response_squads = requests.get(match_link, headers=headers)
         soup_squads = BeautifulSoup(driver.page_source, "html.parser")
@@ -128,9 +132,7 @@ def dismissals_scraper(soup,innings_id):
 def match_dismissals_output(ipl_url, match_number):
     # Set up Selenium with stealth mode
     options = webdriver.ChromeOptions()
-    options.add_argument(f"user-agent={random_user_agent}")
-    options.add_argument("--log-level=3")  # Suppresses warnings and errors
-    options.add_argument("--ignore-certificate-errors")
+    options.add_argument(f"user-agent={valid_user_agent}")
     options.add_argument("--headless")
     driver = webdriver.Chrome(options=options)
 
@@ -144,6 +146,7 @@ def match_dismissals_output(ipl_url, match_number):
     )
 # try:
     driver.get(ipl_url)
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
 
     # Get page source and parse with BeautifulSoup
     soup = BeautifulSoup(driver.page_source, "html.parser")
@@ -151,7 +154,11 @@ def match_dismissals_output(ipl_url, match_number):
     #print(soup.prettify())
 
     matches = soup.find_all('div', class_='cb-col-75 cb-col')
-    match = matches[int(match_number) - 1]
+    try:
+        match = matches[int(match_number) - 1]
+    except:
+        for match in matches:
+            print(match.find('a')['href'])
     match_link = "https://www.cricbuzz.com" + match.find('a')['href']
     
     if 'live-cricket-scores' in match_link:
@@ -160,6 +167,7 @@ def match_dismissals_output(ipl_url, match_number):
         match_link = match_link.replace('cricket-scores', 'live-cricket-scorecard')
 
     driver.get(match_link)
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
     soup_score = BeautifulSoup(driver.page_source, "html.parser")
     innings1,dismissals1 = dismissals_scraper(soup_score,"innings_1")
     innings2,dismissals2 = dismissals_scraper(soup_score,"innings_2")   
@@ -334,10 +342,8 @@ class Score:
     def scorecard(self):
         # Set up Selenium with stealth mode
         options = webdriver.ChromeOptions()
-        options.add_argument(f"user-agent={random_user_agent}")
+        options.add_argument(f"user-agent={valid_user_agent}")
         options.add_argument("--headless")
-        options.add_argument("--log-level=3")  # Suppresses warnings and errors
-        options.add_argument("--ignore-certificate-errors")
         driver = webdriver.Chrome(options=options)
 
         stealth(driver,
@@ -349,6 +355,7 @@ class Score:
             fix_hairline=True,
         )
         driver.get(self.url)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
 
         # Get page source and parse with BeautifulSoup
         soup = BeautifulSoup(driver.page_source, "html.parser")
@@ -534,20 +541,30 @@ class Series:
         match_links_list = list(ipl.keys())
         if len(match_links)>=len(match_links_list):
             for match in match_links:
-                url = match
                 if match not in match_links_list or match == match_links[-1]:
                     # if match == last_match_stored:
                     #     if 'full-scorecard' in last_match_stored:
                     #         break
                     #     else:
                     #         url = url.replace('live-cricket-score','full-scorecard')
-                    try:
-                        match_object = Score(url,self.cricbuzz_page_link)
-                        match_objects[match] = match_object
-                        print("Added:",url)
-                    except:
-                        print("Match Number",match,"Abandoned")
-            if len(list(match_objects.keys())) == len(match_links):
+                    print("Attempting to scrape:",match)
+                    attempt = 1
+                    while attempt<=5:
+                        print("Attempt",attempt)
+                        try:
+                            match_object = Score(match,self.cricbuzz_page_link)
+                            print("Scraping Successful")
+                        except:
+                            attempt+=1
+                            continue
+                        break
+                    if attempt == 6:
+                        break
+
+                    match_objects[match] = match_object
+                    print("Added:",match)
+             
+            if len(list(match_objects.keys())) == len(match_links) and attempt != 6:
                 self.match_links = match_links
                 #print(match_links)
                 self.match_objects = match_objects
@@ -555,6 +572,7 @@ class Series:
                     dill.dump(match_objects, file)
                 print("LOADING SUCCESSFUL")
             else:
+                print("LOADING FAILED")
                 print("No. of match objects",len(match_objects))
                 print("Number of extracted links",len(match_links))
                 print("Missing Links:")
@@ -569,10 +587,8 @@ class Series:
     def match_link_generator(self):
         # Set up Selenium with stealth mode
         options = webdriver.ChromeOptions()
-        options.add_argument(f"user-agent={random_user_agent}")
+        options.add_argument(f"user-agent={valid_user_agent}")
         options.add_argument("--headless")
-        options.add_argument("--log-level=3")  # Suppresses warnings and errors
-        options.add_argument("--ignore-certificate-errors")
         driver = webdriver.Chrome(options=options)
 
         stealth(driver,
@@ -584,6 +600,7 @@ class Series:
             fix_hairline=True,
         )
         driver.get(self.url)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
 
         # Get page source and parse with BeautifulSoup
         soup = BeautifulSoup(driver.page_source, "html.parser")
@@ -599,7 +616,7 @@ class Series:
                 abandoned = match_block.find('p',class_='ds-text-tight-s ds-font-medium ds-line-clamp-2 ds-text-typo').text.strip()
                 # print("Match Result:",abandoned)
                 # print("Match url",link_part)
-                if "Match yet to begin" in abandoned:
+                if "Match yet to begin" in abandoned or "won the toss" in abandoned:
                     break
                 if 'bandoned without a ball bowled' not in abandoned and 'bandoned with a toss' not in abandoned:
                     if "indian-premier-league" in link_part or "ipl-2025" in link_part:
@@ -620,13 +637,13 @@ class Series:
     
 if __name__ == "__main__":  
     cricbuzz_page_link = "https://www.cricbuzz.com/cricket-series/9237/indian-premier-league-2025/matches"   
-    # ipl24_url = "https://www.espncricinfo.com/series/ipl-2025-1449924/match-schedule-fixtures-and-results"
-    # database = "ipl2025matches.pkl"
-    # ipl2024 = Series(ipl24_url,cricbuzz_page_link,database)
+    ipl24_url = "https://www.espncricinfo.com/series/ipl-2025-1449924/match-schedule-fixtures-and-results"
+    database = "ipl2025matches.pkl"
+    ipl2024 = Series(ipl24_url,cricbuzz_page_link,database)
     # print(ipl2024.match_links)
     # ipl2024.match_objects['https://www.espncricinfo.com/series/ipl-2025-1449924/gujarat-titans-vs-punjab-kings-5th-match-1473442/full-scorecard'].printing_scorecard()
-    url = 'https://www.espncricinfo.com/series/ipl-2025-1449924/gujarat-titans-vs-punjab-kings-5th-match-1473442/full-scorecard'
-    match_object = Score(url,cricbuzz_page_link)
-    match_object.printing_scorecard()
+    # url = 'https://www.espncricinfo.com/series/ipl-2025-1449924/sunrisers-hyderabad-vs-lucknow-super-giants-7th-match-1473444/full-scorecard'
+    # match_object = Score(url,cricbuzz_page_link)
+    # match_object.printing_scorecard()
 
 
