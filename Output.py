@@ -8,6 +8,13 @@ from Points import Match
 from collections import OrderedDict
 import json
 import numpy as np
+from selenium import webdriver
+# import undetected_chromedriver as uc
+from selenium_stealth import stealth
+from fake_useragent import UserAgent
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 def convert_values(obj):
     """ Recursively convert DataFrame and NumPy objects to serializable formats """
@@ -46,20 +53,35 @@ def excel_to_dict(file_path):
     return parsed_dict
 
 def op_caps(url):
-    #url = "https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/stats" #ipl-2025-1449924
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.199 Safari/537.36"
-    }
+    ua = UserAgent()
+    #random_user_agent = ua.random
+    valid_user_agent = ua.chrome
+    # Set up Selenium with stealth mode
+    options = webdriver.ChromeOptions()
+    options.add_argument(f"user-agent={valid_user_agent}")
+    options.add_argument("--headless")
+    driver = webdriver.Chrome(options=options)
 
-    # Send an HTTP request
-    response = requests.get(url, headers=headers)
+    stealth(driver,
+        languages=["en-US", "en"],
+        vendor="Google Inc.",
+        platform="Win32",
+        webgl_vendor="Intel Inc.",
+        renderer="Intel Iris OpenGL Engine",
+        fix_hairline=True,
+    )
+    
+    driver.get(url)
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
 
-    soup = BeautifulSoup(response.text, "html.parser")  # Parse the HTML
+    # Get page source and parse with BeautifulSoup
+    soup = BeautifulSoup(driver.page_source, "html.parser")
+
     try:
         stats = soup.find_all('div',class_="ds-p-0")
         batsmen = stats[1]
         orange_cap = batsmen.find('span',class_="ds-text-title-xs ds-font-bold").text.strip()
-        bowlers = stats[2]
+        bowlers = stats[3]
         purple_cap = bowlers.find('span',class_="ds-text-title-xs ds-font-bold").text.strip()    
     except:
         orange_cap,purple_cap = "",""
@@ -210,6 +232,8 @@ if __name__ == '__main__':
         print(match_name,"added")
     try:
         if number_of_matches>=9:
+            # print(orange_cap)
+            # print(purple_cap)
             for team in list(spreadsheet['Team Final Points'].keys()):
                 orange_cap_points = 0
                 purple_cap_points = 0

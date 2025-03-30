@@ -545,48 +545,46 @@ class Series:
         attempt = 1
         attempt_number = 3
         if len(match_links)>=len(match_links_list):
-            while True:
-                if len(match_links) != 0:
-                    for match in match_links:
-                        if match not in match_links_list or match == match_links[-1]:
-                            # if match == last_match_stored:
-                            #     if 'full-scorecard' in last_match_stored:
-                            #         break
-                            #     else:
-                            #         url = url.replace('live-cricket-score','full-scorecard')
-                            print("Attempting to scrape:",match)
-                            attempt = attempt_number
-                            while attempt<=attempt_number:
-                                print("Attempt",attempt)
-                                try:
-                                    match_object = Score(match,self.cricbuzz_page_link)
-                                    print("Scraping Successful")
-                                    break
-                                except:
-                                    attempt+=1
-                                    continue
-                            if attempt == attempt_number+1:
+            if len(match_links) != 0:
+                for match in match_links:
+                    if match not in match_links_list or match == match_links[-1]:
+                        # if match == last_match_stored:
+                        #     if 'full-scorecard' in last_match_stored:
+                        #         break
+                        #     else:
+                        #         url = url.replace('live-cricket-score','full-scorecard')
+                        print("Attempting to scrape:",match)
+                        attempt = 1
+                        while attempt<=attempt_number:
+                            print("Attempt",attempt)
+                            try:
+                                match_object = Score(match,self.cricbuzz_page_link)
+                                print("Scraping Successful")
+                                match_objects[match] = match_object
+                                print("Added:",match)
                                 break
-
-                            match_objects[match] = match_object
-                            print("Added:",match)
-                    
-                    if len(list(match_objects.keys())) == len(match_links) and attempt != attempt_number+1:
-                        self.match_links = match_links
-                        #print(match_links)
-                        self.match_objects = match_objects
-                        with open(self.database_name, "wb") as file:
-                            dill.dump(match_objects, file)
-                        print("LOADING SUCCESSFUL")
-                        break
-                    else:
-                        print("LOADING FAILED")
-                        print("No. of match objects",len(match_objects))
-                        print("Number of extracted links",len(match_links))
-                        print("Missing Links:")
-                        for match_url in match_links:
-                            if match_url not in list(match_objects.keys()):
-                                print(match_url)
+                            except:
+                                attempt+=1
+                                continue
+                        if attempt == attempt_number+1:
+                            break
+                if len(list(match_objects.keys())) == len(match_links) and attempt != attempt_number+1:
+                    self.match_links = match_links
+                    #print(match_links)
+                    self.match_objects = match_objects
+                    with open(self.database_name, "wb") as file:
+                        dill.dump(match_objects, file)
+                    print("LOADING SUCCESSFUL")
+                else:
+                    print("LOADING FAILED")
+                    self.match_objects = match_objects
+                    self.match_links = match_links
+                    print("No. of match objects",len(match_objects))
+                    print("Number of extracted links",len(match_links))
+                    print("Missing Links:")
+                    for match_url in match_links:
+                        if match_url not in list(match_objects.keys()):
+                            print(match_url)
         else:
             print("DATA UP TO DATE")
             self.match_objects = match_objects
@@ -645,13 +643,13 @@ class Series:
     
 if __name__ == "__main__":  
     cricbuzz_page_link = "https://www.cricbuzz.com/cricket-series/9237/indian-premier-league-2025/matches"   
-    ipl24_url = "https://www.espncricinfo.com/series/ipl-2025-1449924/match-schedule-fixtures-and-results"
-    database = "ipl2025matches.pkl"
-    ipl2024 = Series(ipl24_url,cricbuzz_page_link,database)
+    # ipl24_url = "https://www.espncricinfo.com/series/ipl-2025-1449924/match-schedule-fixtures-and-results"
+    # database = "ipl2025matches.pkl"
+    # ipl2024 = Series(ipl24_url,cricbuzz_page_link,database)
     # print(ipl2024.match_links)
     # ipl2024.match_objects['https://www.espncricinfo.com/series/ipl-2025-1449924/gujarat-titans-vs-punjab-kings-5th-match-1473442/full-scorecard'].printing_scorecard()
-    # url = 'https://www.espncricinfo.com/series/ipl-2025-1449924/sunrisers-hyderabad-vs-lucknow-super-giants-7th-match-1473444/full-scorecard'
-    # match_object = Score(url,cricbuzz_page_link)
-    # match_object.printing_scorecard()
+    url = 'https://www.espncricinfo.com/series/ipl-2025-1449924/sunrisers-hyderabad-vs-lucknow-super-giants-7th-match-1473444/full-scorecard'
+    match_object = Score(url,cricbuzz_page_link)
+    match_object.printing_scorecard()
 
 
