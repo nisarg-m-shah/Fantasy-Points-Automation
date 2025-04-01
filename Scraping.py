@@ -577,10 +577,10 @@ class Series:
                     print("LOADING SUCCESSFUL")
                 else:
                     print("LOADING FAILED")
-                    self.match_objects = match_objects
-                    self.match_links = match_links
                     print("No. of match objects",len(match_objects))
                     print("Number of extracted links",len(match_links))
+                    self.match_objects = match_objects
+                    self.match_links = match_links
                     print("Missing Links:")
                     for match_url in match_links:
                         if match_url not in list(match_objects.keys()):
@@ -643,13 +643,13 @@ class Series:
     
 if __name__ == "__main__":  
     cricbuzz_page_link = "https://www.cricbuzz.com/cricket-series/9237/indian-premier-league-2025/matches"   
-    # ipl24_url = "https://www.espncricinfo.com/series/ipl-2025-1449924/match-schedule-fixtures-and-results"
-    # database = "ipl2025matches.pkl"
-    # ipl2024 = Series(ipl24_url,cricbuzz_page_link,database)
+    ipl24_url = "https://www.espncricinfo.com/series/ipl-2025-1449924/match-schedule-fixtures-and-results"
+    database = "ipl2025matches.pkl"
+    ipl2024 = Series(ipl24_url,cricbuzz_page_link,database)
     # print(ipl2024.match_links)
     # ipl2024.match_objects['https://www.espncricinfo.com/series/ipl-2025-1449924/gujarat-titans-vs-punjab-kings-5th-match-1473442/full-scorecard'].printing_scorecard()
-    url = 'https://www.espncricinfo.com/series/ipl-2025-1449924/sunrisers-hyderabad-vs-lucknow-super-giants-7th-match-1473444/full-scorecard'
-    match_object = Score(url,cricbuzz_page_link)
-    match_object.printing_scorecard()
+    # url = 'https://www.espncricinfo.com/series/ipl-2025-1449924/sunrisers-hyderabad-vs-lucknow-super-giants-7th-match-1473444/full-scorecard'
+    # match_object = Score(url,cricbuzz_page_link)
+    # match_object.printing_scorecard()
 
 

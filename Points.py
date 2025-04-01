@@ -45,7 +45,11 @@ class Player:
             role = roles[names.index(player_name)]
             #print("Points Role Name After:",player_name)
         except:
-            role = ""
+            if "Mujeeb" in self.player_name:
+                player_name = "Mujeeb ur Rahman"
+                role = roles[names.index(player_name)]
+            else:
+                role = ""
         man_of_the_match = self.match_object.man_of_the_match
         man_of_the_match = find_full_name(names,man_of_the_match)
         player_mompoints = 0
@@ -312,7 +316,8 @@ class Match:
                 else:
                     player_object = Player(player, self.match_object, "")
                 points_list = player_object.points_list
-                player = find_full_name(names,player)
+                if "Mujeeb" not in player:
+                    player = find_full_name(names,player)
                 if player == None:
                     continue
                 #print(points_list)
@@ -349,7 +354,7 @@ if __name__ == '__main__':
     #     print("Unsuccessful")
     #urlll = "https://www.espncricinfo.com/series/ipl-2025-1449924/kolkata-knight-riders-vs-royal-challengers-bengaluru-1st-match-1473438/full-scorecard"
     #urlll = "https://www.espncricinfo.com/series/ipl-2025-1449924/sunrisers-hyderabad-vs-rajasthan-royals-2nd-match-1473439/full-scorecard"
-    urlll = "https://www.espncricinfo.com/series/ipl-2025-1449924/chennai-super-kings-vs-royal-challengers-bengaluru-8th-match-1473445/full-scorecard"
+    urlll = "https://www.espncricinfo.com/series/ipl-2025-1449924/gujarat-titans-vs-mumbai-indians-9th-match-1473446/full-scorecard"
     match_object = match_objects[urlll]
 
     # match_object = match_objects[60]
@@ -377,8 +382,6 @@ if __name__ == '__main__':
     print(team_breakdown)
     print()
     General_points_list = match.general_player_points_list
-    # sai = General_points_list.loc['Ravisrinivasan Sai Kishore']
-    # print(sai)
     print(General_points_list)
 
     end = time.time()
