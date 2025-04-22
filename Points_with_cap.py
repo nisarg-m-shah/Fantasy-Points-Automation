@@ -255,11 +255,20 @@ class Team:
                         player_points *= 3     
 
                     if "Bat" in self.booster and (player_object.role == 'BAT' or player_object.role == "WK"):
-                        player_points *= 2
+                        if player_number == 2 and int(match_number) >35:
+                            player_points *= 4/3
+                        else:
+                            player_points *= 2
                     elif "Bowl" in self.booster and player_object.role == 'BOWL':
-                        player_points *= 2
+                        if player_number == 2 and int(match_number) >35:
+                            player_points *= 4/3
+                        else:
+                            player_points *= 2
                     elif "Double" in self.booster:            
-                        player_points *= 2
+                        if player_number == 2 and int(match_number) >35:
+                            player_points *= 4/3
+                        else:
+                            player_points *= 2
 
                 self.points_list[player] = player_points
                 self.total_points += player_points
