@@ -254,12 +254,12 @@ class Team:
                     elif player_number == 2 and int(match_number) >35:  
                         player_points *= 3     
 
-                    if "Bat" in self.booster and (self.role == 'BAT' or self.role == "WK"):
+                    if "Bat" in self.booster and (player_object.role == 'BAT' or player_object.role == "WK"):
                         if player_number == 2 and int(match_number) >35:
                             player_points *= 4/3
                         else:
                             player_points *= 2
-                    elif "Bowl" in self.booster and self.role == 'BOWL':
+                    elif "Bowl" in self.booster and player_object.role == 'BOWL':
                         if player_number == 2 and int(match_number) >35:
                             player_points *= 4/3
                         else:

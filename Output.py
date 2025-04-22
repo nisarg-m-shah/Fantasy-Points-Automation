@@ -232,8 +232,8 @@ if __name__ == '__main__':
         print(match_name,"added")
     try:
         if number_of_matches>=9:
-            # print(orange_cap)
-            # print(purple_cap)
+            print(orange_cap)
+            print(purple_cap)
             for team in list(spreadsheet['Team Final Points'].keys()):
                 orange_cap_points = 0
                 purple_cap_points = 0
@@ -296,8 +296,12 @@ if __name__ == '__main__':
                     player_list_points.append(player)      
                 if player == orange_cap:
                     spreadsheet['Player Final Points'][player]['Orange Cap'] = 500
+                else:
+                    spreadsheet['Player Final Points'][player]['Orange Cap'] = 0
                 if player == purple_cap:
                     spreadsheet['Player Final Points'][player]['Purple Cap'] = 500
+                else:
+                    spreadsheet['Player Final Points'][player]['Purple Cap'] = 0
         for player in player_list_points:
             for match in match_list_points:
                 try:
