@@ -4,8 +4,8 @@ import pandas as pd
 import time
 import re
 
-names = ['Shardul Thakur','Dhruv Jurel','Travis Head', 'Varun Chakaravarthy', 'Rahul Chahar', 'Mukesh Choudhary', 'Harshit Rana', 'Ishant Sharma', 'Jaydev Unadkat', 'Mukesh Kumar', 'Abdul Samad', 'Riyan Parag', 'Khaleel Ahmed', 'Avesh Khan', 'Faf du Plessis', 'Arjun Tendulkar', 'Mohammed Shami', 'Shivam Dube', 'Lockie Ferguson', 'Josh Hazlewood', 'Prabhsimran Singh', 'Rishabh Pant', 'Corbin Bosch', 'Mohammed Siraj', 'Prasidh Krishna', 'Marcus Stoinis', 'Harpreet Brar', 'Rahmanullah Gurbaz', 'Rashid Khan', 'Washington Sundar', 'Hardik Pandya', 'Heinrich Klaasen', 'Rinku Singh', 'Nehal Wadhera', 'Romario Shepherd', 'Manav Suthar', 'Vijaykumar Vyshak', 'Himmat Singh', 'Ayush Badoni', 'Liam Livingstone', 'Nathan Ellis', 'Moeen Ali', 'Karn Sharma', 'Yashasvi Jaiswal', 'Shimron Hetmyer', 'Axar Patel', 'Mayank Yadav', 'Abhinav Manohar', 'Ashutosh Sharma', 'Rachin Ravindra', 'Shahrukh Khan', 'Anrich Nortje', 'Mayank Markande', 'Yuzvendra Chahal', 'Tushar Deshpande', 'Noor Ahmad', 'Kagiso Rabada', 'Marco Jansen', 'Virat Kohli', 'Abhishek Sharma', 'Jitesh Sharma', 'Harnoor Singh', 'Bhuvneshwar Kumar', 'Abishek Porel', 'Angkrish Raghuvanshi', 'Kuldeep Yadav', 'David Miller', 'Anuj Rawat', 'Josh Inglis', 'Kumar Kartikeya', 'Akash Deep', 'Rahul Tewatia', 'Ramandeep Singh', 'Sherfane Rutherford', 'Glenn Maxwell', 'Sandeep Sharma', 'Suryakumar Yadav', 'Shamar Joseph', 'Pat Cummins', 'Quinton de Kock', 'Ravichandran Ashwin', 'Jasprit Bumrah', 'Sai Sudharsan', 'Shreyas Iyer', 'Swastik Chikara', 'Rajvardhan Hangargekar', 'Manoj Bhandage', 'Nitish Rana', 'Rasikh Salam Dar', 'Deepak Chahar', 'MS Dhoni', 'Aaron Hardie', 'Priyansh Arya', 'Phil Salt', 'Sameer Rizvi', 'Mitchell Santner', 'Manish Pandey', 'Suyash Sharma', 'Kamlesh Nagarkoti', 'Will Jacks', 'Azmatullah Omarzai', 'Adam Zampa', 'Spencer Johnson', 'Jamie Overton', 'Shashank Singh', 'Rovman Powell', 'Suryansh Shedge', 'Maheesh Theekshana', 'Ruturaj Gaikwad', 'Shubman Gill', 'Mohit Sharma', 'Sai Kishore', 'Raj Bawa', 'Ishan Kishan', 'Mitchell Marsh', 'Nitish Reddy', 'Karim Janat', 'Yash Dayal', 'Bevon Jacobs', 'Ryan Rickelton', 'Rajat Patidar', 'Tristan Stubbs', 'Gerald Coetzee', 'Glenn Phillips', 'Tim David', 'Ravi Bishnoi', 'Donovan Ferreira', 'Jayant Yadav', 'Trent Boult', 'Jofra Archer', 'Akash Madhwal', 'Darshan Nalkande', 'Kwena Maphaka', 'KL Rahul', 'Arshdeep Singh', 'Aiden Markram', 'Sachin Baby', 'Dushmantha Chameera', 'Naman Dhir', 'Karun Nair', 'Wanindu Hasaranga', 'Arshad Khan', 'Devdutt Padikkal', 'Robin Minz', 'Shahbaz Ahmed', 'Mohsin Khan', 'Krunal Pandya', 'Ravindra Jadeja', 'Mitchell Starc', 'Sanju Samson', 'Jos Buttler', 'Atharva Taide', 'Musheer Khan', 'Devon Conway', 'Venkatesh Iyer', 'Andre Russell', 'Sunil Narine', 'Chetan Sakariya', 'T Natarajan', 'Ajinkya Rahane', 'Shreyas Gopal', 'Tilak Varma', 'Vijay Shankar', 'Shubham Dubey', 'Anukul Roy', 'Deepak Hooda', 'Harshal Patel', 'Rahul Tripathi', 'Lungi Ngidi', 'Matheesha Pathirana', 'Vaibhav Arora', 'Nicholas Pooran', 'Jake Fraser-McGurk', 'Sam Curran', 'Rohit Sharma', 'Mujeeb ur Rahman', 'Anshul Kamboj', 'Mahipal Lomror']
-roles = ['BOWL','WK','BAT', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BAT', 'BAT', 'BOWL', 'BOWL', 'BAT', 'BOWL', 'BOWL', 'AR', 'BOWL', 'BOWL', 'WK', 'WK', 'AR', 'BOWL', 'BOWL', 'AR', 'BOWL', 'WK', 'AR', 'AR', 'AR', 'WK', 'BAT', 'BAT', 'AR', 'AR', 'BOWL', 'BAT', 'BAT', 'AR', 'BOWL', 'AR', 'BOWL', 'BAT', 'BAT', 'AR', 'BOWL', 'AR', 'AR', 'AR', 'BAT', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'AR', 'BAT', 'AR', 'WK', 'BAT', 'BOWL', 'WK', 'BAT', 'BOWL', 'BAT', 'WK', 'WK', 'BOWL', 'BOWL', 'AR', 'BAT', 'BAT', 'AR', 'BOWL', 'BAT', 'BOWL', 'BOWL', 'WK', 'AR', 'BOWL', 'BAT', 'BAT', 'BAT', 'AR', 'AR', 'BAT', 'BOWL', 'BOWL', 'WK', 'AR', 'BAT', 'WK', 'BAT', 'AR', 'BAT', 'BOWL', 'BOWL', 'AR', 'AR', 'BOWL', 'BOWL', 'AR', 'AR', 'BAT', 'AR', 'BOWL', 'BAT', 'BAT', 'BOWL', 'BOWL', 'AR', 'WK', 'AR', 'AR', 'AR', 'BOWL', 'BAT', 'WK', 'BAT', 'BAT', 'BOWL', 'AR', 'BAT', 'BOWL', 'AR', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'WK', 'BOWL', 'AR', 'BAT', 'BOWL', 'BAT', 'BAT', 'AR', 'BOWL', 'BAT', 'WK', 'AR', 'BOWL', 'AR', 'AR', 'BOWL', 'WK', 'WK', 'AR', 'AR', 'WK', 'AR', 'AR', 'AR', 'BOWL', 'BOWL', 'BAT', 'AR', 'AR', 'AR', 'BAT', 'AR', 'AR', 'BOWL', 'BAT', 'BOWL', 'BOWL', 'BOWL', 'WK', 'BAT', 'AR', 'BAT', 'BOWL', 'AR', 'AR']
+names =['Dasun Shanaka','Ayush Mhatre','Shardul Thakur', 'Travis Head', 'Varun Chakravarthy', 'Rahul Chahar', 'Mukesh Choudhary', 'Harshit Rana', 'Ishant Sharma', 'Jaydev Unadkat', 'Mukesh Kumar', 'Abdul Samad', 'Riyan Parag', 'Khaleel Ahmed', 'Avesh Khan', 'Faf du Plessis', 'Arjun Tendulkar', 'Mohammed Shami', 'Shivam Dube', 'Lockie Ferguson', 'Josh Hazlewood', 'Prabhsimran Singh', 'Rishabh Pant', 'Corbin Bosch', 'Mohammed Siraj', 'Prasidh Krishna', 'Marcus Stoinis', 'Harpreet Brar', 'Rahmanullah Gurbaz', 'Rashid Khan', 'Washington Sundar', 'Hardik Pandya', 'Heinrich Klaasen', 'Rinku Singh', 'Nehal Wadhera', 'Romario Shepherd', 'Manav Suthar', 'Vijaykumar Vyshak', 'Himmat Singh', 'Ayush Badoni', 'Liam Livingstone', 'Nathan Ellis', 'Moeen Ali', 'Karn Sharma', 'Yashasvi Jaiswal', 'Shimron Hetmyer', 'Axar Patel', 'Mayank Yadav', 'Abhinav Manohar', 'Ashutosh Sharma', 'Rachin Ravindra', 'M Shahrukh Khan', 'Anrich Nortje', 'Mayank Markande', 'Yuzvendra Chahal', 'Tushar Deshpande', 'Noor Ahmad', 'Kagiso Rabada', 'Marco Jansen', 'Virat Kohli', 'Abhishek Sharma', 'Jitesh Sharma', 'Harnoor Singh', 'Bhuvneshwar Kumar', 'Abishek Porel', 'Angkrish Raghuvanshi', 'Kuldeep Yadav', 'David Miller', 'Anuj Rawat', 'Josh Inglis', 'Kumar Kartikeya', 'Akash Deep', 'Rahul Tewatia', 'Ramandeep Singh', 'Sherfane Rutherford', 'Glenn Maxwell', 'Sandeep Sharma', 'Suryakumar Yadav', 'Shamar Joseph', 'Pat Cummins', 'Quinton de Kock', 'Ravichandran Ashwin', 'Jasprit Bumrah', 'Sai Sudharsan', 'Shreyas Iyer', 'Swastik Chikara', 'Rajvardhan Hangargekar', 'Manoj Bhandage', 'Nitish Rana', 'Rasikh Salam', 'Deepak Chahar', 'MS Dhoni', 'Aaron Hardie', 'Priyansh Arya', 'Phil Salt', 'Sameer Rizvi', 'Mitchell Santner', 'Manish Pandey', 'Suyash Sharma', 'Kamlesh Nagarkoti', 'Will Jacks', 'Azmatullah Omarzai', 'Adam Zampa', 'Spencer Johnson', 'Jamie Overton', 'Shashank Singh', 'Rovman Powell', 'Suryansh Shedge', 'Maheesh Theekshana', 'Ruturaj Gaikwad', 'Shubman Gill', 'Mohit Sharma', 'Sai Kishore', 'Raj\xa0Bawa', 'Ishan Kishan', 'Mitchell Marsh', 'Nitish Kumar Reddy', 'Karim Janat', 'Yash Dayal', 'Bevon Jacobs', 'Ryan Rickelton', 'Rajat Patidar', 'Tristan Stubbs', 'Gerald Coetzee', 'Glenn Phillips', 'Tim David', 'Ravi Bishnoi', 'Donovan Ferreira', 'Jayant Yadav', 'Trent Boult', 'Jofra Archer', 'Akash Madhwal', 'Darshan Nalkande', 'Kwena Maphaka', 'KL Rahul', 'Arshdeep Singh', 'Aiden Markram', 'Sachin Baby', 'Dushmantha Chameera', 'Naman Dhir', 'Karun Nair', 'Wanindu Hasaranga', 'Arshad Khan', 'Devdutt Padikkal', 'Robin Minz', 'Shahbaz Ahmed', 'Mohsin Khan', 'Krunal Pandya', 'Ravindra Jadeja', 'Mitchell Starc', 'Sanju Samson', 'Jos Buttler', 'Atharva Taide', 'Musheer Khan', 'Devon Conway', 'Venkatesh Iyer', 'Andre Russell', 'Sunil Narine', 'Chetan Sakariya', 'T Natarajan', 'Ajinkya Rahane', 'Shreyas Gopal', 'Tilak Varma', 'Vijay Shankar', 'Shubham Dubey', 'Anukul Roy', 'Deepak Hooda', 'Harshal Patel', 'Rahul Tripathi', 'Lungi Ngidi', 'Matheesha Pathirana', 'Vaibhav Arora', 'Nicholas Pooran', 'Jake Fraser-McGurk', 'Sam Curran', 'Rohit Sharma', 'Mujeeb ur Rahman', 'Anshul Kamboj', 'Mahipal Lomror']
+roles = ['AR','BAT','AR', 'BAT', 'AR', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'AR', 'AR', 'BOWL', 'BOWL', 'BAT', 'BOWL', 'BOWL', 'AR', 'BOWL', 'BOWL', 'BAT', 'BAT', 'AR', 'BOWL', 'BOWL', 'AR', 'AR', 'BAT', 'BOWL', 'AR', 'AR', 'BAT', 'BAT', 'BAT', 'AR', 'BOWL', 'BOWL', 'BAT', 'AR', 'AR', 'BOWL', 'AR', 'BOWL', 'AR', 'BAT', 'AR', 'BOWL', 'BAT', 'AR', 'AR', 'AR', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'AR', 'BAT', 'AR', 'BAT', 'BAT', 'BOWL', 'BAT', 'BAT', 'BOWL', 'BAT', 'BAT', 'BAT', 'BOWL', 'BOWL', 'AR', 'AR', 'BAT', 'AR', 'BOWL', 'BAT', 'BOWL', 'AR', 'BAT', 'AR', 'BOWL', 'AR', 'BAT', 'BAT', 'AR', 'AR', 'AR', 'BOWL', 'BOWL', 'BAT', 'AR', 'AR', 'BAT', 'AR', 'AR', 'BAT', 'BOWL', 'AR', 'AR', 'AR', 'BOWL', 'BOWL', 'AR', 'AR', 'BAT', 'AR', 'BOWL', 'BAT', 'BAT', 'BOWL', 'AR', 'AR', 'BAT', 'AR', 'AR', 'AR', 'BOWL', 'BAT', 'BAT', 'BAT', 'BAT', 'BOWL', 'BAT', 'AR', 'BOWL', 'BAT', 'AR', 'BOWL', 'BOWL', 'BOWL', 'AR', 'BOWL', 'BAT', 'BOWL', 'BAT', 'BAT', 'BOWL', 'AR', 'BAT', 'BOWL', 'AR', 'BAT', 'BAT', 'AR', 'BOWL', 'AR', 'AR', 'BOWL', 'BAT', 'BAT', 'BAT', 'AR', 'BAT', 'AR', 'AR', 'BOWL', 'BOWL', 'BOWL', 'BAT', 'BOWL', 'AR', 'AR', 'BAT', 'AR', 'AR', 'AR', 'BAT', 'BOWL', 'BOWL', 'BOWL', 'BAT', 'BAT', 'AR', 'BAT', 'BOWL', 'AR', 'AR']
 
 class Player:
     def __init__(self,player_name,match_object,booster):
@@ -14,12 +14,6 @@ class Player:
         self.match_object = match_object
         result = self.points()
         self.role,self.player_mompoints,self.catches,self.stumpings,self.main_runouts,self.secondary_runouts,self.catching_points,self.stumping_points,self.direct_runout_points,self.second_runout_points, self.maidens, self.wickets, self.dots, self.economy, self.bowled_wickets, self.lbw_wickets, self.maidens_points, self.wicket_points, self.dot_points, self.economy_points, self.bowling_milestone_points, self.bowled_wickets_points, self.lbw_wickets_points, self.runs, self.fours, self.sixes, self.strike_rate, self.runs_points, self.fours_points, self.sixes_points, self.duck_points, self.strike_rate_points, self.batting_milestone_points, self.player_points,self.player_batpoints,self.player_bowlpoints,self.player_fieldpoints = result
-        if "Bat" in self.booster and self.role == 'BAT':
-            self.player_points *= 2
-        elif "Bowl" in self.booster and self.role == 'BOWL':
-            self.player_points *= 2
-        elif "Double" in self.booster:            
-            self.player_points *= 2
         self.points_list = {
     'Player Points': self.player_points, 'Man of the Match': self.player_mompoints,'Role': self.role,
     'Player Batting Points': self.player_batpoints, 'Runs': self.runs, 'Runs Points': self.runs_points, 
@@ -231,31 +225,53 @@ class Team:
         self.points_list = {}
         self.total_points = 0
         for player_number in range(len(team)):
-            player = team[player_number]
-            #print("Team Name Before:",player)
-            player_name = find_full_name(full_player_list,player)
-            #print("Team Name After:",player_name)
-
-            if player_name == None:
-                #print(player)
-                player_points = 0
+            player_placeholder = team[player_number]
+            multiple_players = []
+            if type(player_placeholder) == str:
+                multiple_players.append(player_placeholder)
             else:
-                player = player_name   
-                player_object = Player(player,self.match_object,self.booster)
-                player_points = player_object.player_points
+                multiple_players = player_placeholder
+            for player in multiple_players:
+                player_name = find_full_name(full_player_list,player)
+                #print("Team Name After:",player_name)
 
-                if player_number == 0:
-                    if "Triple" in self.booster:
-                        player_points *= 3
-                        #self.points_list['Player Points'] = player_points
-                    else:
-                        player_points *= 2
-                elif player_number == 1:
-                    player_points *= 1.5
-                elif player_number == 2 and int(match_number) >35:  
-                    player_points *= 3          
-            self.points_list[player] = player_points
-            self.total_points += player_points
+                if player_name == None:
+                    #print(player)
+                    player_points = 0
+                else:
+                    player = player_name   
+                    player_object = Player(player,self.match_object,self.booster)
+                    player_points = player_object.player_points
+
+                    if player_number == 0:
+                        if "Triple" in self.booster:
+                            player_points *= 3
+                            #self.points_list['Player Points'] = player_points
+                        else:
+                            player_points *= 2
+                    elif player_number == 1:
+                        player_points *= 1.5
+                    elif player_number == 2 and int(match_number) >35:  
+                        player_points *= 3     
+
+                    if "Bat" in self.booster and (self.role == 'BAT' or self.role == "WK"):
+                        if player_number == 2 and int(match_number) >35:
+                            player_points *= 4/3
+                        else:
+                            player_points *= 2
+                    elif "Bowl" in self.booster and self.role == 'BOWL':
+                        if player_number == 2 and int(match_number) >35:
+                            player_points *= 4/3
+                        else:
+                            player_points *= 2
+                    elif "Double" in self.booster:            
+                        if player_number == 2 and int(match_number) >35:
+                            player_points *= 4/3
+                        else:
+                            player_points *= 2
+
+                self.points_list[player] = player_points
+                self.total_points += player_points
         if self.total_points.is_integer():
             self.total_points = int(self.total_points)
         points_entry = {'Total Points':self.total_points}
@@ -354,32 +370,35 @@ if __name__ == '__main__':
     #     print("Unsuccessful")
     #urlll = "https://www.espncricinfo.com/series/ipl-2025-1449924/kolkata-knight-riders-vs-royal-challengers-bengaluru-1st-match-1473438/full-scorecard"
     #urlll = "https://www.espncricinfo.com/series/ipl-2025-1449924/sunrisers-hyderabad-vs-rajasthan-royals-2nd-match-1473439/full-scorecard"
-    urlll = "https://www.espncricinfo.com/series/ipl-2025-1449924/gujarat-titans-vs-mumbai-indians-9th-match-1473446/full-scorecard"
+    #urlll = "https://www.espncricinfo.com/series/ipl-2025-1449924/kolkata-knight-riders-vs-gujarat-titans-39th-match-1473476/full-scorecard"
+    urlll = "https://www.espncricinfo.com/series/ipl-2025-1449924/mumbai-indians-vs-chennai-super-kings-38th-match-1473475/full-scorecard"
     match_object = match_objects[urlll]
 
     # match_object = match_objects[60]
     match_object.printing_scorecard()
-    teams = {'Gujju Gang':['Varun Chakaravarthy','Travis Head','Harshit Rana','Rahul Chahar','Mukesh Choudhary','Ishant Sharma','Jaydev Unadkat','Mukesh Kumar','Abdul Samad','Riyan Parag','Khaleel Ahmed','Avesh Khan','Faf du Plessis','Arjun Tendulkar','Mohammed Shami','Shivam Dube','Lockie Ferguson','Josh Hazlewood','Prabhsimran Singh','Rishabh Pant','Corbin Bosch','Mohammed Siraj','Prasidh Krishna','Marcus Stoinis','Harpreet Brar','Rahmanullah Gurbaz','Rashid Khan','Washington Sundar'],
+    teams = {'Gujju Gang':['Varun Chakaravarthy','Travis Head','Prasidh Krishna','Harshit Rana','Rahul Chahar','Mukesh Choudhary','Ishant Sharma','Jaydev Unadkat','Mukesh Kumar','Abdul Samad','Riyan Parag','Khaleel Ahmed','Avesh Khan','Faf du Plessis','Arjun Tendulkar','Mohammed Shami','Shivam Dube','Lockie Ferguson','Josh Hazlewood','Prabhsimran Singh','Rishabh Pant','Corbin Bosch','Mohammed Siraj','Marcus Stoinis','Harpreet Brar','Rahmanullah Gurbaz','Rashid Khan','Washington Sundar'],
              'Hilarious Hooligans':['Yashasvi Jaiswal','Axar Patel','Hardik Pandya','Heinrich Klaasen','Rinku Singh','Nehal Wadhera','Romario Shepherd','Manav Suthar','Vijaykumar Vyshak','Himmat Singh','Ayush Badoni','Liam Livingstone','Nathan Ellis','Moeen Ali','Karn Sharma','Shimron Hetmyer','Mayank Yadav','Abhinav Manohar','Ashutosh Sharma','Rachin Ravindra','Shahrukh Khan','Anrich Nortje','Mayank Markande','Yuzvendra Chahal','Tushar Deshpande','Noor Ahmad','Kagiso Rabada','Marco Jansen'],
-             'Tormented Titans':['Virat Kohli','Suryakumar Yadav','Abhishek Sharma','Jitesh Sharma','Harnoor Singh','Bhuvneshwar Kumar','Abishek Porel','Angkrish Raghuvanshi','Kuldeep Yadav','Dhruv Jurel','David Miller','Anuj Rawat','Josh Inglis','Kumar Kartikeya','Akash Deep','Rahul Tewatia','Ramandeep Singh','Sherfane Rutherford','Glenn Maxwell','Sandeep Sharma','Shamar Joseph','Pat Cummins','Quinton de Kock','Ravichandran Ashwin'],
-             'La Furia Roja':['Shreyas Iyer','Sai Sudharsan','Jasprit Bumrah','Swastik Chikara','Rajvardhan Hangargekar','Manoj Bhandage','Nitish Rana','Rasikh Dar Salam','Deepak Chahar','MS Dhoni','Aaron Hardie','Priyansh Arya','Phil Salt','Sameer Rizvi','Mitchell Santner','Manish Pandey','Suyash Sharma','Kamlesh Nagarkoti','Will Jacks','Azmatullah Omarzai','Adam Zampa','Spencer Johnson','Jamie Overton','Shashank Singh','Rovman Powell','Suryansh Shedge','Maheesh Theekshana'],
-             'Supa Jinx Strikas':['Shubman Gill','Ruturaj Gaikwad','Nitish Reddy','Mohit Sharma','Sai Kishore','Raj Bawa','Ishan Kishan','Mitchell Marsh','Karim Janat','Yash Dayal','Bevon Jacobs','Ryan Rickelton','Rajat Patidar','Tristan Stubbs','Gerald Coetzee','Glenn Phillips','Tim David','Ravi Bishnoi','Donovan Ferreira','Jayant Yadav','Trent Boult','Jofra Archer','Akash Madhwal','Darshan Nalkande','Kwena Maphaka'],
-             'Raging Raptors':['KL Rahul','Venkatesh Iyer','Arshdeep Singh','Shardul Thakur','Ravindra Jadeja','Aiden Markram','Sachin Baby','Dushmantha Chameera','Naman Dhir','Karun Nair','Wanindu Hasaranga','Arshad Khan','Devdutt Padikkal','Robin Minz','Shahbaz Ahmed','Mohsin Khan','Krunal Pandya','Mitchell Starc','Sanju Samson','Jos Buttler','Atharva Taide','Musheer Khan','Devon Conway'],
-             'The Travelling Bankers':['Sunil Narine','Andre Russell','Harshal Patel','Umran Malik','Chetan Sakariya','T Natarajan','Ajinkya Rahane','Shreyas Gopal','Tilak Varma','Vijay Shankar','Shubham Dubey','Anukul Roy','Deepak Hooda','Rahul Tripathi','Lungi Ngidi','Matheesha Pathirana','Vaibhav Arora','Nicholas Pooran','Jake Fraser-McGurk','Sam Curran','Rohit Sharma','Mujeeb Ur Rahman','Anshul Kamboj','Mahipal Lomror']
+             'Tormented Titans':['Virat Kohli','Suryakumar Yadav','Kuldeep Yadav','Abhishek Sharma','Jitesh Sharma','Harnoor Singh','Bhuvneshwar Kumar','Abishek Porel','Angkrish Raghuvanshi','Dhruv Jurel','David Miller','Anuj Rawat','Josh Inglis','Kumar Kartikeya','Akash Deep','Rahul Tewatia','Ramandeep Singh','Sherfane Rutherford','Glenn Maxwell','Sandeep Sharma','Shamar Joseph','Pat Cummins','Quinton de Kock','Ravichandran Ashwin'],
+             'La Furia Roja':['Shreyas Iyer','Sai Sudharsan','Phil Salt','Jasprit Bumrah','Swastik Chikara','Rajvardhan Hangargekar','Manoj Bhandage','Nitish Rana','Rasikh Dar Salam','Deepak Chahar','MS Dhoni','Aaron Hardie','Priyansh Arya','Sameer Rizvi','Mitchell Santner','Manish Pandey','Suyash Sharma','Kamlesh Nagarkoti','Will Jacks','Azmatullah Omarzai','Adam Zampa','Spencer Johnson','Jamie Overton','Shashank Singh','Rovman Powell','Suryansh Shedge','Maheesh Theekshana'],
+             'Supa Jinx Strikas':['Shubman Gill',['Ayush Mhatre','Ruturaj Gaikwad'],'Sai Kishore','Nitish Reddy','Mohit Sharma','Raj Bawa','Ishan Kishan','Mitchell Marsh','Karim Janat','Yash Dayal','Bevon Jacobs','Ryan Rickelton','Rajat Patidar','Tristan Stubbs','Gerald Coetzee','Glenn Phillips','Tim David','Ravi Bishnoi','Donovan Ferreira','Jayant Yadav','Trent Boult','Jofra Archer','Akash Madhwal','Darshan Nalkande','Kwena Maphaka'],
+             'Raging Raptors':['KL Rahul','Venkatesh Iyer','Mitchell Starc','Arshdeep Singh','Shardul Thakur','Ravindra Jadeja','Aiden Markram','Sachin Baby','Dushmantha Chameera','Naman Dhir','Karun Nair','Wanindu Hasaranga','Arshad Khan','Devdutt Padikkal','Robin Minz','Shahbaz Ahmed','Mohsin Khan','Krunal Pandya','Sanju Samson','Jos Buttler','Atharva Taide','Musheer Khan','Devon Conway'],
+             'The Travelling Bankers':['Sunil Narine','Andre Russell','Nicholas Pooran','Harshal Patel','Umran Malik','Chetan Sakariya','T Natarajan','Ajinkya Rahane','Shreyas Gopal','Tilak Varma','Vijay Shankar','Shubham Dubey','Anukul Roy','Deepak Hooda','Rahul Tripathi','Lungi Ngidi','Matheesha Pathirana','Vaibhav Arora','Jake Fraser-McGurk','Sam Curran','Rohit Sharma','Mujeeb Ur Rahman','Anshul Kamboj','Mahipal Lomror']
              }
-    boosters = {'Gujju Gang':{},
+
+    boosters = {'Gujju Gang':{'https://www.espncricinfo.com/series/ipl-2025-1449924/kolkata-knight-riders-vs-gujarat-titans-39th-match-1473476/full-scorecard':"Double Power"},
              'Hilarious Hooligans':{},
              'Tormented Titans':{},
              'La Furia Roja':{},
-             'Supa Jinx Strikas':{},
-             'Raging Raptors':{},
-             'The Travelling Bankers':{}
+             'Supa Jinx Strikas':{'https://www.espncricinfo.com/series/ipl-2025-1449924/mumbai-indians-vs-sunrisers-hyderabad-33rd-match-1473470/full-scorecard':'Batting Powerplay'},
+             'Raging Raptors':{'https://www.espncricinfo.com/series/ipl-2025-1449924/delhi-capitals-vs-rajasthan-royals-32nd-match-1473469/full-scorecard':'Batting Powerplay'},
+             'The Travelling Bankers':{"https://www.espncricinfo.com/series/ipl-2025-1449924/kolkata-knight-riders-vs-lucknow-super-giants-21st-match-1473456/full-scorecard":"Batting Powerplay"}
              }
 
     match = Match(teams,match_object,boosters)
     print()
     team_breakdown = match.match_points_breakdown
     print(team_breakdown)
+    print(team_breakdown['Ayush Mhatre'])
     print()
     General_points_list = match.general_player_points_list
     print(General_points_list)

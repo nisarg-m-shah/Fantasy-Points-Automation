@@ -1,31 +1,40 @@
 from fuzzywuzzy import process
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
+# import undetected_chromedriver as uc
+from selenium_stealth import stealth
+from fake_useragent import UserAgent
 from selenium.webdriver.common.by import By
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
 import requests
 import time
 
 begin = time.time()
 
-# Set up Chrome options
-options = Options()
-options.add_argument("--headless")  # Run in headless mode
-options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.199 Safari/537.36")
+ua = UserAgent()
+#random_user_agent = ua.random
+valid_user_agent = ua.chrome
 
-headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.199 Safari/537.36"
-}
 
-# Set up WebDriver
-service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service, options=options)
+options = webdriver.ChromeOptions()
+options.add_argument(f"user-agent={valid_user_agent}")
+options.add_argument("--headless")
+driver = webdriver.Chrome(options=options)
+
+stealth(driver,
+    languages=["en-US", "en"],
+    vendor="Google Inc.",
+    platform="Win32",
+    webgl_vendor="Intel Inc.",
+    renderer="Intel Iris OpenGL Engine",
+    fix_hairline=True,
+)
 
 # Open the webpage
-url = "https://www.espncricinfo.com/auction/ipl-2025-auction-1460972/sold-players"
+url = "https://www.espncricinfo.com/auction/ipl-2025-auction-1460972/all-players"
 driver.get(url)
+WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
 
 # Wait for initial elements to load
 time.sleep(1)
@@ -54,25 +63,31 @@ print("Reached the bottom of the page.")
 
 player_list = []
 position_list = []
+team_list = []
 
 soup = BeautifulSoup(driver.page_source, "html.parser")
-table = soup.find('table',class_='ds-w-full ds-table ds-table-md ds-table-auto ds-overflow-scroll ds-scrollbar-hide').find('tbody')
+with open("page_pretty.txt", "w", encoding="utf-8") as file:
+    file.write(soup.prettify())
+print("Saved to page_pretty.txt")
+#tables = soup.find_all('table')
+#print(tables)
+#print(soup.prettify())
+table = soup.find('table').find('tbody')#,class_='ds-w-full ds-table ds-table-sm ds-table-auto ds-overflow-scroll ds-scrollbar-hide').find('tbody')
+
 players = table.find_all('tr')
 for player in players:
     player_name = player.find('td').find('a',class_='ds-inline-flex ds-items-start ds-leading-none')
     name = player_name['title'].strip()
-    player_link = "https://www.espncricinfo.com/"+player_name['href']
-    response2 = requests.get(player_link, headers=headers)
-    soup2 = BeautifulSoup(response2.content, "html.parser")
-    grid = soup2.find('div',class_="ds-grid lg:ds-grid-cols-3 ds-grid-cols-2 ds-gap-4 ds-mb-8")
-    info = grid.find_all('div')
-    for part in info:
-        if "Playing Role" in part.text:
-            position = part.find('span').text.strip()
-            print(name,position)
-            break
+    parts = player.find_all('td',class_="ds-w-0 ds-whitespace-nowrap ds-min-w-max ds-text-right")
+    team = parts[0]
+    print(team)
+    team = team.text.strip()
+    position = parts[1]
+    print(position)
+    position = position.text.strip()
     player_list.append(name)
     position_list.append(position)
+    team_list.append(team)
 
 #Close the browser
 driver.quit()
@@ -89,42 +104,41 @@ players = ['Shardul Thakur','Travis Head','Varun Chakaravarthy','Rahul Chahar','
 final_player_list = []
 for player in players:
     if 'Mujeeb' in player:
-        final_player_list.append(('Mujeeb ur Rahman','BOWL'))
+        final_player_list.append(('Mujeeb ur Rahman','BOWL','MI'))
         continue
     if 'Corbin Bosch' in player:
-        final_player_list.append(('Corbin Bosch','AR'))
+        final_player_list.append(('Corbin Bosch','AR','MI'))
         continue
     if 'Chetan Sak' in player:
-        final_player_list.append(('Chetan Sakariya','BOWL'))
+        final_player_list.append(('Chetan Sakariya','BOWL','KKR'))
         continue
     if player in player_list:
-        position = position_list[player_list.index(player)]
+        player_number = player_list.index(player)
+        position = position_list[player_number]
+        team = team_list[player_number]
     else:
         best_match, score = process.extractOne(player, player_list)
         #best_match3, score, _ = process.extractOne(parts[0], player_list)
         if score>70:
             print(player,"Best Match",best_match)
-            position = position_list[player_list.index(best_match)]
+            player = best_match
+            player_number = player_list.index(best_match)
+            position = position_list[player_number]
+            team = team_list[player_number]
         else:
             print("Not found",player)
             position = ""
-    if position!="":
-        if "Allrounder" in position:
-            position = "AR"
-        elif "Wicketkeeper" in position:
-            position = "WK"
-        elif "Bowler" in position:
-            position = "BOWL"
-        elif "Batter" in position:
-            position = "BAT"
-        final_player_list.append((player,position))
+    final_player_list.append((player,position,team))
 
 names = []
 roles = []
+teams = []
 for player in final_player_list:
-    name, role = player
+    name, role, team = player
     names.append(name)
     roles.append(role)
+    teams.append(team)
 
 print(names)
 print(roles)
+print(teams)

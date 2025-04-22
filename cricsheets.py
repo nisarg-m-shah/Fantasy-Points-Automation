@@ -42,9 +42,10 @@ class Score:
         first_innings = innings[0]
         second_innings = innings[1]
         team_first_innings = first_innings['team']
-        overs_first_innings = first_innings['overs']
+        overs_first_innings = first_innings['overs'][0]
+        {'over': 0, 'deliveries': [{'batter': 'B Sai Sudharsan', 'bowler': 'Arshdeep Singh', 'non_striker': 'Shubman Gill', 'runs': {'batter': 4, 'extras': 0, 'total': 4}}, {'batter': 'B Sai Sudharsan', 'bowler': 'Arshdeep Singh', 'non_striker': 'Shubman Gill', 'runs': {'batter': 0, 'extras': 0, 'total': 0}}, {'batter': 'B Sai Sudharsan', 'bowler': 'Arshdeep Singh', 'non_striker': 'Shubman Gill', 'runs': {'batter': 0, 'extras': 0, 'total': 0}}, {'batter': 'B Sai Sudharsan', 'bowler': 'Arshdeep Singh', 'non_striker': 'Shubman Gill', 'runs': {'batter': 0, 'extras': 0, 'total': 0}}, {'batter': 'B Sai Sudharsan', 'bowler': 'Arshdeep Singh', 'non_striker': 'Shubman Gill', 'runs': {'batter': 0, 'extras': 0, 'total': 0}}, {'batter': 'B Sai Sudharsan', 'bowler': 'Arshdeep Singh', 'non_striker': 'Shubman Gill', 'runs': {'batter': 1, 'extras': 0, 'total': 1}}]}
         team_second_innings = second_innings['team']
-        overs_second_innings = second_innings['overs']
+        overs_second_innings = second_innings['overs'][0]
         bowled = []
         catchers = []
         lbw = []
@@ -155,6 +156,8 @@ class Score:
         for player in stumpers:
             print(player)
 
+    
+
 match_score = Score("1473439.json")
 match_score.scorecard()
 
@@ -252,3 +255,4 @@ class Series:
         else:
             print("JSON ZIP file link not found.")
 
+series_object = Series()
