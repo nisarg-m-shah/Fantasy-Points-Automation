@@ -22,7 +22,8 @@ packages = {
     "gspread": "gspread",
     "openpyxl": "openpyxl",
     "selenium_stealth": "selenium_stealth",
-    "fake_useragent": "fake_useragent"
+    "fake_useragent": "fake_useragent",
+    "fuzzywuzzy":"fuzzywuzzy"
 }
 
 for pip_name, import_name in packages.items():
