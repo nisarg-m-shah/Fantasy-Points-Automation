@@ -14,21 +14,26 @@ import time
 import undetected_chromedriver as uc
 import random
 
-ua = UserAgent()
-random_user_agent = ua.random
-valid_user_agent = ua.chrome
+# ua = UserAgent()
+# random_user_agent = ua.random
+# valid_user_agent = ua.chrome
 
-options = uc.ChromeOptions()
-options.add_argument("--disable-blink-features=AutomationControlled")
-options.add_argument(f'user-agent={random_user_agent}')
-driver = uc.Chrome(options=options)
+# options = uc.ChromeOptions()
+# options.add_argument("--disable-blink-features=AutomationControlled")
+# options.add_argument(f'user-agent={random_user_agent}')
+# driver = uc.Chrome(options=options)
+
+headers = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/117.0.0.0 Safari/537.36"
+    ),
+    "Accept-Language": "en-US,en;q=0.9",
+    "Referer": "https://www.google.com/",
+}
 
 begin = time.time()
-
-ua = UserAgent()
-#random_user_agent = ua.random
-valid_user_agent = ua.chrome
-
 
 # options = webdriver.ChromeOptions()
 # options.add_argument(f"user-agent={valid_user_agent}")
@@ -40,14 +45,14 @@ valid_user_agent = ua.chrome
 # options.add_argument("--headless")
 # driver = uc.Chrome(options=options)
 
-stealth(driver,
-    languages=["en-US", "en"],
-    vendor="Google Inc.",
-    platform="Win32",
-    webgl_vendor="Intel Inc.",
-    renderer="Intel Iris OpenGL Engine",
-    fix_hairline=True,
-)
+# stealth(driver,
+#     languages=["en-US", "en"],
+#     vendor="Google Inc.",
+#     platform="Win32",
+#     webgl_vendor="Intel Inc.",
+#     renderer="Intel Iris OpenGL Engine",
+#     fix_hairline=True,
+# )
 
 # Open the webpage
 # url = "https://www.espncricinfo.com/auction/ipl-2025-auction-1460972/all-players"
@@ -102,30 +107,50 @@ table = soup.find('table').find('tbody')#,class_='ds-w-full ds-table ds-table-sm
 
 players = table.find_all('tr')
 for player in players:
-    player_link = "https://www.espncricinfo.com" + player.find('td').find('a',class_='ds-inline-flex ds-items-start ds-leading-none')['href']
+    player_link_part = player.find('td').find('a',class_='ds-inline-flex ds-items-start ds-leading-none')
+    player_link = "https://www.espncricinfo.com" + player_link_part['href']
+    name = player_link_part['title']
+    print(name)
+
     print(player_link)
 #try:
-    time.sleep(3)
-    driver.get(player_link)
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
+    rand_num = random.randint(2,5)
+    print("Sleeping for",rand_num,"seconds")
+    for i in range(1,rand_num+1):
+        print(i)
+        time.sleep(i)
+    session = requests.Session()
+    response = session.get(player_link, headers=headers)
+    if "Access Denied" in response.text:
+        print("Access Denied — try using proxies or rotating headers.")
+        break
+    else:
+        soup = BeautifulSoup(response.text, "html.parser")
+    # driver.get(player_link)
+    # WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
     # time.sleep(1)
-    soup_player = BeautifulSoup(driver.page_source, "html.parser")
-    print(soup_player.prettify())
+    #soup_player = BeautifulSoup(driver.page_source, "html.parser")
+    #print(soup_player.prettify())
     # headers = {"User-Agent": valid_user_agent}
     # proxies = {"http": "http://user:pass@proxy_ip:port", "https": "https://user:pass@proxy_ip:port"}
     # response = requests.get(player_link, headers=headers, proxies=proxies)
-    # soup_player = BeautifulSoup(response.text, "html.parser")
-    player_info = soup_player.find('div',class_='ds-grid lg:ds-grid-cols-3 ds-grid-cols-2 ds-gap-4 ds-mb-8')
-    player_parts = player_info.find_all('div')
+    soup_player = BeautifulSoup(response.text, "html.parser")
+    try:
+        player_info = soup_player.find('div',class_='ds-grid lg:ds-grid-cols-3 ds-grid-cols-2 ds-gap-4 ds-mb-8')
+        player_parts = player_info.find_all('div')
+    except:
+        print(soup_player.prettify())
     # with open("page_pretty.txt", "w", encoding="utf-8") as file:
     #     file.write(soup_player.prettify())
     # print("Saved to page_pretty.txt")
     for part in player_parts:
-        header = part.find('p').text.strip()
-        info = part.find('span').text.strip()
+        try:
+            header = part.find('p').text.strip()
+            info = part.find('span').text.strip()
+        except:
+            continue
         if "Full Name" in header:
-            name = info
-            print(name)
+            print(info)
         elif "Playing Role" in header:
             position = info
             print(position)
@@ -150,7 +175,7 @@ for player in players:
     # team_list.append(team)
 
 #Close the browser
-driver.quit()
+#driver.quit()
 end = time.time()
 print(end-begin)
 print(player_list)

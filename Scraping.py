@@ -13,8 +13,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-names =['Dasun Shanaka','Ayush Mhatre','Shardul Thakur', 'Travis Head', 'Varun Chakravarthy', 'Rahul Chahar', 'Mukesh Choudhary', 'Harshit Rana', 'Ishant Sharma', 'Jaydev Unadkat', 'Mukesh Kumar', 'Abdul Samad', 'Riyan Parag', 'Khaleel Ahmed', 'Avesh Khan', 'Faf du Plessis', 'Arjun Tendulkar', 'Mohammed Shami', 'Shivam Dube', 'Lockie Ferguson', 'Josh Hazlewood', 'Prabhsimran Singh', 'Rishabh Pant', 'Corbin Bosch', 'Mohammed Siraj', 'Prasidh Krishna', 'Marcus Stoinis', 'Harpreet Brar', 'Rahmanullah Gurbaz', 'Rashid Khan', 'Washington Sundar', 'Hardik Pandya', 'Heinrich Klaasen', 'Rinku Singh', 'Nehal Wadhera', 'Romario Shepherd', 'Manav Suthar', 'Vijaykumar Vyshak', 'Himmat Singh', 'Ayush Badoni', 'Liam Livingstone', 'Nathan Ellis', 'Moeen Ali', 'Karn Sharma', 'Yashasvi Jaiswal', 'Shimron Hetmyer', 'Axar Patel', 'Mayank Yadav', 'Abhinav Manohar', 'Ashutosh Sharma', 'Rachin Ravindra', 'M Shahrukh Khan', 'Anrich Nortje', 'Mayank Markande', 'Yuzvendra Chahal', 'Tushar Deshpande', 'Noor Ahmad', 'Kagiso Rabada', 'Marco Jansen', 'Virat Kohli', 'Abhishek Sharma', 'Jitesh Sharma', 'Harnoor Singh', 'Bhuvneshwar Kumar', 'Abishek Porel', 'Angkrish Raghuvanshi', 'Kuldeep Yadav', 'David Miller', 'Anuj Rawat', 'Josh Inglis', 'Kumar Kartikeya', 'Akash Deep', 'Rahul Tewatia', 'Ramandeep Singh', 'Sherfane Rutherford', 'Glenn Maxwell', 'Sandeep Sharma', 'Suryakumar Yadav', 'Shamar Joseph', 'Pat Cummins', 'Quinton de Kock', 'Ravichandran Ashwin', 'Jasprit Bumrah', 'Sai Sudharsan', 'Shreyas Iyer', 'Swastik Chikara', 'Rajvardhan Hangargekar', 'Manoj Bhandage', 'Nitish Rana', 'Rasikh Salam', 'Deepak Chahar', 'MS Dhoni', 'Aaron Hardie', 'Priyansh Arya', 'Phil Salt', 'Sameer Rizvi', 'Mitchell Santner', 'Manish Pandey', 'Suyash Sharma', 'Kamlesh Nagarkoti', 'Will Jacks', 'Azmatullah Omarzai', 'Adam Zampa', 'Spencer Johnson', 'Jamie Overton', 'Shashank Singh', 'Rovman Powell', 'Suryansh Shedge', 'Maheesh Theekshana', 'Ruturaj Gaikwad', 'Shubman Gill', 'Mohit Sharma', 'Sai Kishore', 'Raj\xa0Bawa', 'Ishan Kishan', 'Mitchell Marsh', 'Nitish Kumar Reddy', 'Karim Janat', 'Yash Dayal', 'Bevon Jacobs', 'Ryan Rickelton', 'Rajat Patidar', 'Tristan Stubbs', 'Gerald Coetzee', 'Glenn Phillips', 'Tim David', 'Ravi Bishnoi', 'Donovan Ferreira', 'Jayant Yadav', 'Trent Boult', 'Jofra Archer', 'Akash Madhwal', 'Darshan Nalkande', 'Kwena Maphaka', 'KL Rahul', 'Arshdeep Singh', 'Aiden Markram', 'Sachin Baby', 'Dushmantha Chameera', 'Naman Dhir', 'Karun Nair', 'Wanindu Hasaranga', 'Arshad Khan', 'Devdutt Padikkal', 'Robin Minz', 'Shahbaz Ahmed', 'Mohsin Khan', 'Krunal Pandya', 'Ravindra Jadeja', 'Mitchell Starc', 'Sanju Samson', 'Jos Buttler', 'Atharva Taide', 'Musheer Khan', 'Devon Conway', 'Venkatesh Iyer', 'Andre Russell', 'Sunil Narine', 'Chetan Sakariya', 'T Natarajan', 'Ajinkya Rahane', 'Shreyas Gopal', 'Tilak Varma', 'Vijay Shankar', 'Shubham Dubey', 'Anukul Roy', 'Deepak Hooda', 'Harshal Patel', 'Rahul Tripathi', 'Lungi Ngidi', 'Matheesha Pathirana', 'Vaibhav Arora', 'Nicholas Pooran', 'Jake Fraser-McGurk', 'Sam Curran', 'Rohit Sharma', 'Mujeeb ur Rahman', 'Anshul Kamboj', 'Mahipal Lomror']
-roles = ['AR','BAT','AR', 'BAT', 'AR', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'AR', 'AR', 'BOWL', 'BOWL', 'BAT', 'BOWL', 'BOWL', 'AR', 'BOWL', 'BOWL', 'BAT', 'BAT', 'AR', 'BOWL', 'BOWL', 'AR', 'AR', 'BAT', 'BOWL', 'AR', 'AR', 'BAT', 'BAT', 'BAT', 'AR', 'BOWL', 'BOWL', 'BAT', 'AR', 'AR', 'BOWL', 'AR', 'BOWL', 'AR', 'BAT', 'AR', 'BOWL', 'BAT', 'AR', 'AR', 'AR', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'AR', 'BAT', 'AR', 'BAT', 'BAT', 'BOWL', 'BAT', 'BAT', 'BOWL', 'BAT', 'BAT', 'BAT', 'BOWL', 'BOWL', 'AR', 'AR', 'BAT', 'AR', 'BOWL', 'BAT', 'BOWL', 'AR', 'BAT', 'AR', 'BOWL', 'AR', 'BAT', 'BAT', 'AR', 'AR', 'AR', 'BOWL', 'BOWL', 'BAT', 'AR', 'AR', 'BAT', 'AR', 'AR', 'BAT', 'BOWL', 'AR', 'AR', 'AR', 'BOWL', 'BOWL', 'AR', 'AR', 'BAT', 'AR', 'BOWL', 'BAT', 'BAT', 'BOWL', 'AR', 'AR', 'BAT', 'AR', 'AR', 'AR', 'BOWL', 'BAT', 'BAT', 'BAT', 'BAT', 'BOWL', 'BAT', 'AR', 'BOWL', 'BAT', 'AR', 'BOWL', 'BOWL', 'BOWL', 'AR', 'BOWL', 'BAT', 'BOWL', 'BAT', 'BAT', 'BOWL', 'AR', 'BAT', 'BOWL', 'AR', 'BAT', 'BAT', 'AR', 'BOWL', 'AR', 'AR', 'BOWL', 'BAT', 'BAT', 'BAT', 'AR', 'BAT', 'AR', 'AR', 'BOWL', 'BOWL', 'BOWL', 'BAT', 'BOWL', 'AR', 'AR', 'BAT', 'AR', 'AR', 'AR', 'BAT', 'BOWL', 'BOWL', 'BOWL', 'BAT', 'BAT', 'AR', 'BAT', 'BOWL', 'AR', 'AR']
+names = ['Ravichandran Smaran','Mitchell Owen','Ayush Mhatre','Dasun Shanaka','Shardul Thakur','Dhruv Jurel','Nitish Reddy','Travis Head', 'Varun Chakaravarthy', 'Rahul Chahar', 'Mukesh Choudhary', 'Harshit Rana', 'Ishant Sharma', 'Jaydev Unadkat', 'Mukesh Kumar', 'Abdul Samad', 'Riyan Parag', 'Khaleel Ahmed', 'Avesh Khan', 'Faf du Plessis', 'Arjun Tendulkar', 'Mohammed Shami', 'Shivam Dube', 'Lockie Ferguson', 'Josh Hazlewood', 'Prabhsimran Singh', 'Rishabh Pant', 'Corbin Bosch', 'Mohammed Siraj', 'Prasidh Krishna', 'Marcus Stoinis', 'Harpreet Brar', 'Rahmanullah Gurbaz', 'Rashid Khan', 'Washington Sundar', 'Hardik Pandya', 'Heinrich Klaasen', 'Rinku Singh', 'Nehal Wadhera', 'Romario Shepherd', 'Manav Suthar', 'Vijaykumar Vyshak', 'Himmat Singh', 'Ayush Badoni', 'Liam Livingstone', 'Nathan Ellis', 'Moeen Ali', 'Karn Sharma', 'Yashasvi Jaiswal', 'Shimron Hetmyer', 'Axar Patel', 'Mayank Yadav', 'Abhinav Manohar', 'Ashutosh Sharma', 'Rachin Ravindra', 'Shahrukh Khan', 'Anrich Nortje', 'Mayank Markande', 'Yuzvendra Chahal', 'Tushar Deshpande', 'Noor Ahmad', 'Kagiso Rabada', 'Marco Jansen', 'Virat Kohli', 'Abhishek Sharma', 'Jitesh Sharma', 'Harnoor Singh', 'Bhuvneshwar Kumar', 'Abishek Porel', 'Angkrish Raghuvanshi', 'Kuldeep Yadav', 'David Miller', 'Anuj Rawat', 'Josh Inglis', 'Kumar Kartikeya', 'Akash Deep', 'Rahul Tewatia', 'Ramandeep Singh', 'Sherfane Rutherford', 'Glenn Maxwell', 'Sandeep Sharma', 'Suryakumar Yadav', 'Shamar Joseph', 'Pat Cummins', 'Quinton de Kock', 'Ravichandran Ashwin', 'Jasprit Bumrah', 'Sai Sudharsan', 'Shreyas Iyer', 'Swastik Chikara', 'Rajvardhan Hangargekar', 'Manoj Bhandage', 'Nitish Rana', 'Rasikh Salam Dar', 'Deepak Chahar', 'MS Dhoni', 'Aaron Hardie', 'Priyansh Arya', 'Phil Salt', 'Sameer Rizvi', 'Mitchell Santner', 'Manish Pandey', 'Suyash Sharma', 'Kamlesh Nagarkoti', 'Will Jacks', 'Azmatullah Omarzai', 'Adam Zampa', 'Spencer Johnson', 'Jamie Overton', 'Shashank Singh', 'Rovman Powell', 'Suryansh Shedge', 'Maheesh Theekshana', 'Ruturaj Gaikwad', 'Shubman Gill', 'Mohit Sharma', 'Sai Kishore', 'Raj Bawa', 'Ishan Kishan', 'Mitchell Marsh', 'Nitish Reddy', 'Karim Janat', 'Yash Dayal', 'Bevon Jacobs', 'Ryan Rickelton', 'Rajat Patidar', 'Tristan Stubbs', 'Gerald Coetzee', 'Glenn Phillips', 'Tim David', 'Ravi Bishnoi', 'Donovan Ferreira', 'Jayant Yadav', 'Trent Boult', 'Jofra Archer', 'Akash Madhwal', 'Darshan Nalkande', 'Kwena Maphaka', 'KL Rahul', 'Arshdeep Singh', 'Aiden Markram', 'Sachin Baby', 'Dushmantha Chameera', 'Naman Dhir', 'Karun Nair', 'Wanindu Hasaranga', 'Arshad Khan', 'Devdutt Padikkal', 'Robin Minz', 'Shahbaz Ahmed', 'Mohsin Khan', 'Krunal Pandya', 'Ravindra Jadeja', 'Mitchell Starc', 'Sanju Samson', 'Jos Buttler', 'Atharva Taide', 'Musheer Khan', 'Devon Conway', 'Venkatesh Iyer', 'Andre Russell', 'Sunil Narine', 'Chetan Sakariya', 'T Natarajan', 'Ajinkya Rahane', 'Shreyas Gopal', 'Tilak Varma', 'Vijay Shankar', 'Shubham Dubey', 'Anukul Roy', 'Deepak Hooda', 'Harshal Patel', 'Rahul Tripathi', 'Lungi Ngidi', 'Matheesha Pathirana', 'Vaibhav Arora', 'Nicholas Pooran', 'Jake Fraser-McGurk', 'Sam Curran', 'Rohit Sharma', 'Mujeeb ur Rahman', 'Anshul Kamboj', 'Mahipal Lomror']
+roles = ['BAT','BAT','AR','AR','BOWL','WK','AR','BAT', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BAT', 'BAT', 'BOWL', 'BOWL', 'BAT', 'BOWL', 'BOWL', 'AR', 'BOWL', 'BOWL', 'WK', 'WK', 'AR', 'BOWL', 'BOWL', 'AR', 'BOWL', 'WK', 'AR', 'AR', 'AR', 'WK', 'BAT', 'BAT', 'AR', 'AR', 'BOWL', 'BAT', 'BAT', 'AR', 'BOWL', 'AR', 'BOWL', 'BAT', 'BAT', 'AR', 'BOWL', 'AR', 'AR', 'AR', 'BAT', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'AR', 'BAT', 'AR', 'WK', 'BAT', 'BOWL', 'WK', 'BAT', 'BOWL', 'BAT', 'WK', 'WK', 'BOWL', 'BOWL', 'AR', 'BAT', 'BAT', 'AR', 'BOWL', 'BAT', 'BOWL', 'BOWL', 'WK', 'AR', 'BOWL', 'BAT', 'BAT', 'BAT', 'AR', 'AR', 'BAT', 'BOWL', 'BOWL', 'WK', 'AR', 'BAT', 'WK', 'BAT', 'AR', 'BAT', 'BOWL', 'BOWL', 'AR', 'AR', 'BOWL', 'BOWL', 'AR', 'AR', 'BAT', 'AR', 'BOWL', 'BAT', 'BAT', 'BOWL', 'BOWL', 'AR', 'WK', 'AR', 'AR', 'AR', 'BOWL', 'BAT', 'WK', 'BAT', 'BAT', 'BOWL', 'AR', 'BAT', 'BOWL', 'AR', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'WK', 'BOWL', 'AR', 'BAT', 'BOWL', 'BAT', 'BAT', 'AR', 'BOWL', 'BAT', 'WK', 'AR', 'BOWL', 'AR', 'AR', 'BOWL', 'WK', 'WK', 'AR', 'AR', 'WK', 'AR', 'AR', 'AR', 'BOWL', 'BOWL', 'BAT', 'AR', 'AR', 'AR', 'BAT', 'AR', 'AR', 'BOWL', 'BAT', 'BOWL', 'BOWL', 'BOWL', 'WK', 'BAT', 'AR', 'BAT', 'BOWL', 'AR', 'AR']
 
 ua = UserAgent()
 #random_user_agent = ua.random
@@ -120,8 +120,16 @@ def match_squads_generator(ipl_url, match_number):
         return {}
 
 def dismissals_scraper(soup,innings_id):
-    innings = soup.find('div',id=innings_id)
-    innings_name = innings.find('span').text.split(' Innings')[0]
+    try:
+        innings = soup.find('div',id=innings_id)
+        innings_name = innings.find('span').text.split(' Innings')[0]
+    except:
+        # with open("Match_Scrape.txt", "w", encoding="utf-8") as file:
+        #     file.write(soup.prettify())
+        # print("Saved to Match_Scrape.txt")
+        # print(innings_id)
+        pass
+
     #print(innings_name)
     player_batting = innings.find_all('div',class_="cb-col cb-col-100 cb-scrd-itms")
     dismissals = []
@@ -159,10 +167,17 @@ def match_dismissals_output(ipl_url, match_number):
     matches = soup.find_all('div', class_='cb-col-75 cb-col')
     try:
         match = matches[int(match_number) - 1]
+        match_link = "https://www.cricbuzz.com" + match.find('a')['href']
     except:
-        for match in matches:
-            print(match.find('a')['href'])
-    match_link = "https://www.cricbuzz.com" + match.find('a')['href']
+        matches = soup.find_all('a',class_="w-full bg-cbWhite flex flex-col p-3 gap-1")
+        #print(matches)
+        match = matches[int(match_number) - 1]
+        match_link = "https://www.cricbuzz.com" + match['href']
+        #print(match)
+        # with open("Match_Scrape.txt", "w", encoding="utf-8") as file:
+        #     file.write(soup.prettify())
+        # print("Saved to Match_Scrape.txt")
+    
     
     if 'live-cricket-scores' in match_link:
         match_link = match_link.replace('live-cricket-scores', 'live-cricket-scorecard')
@@ -362,6 +377,9 @@ class Score:
 
         # Get page source and parse with BeautifulSoup
         soup = BeautifulSoup(driver.page_source, "html.parser")
+        # with open("Match_Scrape.txt", "w", encoding="utf-8") as file:
+        #     file.write(soup.prettify())
+        # print("Saved to Match_Scrape.txt")
         
         innings_list = []
         batsmen_list = pd.DataFrame()
@@ -391,14 +409,20 @@ class Score:
         if c1==0:
             man_of_the_match = ""
         
-        innings_tables = soup.find_all('div', class_='ds-rounded-lg ds-mt-2')
+        innings_tables = soup.find_all('div', class_='ds-rounded-lg')# ds-mt-2')
+        
 
         for innings_table in innings_tables:
 
             innings_number = innings_tables.index(innings_table) + 1
 
             team_innings_div = innings_table.find('div', class_='ds-flex ds-px-4 ds-border-b ds-border-line ds-py-3 ds-bg-ui-fill-translucent-hover')
+            if team_innings_div == None:
+                #print(innings_table.prettify())
+                continue
+
             batting_innings = team_innings_div.text.strip().replace('\xa0',' ')
+
             batting_innings = self.find_team(batting_innings)
             for team in team_names:
                 if team!= batting_innings:
@@ -408,6 +432,7 @@ class Score:
             batsmen_table = innings_table.find('table', class_='ds-w-full ds-table ds-table-md ds-table-auto ci-scorecard-table')
         
             batting_info = batsmen_table.find('tbody')
+            #print(batting_info.prettify())
             batting_info = batting_info.find_all('tr')
 
             for batter in batting_info:
@@ -437,9 +462,11 @@ class Score:
                         '6s': sixes,
                         'Strike Rate': strike_rate
                     }
+                    #print(batsmen_stat)
                     batsmen_list = batsmen_list._append(batsmen_stat, ignore_index = True)
                 except:
                     pass
+                    #print(name,"Batter Gela")
                     
             bowling_table = innings_table.find('table', class_='ds-w-full ds-table ds-table-md ds-table-auto')
 
@@ -473,9 +500,11 @@ class Score:
                                 bowler = bowler_row_data[i].text.strip()
                                 bowler = find_full_name(player_list[bowling_innings],bowler)
                                 bowler_data[headers[i]] = bowler
+                        #print(bowler_data)
                         bowlers_info = bowlers_info._append(bowler_data, ignore_index = True)
                     except:
                         pass
+                        #print(bowler,"Bowler Gela")
         #dismissal_list = batsmen_list['Dismissal'].tolist()
         #print(dismissal_list)
         driver.quit()
@@ -560,6 +589,7 @@ class Series:
                             try:
                                 match_object = Score(match,self.cricbuzz_page_link)
                                 print("Scraping Successful")
+                                match_object.printing_scorecard()
                                 match_objects[match] = match_object
                                 print("Added:",match)
                                 break
@@ -585,6 +615,10 @@ class Series:
                     for match_url in match_links:
                         if match_url not in list(match_objects.keys()):
                             print(match_url)
+                    if len(match_objects) > len(ipl):
+                        with open(self.database_name, "wb") as file:
+                            dill.dump(match_objects, file)
+
         else:
             print("DATA UP TO DATE")
             self.match_objects = match_objects
@@ -643,12 +677,12 @@ class Series:
     
 if __name__ == "__main__":  
     cricbuzz_page_link = "https://www.cricbuzz.com/cricket-series/9237/indian-premier-league-2025/matches"   
-    ipl24_url = "https://www.espncricinfo.com/series/ipl-2025-1449924/match-schedule-fixtures-and-results"
+    ipl25_url = "https://www.espncricinfo.com/series/ipl-2025-1449924/match-schedule-fixtures-and-results"
     database = "ipl2025matches.pkl"
-    ipl2024 = Series(ipl24_url,cricbuzz_page_link,database)
-    # print(ipl2024.match_links)
-    # ipl2024.match_objects['https://www.espncricinfo.com/series/ipl-2025-1449924/gujarat-titans-vs-punjab-kings-5th-match-1473442/full-scorecard'].printing_scorecard()
-    # url = 'https://www.espncricinfo.com/series/ipl-2025-1449924/sunrisers-hyderabad-vs-lucknow-super-giants-7th-match-1473444/full-scorecard'
+    ipl2025 = Series(ipl25_url,cricbuzz_page_link,database)
+    
+    # #print(ipl2025.match_links)
+    # url = 'https://www.espncricinfo.com/series/ipl-2025-1449924/punjab-kings-vs-lucknow-super-giants-54th-match-1473491/full-scorecard'
     # match_object = Score(url,cricbuzz_page_link)
     # match_object.printing_scorecard()
 
