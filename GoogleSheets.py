@@ -33,6 +33,7 @@ for sheet_name in sheets:
         # Compare the existing data with the new data
         if data_gsheet == data_excel:
             print(f"⏩ Skipping unchanged sheet: {sheet_name}")
+            time.sleep(1)
             continue  # Skip updating this sheet
 
         print(f"🔄 Updating modified sheet: {sheet_name}")

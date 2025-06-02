@@ -18,7 +18,9 @@ roles = ['BAT','BAT','AR','AR','BOWL','WK','AR','BAT', 'BOWL', 'BOWL', 'BOWL', '
 
 ua = UserAgent()
 #random_user_agent = ua.random
-valid_user_agent = ua.chrome
+
+#valid_user_agent = ua.chrome
+valid_user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
 
 def match_number_generator(match_link):
     parts = (match_link.split('/')[-2].split('-')[-3:-1])

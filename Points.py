@@ -341,13 +341,14 @@ if __name__ == '__main__':
 
     begin = time.time()
     match_objects = ipl2025
-    print((match_objects))
-    for match_link in match_objects.keys():
-        match_object = match_objects[match_link]
-        print(match_object.url)
-        if match_link == match_object.url and match_link == "https://www.espncricinfo.com/series/ipl-2025-1449924/sunrisers-hyderabad-vs-mumbai-indians-41st-match-1473478/full-scorecard":
-            print("AHHHHHH")
-            match_object.printing_scorecard()
+
+    # print((match_objects))
+    # for match_link in match_objects.keys():
+    #     match_object = match_objects[match_link]
+    #     print(match_object.url)
+    #     if match_link == match_object.url and match_link == "https://www.espncricinfo.com/series/ipl-2025-1449924/sunrisers-hyderabad-vs-mumbai-indians-41st-match-1473478/full-scorecard":
+    #         print("AHHHHHH")
+    #         match_object.printing_scorecard()
 
     
 
