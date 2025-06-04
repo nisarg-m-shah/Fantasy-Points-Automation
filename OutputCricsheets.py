@@ -8,13 +8,14 @@ from PointsCricsheets import Match
 from collections import OrderedDict
 import json
 import numpy as np
-from selenium import webdriver
-# import undetected_chromedriver as uc
-from selenium_stealth import stealth
-from fake_useragent import UserAgent
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+# from selenium import webdriver
+# # import undetected_chromedriver as uc
+# from selenium_stealth import stealth
+# from fake_useragent import UserAgent
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.webdriver.support import expected_conditions as EC
+from ScoreEntry import Final_score,gtvscsk_score,lsgvrcb_score,mivpbks_score,pbksvsdc_score,srhvskkr_score,Eliminator_score,Qualifier1_score,Qualifier2_score
 
 def convert_values(obj):
     """ Recursively convert DataFrame and NumPy objects to serializable formats """
@@ -127,7 +128,11 @@ if __name__ == '__main__':
     database = "ipl2025matches_cricsheets.pkl"
     file_path = "CFC Fantasy League 2025 Cricsheets.xlsx"
     json_filename = "CFC Fantasy League 2025 Cricsheets.json"
-    orange_cap,purple_cap = op_caps("https://www.espncricinfo.com/series/ipl-2025-1449924/stats")
+    #orange_cap,purple_cap = op_caps("https://www.espncricinfo.com/series/ipl-2025-1449924/stats")
+    orange_cap = "Sai Sudharsan"
+    purple_cap = "Prasidh Krishna"
+    emerging_player = "Sai Sudharsan"
+    mvp = "Suryakumar Yadav"
 
     ipl = Series(database)
 
@@ -167,11 +172,22 @@ if __name__ == '__main__':
 
     match_objects = ipl.match_objects
 
+    #Adding unresolved matches
+    match_objects["PBKS vs DC"] = pbksvsdc_score
+    match_objects["GT vs CSK"] = gtvscsk_score
+    match_objects["SRH vs KKR"] = srhvskkr_score
+    match_objects["MI vs PBKS"] = mivpbks_score
+    match_objects["LSG vs RCB"] = lsgvrcb_score
+    match_objects["Qualifier 1"] = Qualifier1_score
+    match_objects["Eliminator"] = Eliminator_score
+    match_objects["Qualifier 2"] = Qualifier2_score
+    match_objects["Final"] = Final_score
+
     teams = {'Gujju Gang':['Varun Chakaravarthy','Travis Head','Prasidh Krishna','Kyle Jamieson','Harshit Rana','Rahul Chahar','Mukesh Choudhary','Ishant Sharma','Jaydev Unadkat','Mukesh Kumar','Abdul Samad','Riyan Parag','Khaleel Ahmed','Avesh Khan','Faf du Plessis','Arjun Tendulkar','Mohammed Shami','Shivam Dube','Lockie Ferguson','Josh Hazlewood','Prabhsimran Singh','Rishabh Pant','Corbin Bosch','Mohammed Siraj','Marcus Stoinis','Harpreet Brar','Rahmanullah Gurbaz','Rashid Khan','Washington Sundar'],
              'Hilarious Hooligans':['Yashasvi Jaiswal','Axar Patel','Hardik Pandya',"William O'Rourke",'Heinrich Klaasen','Rinku Singh','Nehal Wadhera','Romario Shepherd','Manav Suthar','Vijaykumar Vyshak','Himmat Singh','Ayush Badoni','Liam Livingstone','Nathan Ellis','Moeen Ali','Karn Sharma','Shimron Hetmyer','Mayank Yadav','Abhinav Manohar','Ashutosh Sharma','Rachin Ravindra','Shahrukh Khan','Anrich Nortje','Mayank Markande','Yuzvendra Chahal','Tushar Deshpande','Noor Ahmad','Kagiso Rabada','Marco Jansen'],
              'Tormented Titans':['Virat Kohli','Suryakumar Yadav','Kuldeep Yadav','Mitchell Owen','Abhishek Sharma','Jitesh Sharma','Harnoor Singh','Bhuvneshwar Kumar','Abishek Porel','Angkrish Raghuvanshi','Dhruv Jurel','David Miller','Anuj Rawat','Josh Inglis','Kumar Kartikeya','Akash Deep','Rahul Tewatia','Ramandeep Singh','Sherfane Rutherford','Glenn Maxwell','Sandeep Sharma','Shamar Joseph','Pat Cummins','Quinton de Kock','Ravichandran Ashwin'],
-             'La Furia Roja':['Shreyas Iyer','Sai Sudharsan','Phil Salt','Harsh Dubey','Lhuan dre Pretorius','Jasprit Bumrah','Swastik Chikara','Rajvardhan Hangargekar','Manoj Bhandage','Nitish Rana','Rasikh Dar Salam','Deepak Chahar','MS Dhoni','Aaron Hardie','Priyansh Arya','Sameer Rizvi','Mitchell Santner','Manish Pandey','Suyash Sharma','Kamlesh Nagarkoti','Will Jacks','Azmatullah Omarzai','Adam Zampa','Spencer Johnson','Jamie Overton','Shashank Singh','Rovman Powell','Suryansh Shedge','Maheesh Theekshana'],
-             'Supa Jinx Strikas':['Shubman Gill',['Ayush Mhatre','Ruturaj Gaikwad'],'Sai Kishore','Nitish Reddy','Mohit Sharma','Raj Bawa','Ishan Kishan','Mitchell Marsh','Karim Janat','Yash Dayal','Bevon Jacobs','Ryan Rickelton','Rajat Patidar','Tristan Stubbs','Gerald Coetzee','Glenn Phillips','Tim David','Ravi Bishnoi','Donovan Ferreira','Jayant Yadav','Trent Boult','Jofra Archer','Akash Madhwal','Darshan Nalkande','Kwena Maphaka'],
+             'La Furia Roja':['Shreyas Iyer','Sai Sudharsan','Phil Salt','Jonny Bairstow','Harsh Dubey','Lhuan dre Pretorius','Jasprit Bumrah','Swastik Chikara','Rajvardhan Hangargekar','Manoj Bhandage','Nitish Rana','Rasikh Dar Salam','Deepak Chahar','MS Dhoni','Aaron Hardie','Priyansh Arya','Sameer Rizvi','Mitchell Santner','Manish Pandey','Suyash Sharma','Kamlesh Nagarkoti','Will Jacks','Azmatullah Omarzai','Adam Zampa','Spencer Johnson','Jamie Overton','Shashank Singh','Rovman Powell','Suryansh Shedge','Maheesh Theekshana'],
+             'Supa Jinx Strikas':['Shubman Gill',['Ayush Mhatre','Ruturaj Gaikwad'],'Sai Kishore','Richard Gleeson','Nitish Reddy','Mohit Sharma','Raj Bawa','Ishan Kishan','Mitchell Marsh','Karim Janat','Yash Dayal','Bevon Jacobs','Ryan Rickelton','Rajat Patidar','Tristan Stubbs','Gerald Coetzee','Glenn Phillips','Tim David','Ravi Bishnoi','Donovan Ferreira','Jayant Yadav','Trent Boult','Jofra Archer','Akash Madhwal','Darshan Nalkande','Kwena Maphaka'],
              'Raging Raptors':['KL Rahul','Venkatesh Iyer',['Mitchell Starc','Mustafizur Rahman'],'Kusal Mendis','Arshdeep Singh','Mayank Agarwal','Shardul Thakur','Ravindra Jadeja','Aiden Markram','Sachin Baby','Dushmantha Chameera','Naman Dhir','Karun Nair','Wanindu Hasaranga','Arshad Khan','Devdutt Padikkal','Robin Minz','Shahbaz Ahmed','Mohsin Khan','Krunal Pandya','Sanju Samson','Jos Buttler','Atharva Taide','Musheer Khan','Devon Conway'],
              'The Travelling Bankers':['Sunil Narine','Andre Russell','Nicholas Pooran','Harshal Patel','Umran Malik','Chetan Sakariya','T Natarajan','Ajinkya Rahane','Shreyas Gopal','Tilak Varma','Vijay Shankar','Shubham Dubey','Anukul Roy','Deepak Hooda','Rahul Tripathi','Lungi Ngidi','Matheesha Pathirana','Vaibhav Arora','Jake Fraser-McGurk','Sam Curran','Rohit Sharma','Mujeeb Ur Rahman','Anshul Kamboj','Mahipal Lomror']
              }
@@ -226,6 +242,8 @@ if __name__ == '__main__':
             spreadsheet['Team Final Points'].setdefault(team, {}).setdefault("Total Points", 0)
             spreadsheet['Team Final Points'].setdefault(team, {}).setdefault("Orange Cap", 0)
             spreadsheet['Team Final Points'].setdefault(team, {}).setdefault("Purple Cap", 0)
+            spreadsheet['Team Final Points'].setdefault(team, {}).setdefault("Emerging Player", 0)
+            spreadsheet['Team Final Points'].setdefault(team, {}).setdefault("MVP", 0)
             spreadsheet['Team Final Points'][team][match_name] = team_breakdown.loc[team,'Total Points']
             #final_points[team]['Total Points'] += final_points[team][match_name]
         print(match_name,"added")
@@ -233,17 +251,27 @@ if __name__ == '__main__':
         if number_of_matches>=9:
             print(orange_cap)
             print(purple_cap)
+            print(emerging_player)
+            print(mvp)
             for team in list(spreadsheet['Team Final Points'].keys()):
                 orange_cap_points = 0
                 purple_cap_points = 0
+                mvp_points = 0
+                emerging_player_points = 0
                 if orange_cap in teams[team]:
                     orange_cap_points = 500
                 if purple_cap in teams[team]:
                     purple_cap_points = 500
+                if mvp in teams[team]:
+                    mvp_points = 750
+                if emerging_player in teams[team]:
+                    emerging_player_points = 300
                 #final_points[team]['Total Points'] += orange_cap_points + purple_cap_points
                 spreadsheet['Team Final Points'][team]['Orange Cap'] = orange_cap_points
                 spreadsheet['Team Final Points'][team]['Purple Cap'] = purple_cap_points
-            print("Purple Cap, Orange Cap, Total Points added")
+                spreadsheet['Team Final Points'][team]['Emerging Player'] = emerging_player_points
+                spreadsheet['Team Final Points'][team]['MVP'] = mvp_points
+            print("Purple Cap, Orange Cap, Emerging Player, MVP Total Points added")
 
         player_list_points = []
         match_list_points = []
@@ -257,6 +285,8 @@ if __name__ == '__main__':
                         spreadsheet['Player Final Points'].setdefault(player,{}).setdefault("Total Points",0)
                         spreadsheet['Player Final Points'].setdefault(player,{}).setdefault("Orange Cap",0)
                         spreadsheet['Player Final Points'].setdefault(player,{}).setdefault("Purple Cap",0)
+                        spreadsheet['Player Final Points'].setdefault(player,{}).setdefault("Emerging Player",0)
+                        spreadsheet['Player Final Points'].setdefault(player,{}).setdefault("MVP",0)
                         spreadsheet['Player Final Points'].setdefault(player,{}).setdefault(match_name,0)
                         player_points = match_breakdown.loc[player, 'Player Points']
                         #spreadsheet['Player Final Points'][player]['Total Points'] += player_points
@@ -267,6 +297,8 @@ if __name__ == '__main__':
                         spreadsheet['Player Final Points'].setdefault(player,{}).setdefault("Total Points",0)
                         spreadsheet['Player Final Points'].setdefault(player,{}).setdefault("Orange Cap",0)
                         spreadsheet['Player Final Points'].setdefault(player,{}).setdefault("Purple Cap",0)
+                        spreadsheet['Player Final Points'].setdefault(player,{}).setdefault("Emerging Player",0)
+                        spreadsheet['Player Final Points'].setdefault(player,{}).setdefault("MVP",0)
                         spreadsheet['Player Final Points'].setdefault(player,{}).setdefault(match_name,0)
                         player_points = match_breakdown[player]['Player Points']
                         #spreadsheet['Player Final Points'][player]['Total Points'] += player_points
@@ -301,6 +333,14 @@ if __name__ == '__main__':
                     spreadsheet['Player Final Points'][player]['Purple Cap'] = 500
                 else:
                     spreadsheet['Player Final Points'][player]['Purple Cap'] = 0
+                if player == emerging_player:
+                    spreadsheet['Player Final Points'][player]['Emerging Player'] = 300
+                else:
+                    spreadsheet['Player Final Points'][player]['Emerging Player'] = 0
+                if player == mvp:
+                    spreadsheet['Player Final Points'][player]['MVP'] = 750
+                else:
+                    spreadsheet['Player Final Points'][player]['MVP'] = 0
         for player in player_list_points:
             for match in match_list_points:
                 try:

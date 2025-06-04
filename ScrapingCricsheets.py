@@ -16,7 +16,7 @@ names = ["Mitchell Owen","Mayank Agarwal","Harsh Dubey","Atharva Taide","William
 roles = ["BAT","BAT","AR","AR","BOWL",'AR','BOWL','WK','BOWL','WK','BOWL','BOWL','WK','BAT', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BAT', 'BAT', 'BOWL', 'BOWL', 'BAT', 'BOWL', 'BOWL', 'AR', 'BOWL', 'BOWL', 'WK', 'WK', 'AR', 'BOWL', 'BOWL', 'AR', 'BOWL', 'WK', 'AR', 'AR', 'AR', 'WK', 'BAT', 'BAT', 'AR', 'AR', 'BOWL', 'BAT', 'BAT', 'AR', 'BOWL', 'AR', 'BOWL', 'BAT', 'BAT', 'AR', 'BOWL', 'AR', 'AR', 'AR', 'BAT', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'AR', 'BAT', 'AR', 'WK', 'BAT', 'BOWL', 'WK', 'BAT', 'BOWL', 'BAT', 'WK', 'WK', 'BOWL', 'BOWL', 'AR', 'BAT', 'BAT', 'AR', 'BOWL', 'BAT', 'BOWL', 'BOWL', 'WK', 'AR', 'BOWL', 'BAT', 'BAT', 'BAT', 'AR', 'AR', 'BAT', 'BOWL', 'BOWL', 'WK', 'AR', 'BAT', 'WK', 'BAT', 'AR', 'BAT', 'BOWL', 'BOWL', 'AR', 'AR', 'BOWL', 'BOWL', 'AR', 'AR', 'BAT', 'AR', 'BOWL', 'BAT', 'BAT', 'BOWL', 'BOWL', 'AR', 'WK', 'AR', 'AR', 'AR', 'BOWL', 'BAT', 'WK', 'BAT', 'BAT', 'BOWL', 'AR', 'BAT', 'BOWL', 'AR', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'BOWL', 'WK', 'BOWL', 'AR', 'BAT', 'BOWL', 'BAT', 'BAT', 'AR', 'BOWL', 'BAT', 'WK', 'AR', 'BOWL', 'AR', 'AR', 'BOWL', 'WK', 'WK', 'AR', 'AR', 'WK', 'AR', 'AR', 'AR', 'BOWL', 'BOWL', 'BAT', 'AR', 'AR', 'AR', 'BAT', 'AR', 'AR', 'BOWL', 'BAT', 'BOWL', 'BOWL', 'BOWL', 'WK', 'BAT', 'AR', 'BAT', 'BOWL', 'AR', 'AR']
 
 cricsheet_names = ["MJ Owen","KT Maphaka","MA Agarwal","Harsh Dubey","Atharva Taide","W O'Rourke",'Aniket Verma', 'Simarjeet Singh', 'Fazalhaq Farooqi', 'V Puthur', 'PVSN Raju', 'M Siddharth', 'DS Rathi', 'Prince Yadav', 'V Nigam', 'PWA Mulder', 'Zeeshan Ansari', 'Ashwani Kumar', 'Yudhvir Singh', 'Yash Thakur', 'K Khejroliya', 'E Malinga', 'SK Rasheed', 'XC Bartlett', 'V Suryavanshi', 'JG Bethell', 'KS Rathore', 'Akash Singh', 'M Tiwari','M Khan','Mustafizur Rahman','Kusal Mendis','Kyle Jamieson','VG Arora', 'Q de Kock', 'SP Narine', 'AM Rahane', 'VR Iyer', 'A Raghuvanshi', 'RK Singh', 'AD Russell', 'Ramandeep Singh', 'Harshit Rana', 'SH Johnson', 'CV Varun', 'Suyash Sharma', 'PD Salt', 'V Kohli', 'D Padikkal', 'RM Patidar', 'LS Livingstone', 'JM Sharma', 'TH David', 'KH Pandya', 'Rasikh Salam', 'JR Hazlewood', 'Yash Dayal', 'A Zampa', 'Abhishek Sharma', 'TM Head', 'Ishan Kishan', 'Nithish Kumar Reddy', 'H Klaasen', 'A Manohar', 'PJ Cummins', 'HV Patel', 'Mohammed Shami', 'YBK Jaiswal', 'SV Samson', 'R Parag', 'N Rana', 'Dhruv Jurel', 'SO Hetmyer', 'SB Dubey', 'JC Archer', 'M Theekshana', 'TU Deshpande', 'Sandeep Sharma', 'RG Sharma', 'RD Rickelton', 'WG Jacks', 'SA Yadav', 'Tilak Varma', 'R Minz', 'Naman Dhir', 'MJ Santner', 'DL Chahar', 'TA Boult', 'KK Ahmed', 'R Ravindra', 'RA Tripathi', 'RD Gaikwad', 'S Dube', 'DJ Hooda', 'SM Curran', 'RA Jadeja', 'MS Dhoni', 'R Ashwin', 'Noor Ahmad', 'NT Ellis', 'AK Markram', 'MR Marsh', 'N Pooran', 'RR Pant', 'DA Miller', 'A Badoni', 'SN Thakur', 'Shahbaz Ahmed', 'Ravi Bishnoi', 'Mukesh Kumar', 'J Fraser-McGurk', 'F du Plessis', 'Abishek Porel', 'Sameer Rizvi', 'AR Patel', 'T Stubbs', 'Ashutosh Sharma', 'MA Starc', 'Kuldeep Yadav', 'MM Sharma', 'Priyansh Arya', 'P Simran Singh', 'SS Iyer', 'Azmatullah Omarzai', 'GJ Maxwell', 'MP Stoinis', 'Shashank Singh', 'Suryansh Shedge', 'M Jansen', 'Arshdeep Singh', 'YS Chahal', 'Vijaykumar Vyshak', 'B Sai Sudharsan', 'Shubman Gill', 'JC Buttler', 'SE Rutherford', 'R Tewatia', 'M Shahrukh Khan', 'Arshad Khan', 'R Sai Kishore', 'Rashid Khan', 'K Rabada', 'Mohammed Siraj', 'M Prasidh Krishna', 'PWH de Silva', 'MM Ali', 'Abdul Samad', 'Avesh Khan', 'B Kumar', 'M Pathirana', 'I Sharma', 'HH Pandya', 'Mujeeb Ur Rahman', 'KL Rahul', 'K Kartikeya', 'V Shankar', 'J Overton', 'MK Pandey', 'N Wadhera', 'LH Ferguson', 'PHKD Mendis', 'Akash Deep', 'RA Bawa', 'DP Conway', 'Mukesh Choudhary', 'JD Unadkat', 'Washington Sundar', 'JJ Bumrah', 'A Kamboj', 'Himmat Singh', 'KV Sharma', 'KK Nair', 'JP Inglis', 'A Nortje', 'RD Chahar', 'MS Bhandage', 'Harpreet Brar', 'D Ferreira', 'R Shepherd', 'A Mhatre', 'Rahmanullah Gurbaz', 'PVD Chameera', 'D Brevis', 'C Sakariya', 'R Powell', 'C Bosch', 'MP Yadav', 'Karim Janat', 'AS Roy', 'Akash Madhwal', 'G Coetzee', 'L Ngidi', 'T Natarajan', 'Sachin Baby', 'Urvil Patel']
-espn_names = ["Mitchell Owen","Kwena Maphaka","Mayank Agarwwal","Harsh Dubey","Atharva Taide","William O'Rourke",'Aniket Verma', 'Simarjeet Singh', 'Fazalhaq Farooqi', 'Vignesh Puthur', 'Satyanarayana Raju', 'Manimaran Siddharth', 'Digvesh Rathi', 'Prince Yadav', 'Vipraj Nigam', 'Wiaan Mulder', 'Zeeshan Ansari', 'Ashwani Kumar', 'Yudhvir Singh Charak', 'Yash Thakur', 'Kulwant Khejroliya', 'Eeshan Malinga', 'Shaikh Rasheed', 'Xavier Bartlett', 'Vaibhav Suryavanshi', 'Jacob Bethell', 'Kunal Singh Rathore', 'Akash Singh', 'Madhav Tiwari','Musheer Khan','Mustafizur Rahman','Kusal Mendis','Kyle Jamieson','Vaibhav Arora', 'Quinton de Kock', 'Sunil Narine', 'Ajinkya Rahane', 'Venkatesh Iyer', 'Angkrish Raghuvanshi', 'Rinku Singh', 'Andre Russell', 'Ramandeep Singh', 'Harshit Rana', 'Spencer Johnson', 'Varun Chakaravarthy', 'Suyash Sharma', 'Phil Salt', 'Virat Kohli', 'Devdutt Padikkal', 'Rajat Patidar', 'Liam Livingstone', 'Jitesh Sharma', 'Tim David', 'Krunal Pandya', 'Rasikh Salam Dar', 'Josh Hazlewood', 'Yash Dayal', 'Adam Zampa', 'Abhishek Sharma', 'Travis Head', 'Ishan Kishan', 'Nitish Reddy', 'Heinrich Klaasen', 'Abhinav Manohar', 'Pat Cummins', 'Harshal Patel', 'Mohammed Shami', 'Yashasvi Jaiswal', 'Sanju Samson', 'Riyan Parag', 'Nitish Rana', 'Dhruv Jurel', 'Shimron Hetmyer', 'Shubham Dubey', 'Jofra Archer', 'Maheesh Theekshana', 'Tushar Deshpande', 'Sandeep Sharma', 'Rohit Sharma', 'Ryan Rickelton', 'Will Jacks', 'Suryakumar Yadav', 'Tilak Varma', 'Robin Minz', 'Naman Dhir', 'Mitchell Santner', 'Deepak Chahar', 'Trent Boult', 'Khaleel Ahmed', 'Rachin Ravindra', 'Rahul Tripathi', 'Ruturaj Gaikwad', 'Shivam Dube', 'Deepak Hooda', 'Sam Curran', 'Ravindra Jadeja', 'MS Dhoni', 'Ravichandran Ashwin', 'Noor Ahmad', 'Nathan Ellis', 'Aiden Markram', 'Mitchell Marsh', 'Nicholas Pooran', 'Rishabh Pant', 'David Miller', 'Ayush Badoni', 'Shardul Thakur', 'Shahbaz Ahmed', 'Ravi Bishnoi', 'Mukesh Kumar', 'Jake Fraser-McGurk', 'Faf du Plessis', 'Abishek Porel', 'Sameer Rizvi', 'Axar Patel', 'Tristan Stubbs', 'Ashutosh Sharma', 'Mitchell Starc', 'Kuldeep Yadav', 'Mohit Sharma', 'Priyansh Arya', 'Prabhsimran Singh', 'Shreyas Iyer', 'Azmatullah Omarzai', 'Glenn Maxwell', 'Marcus Stoinis', 'Shashank Singh', 'Suryansh Shedge', 'Marco Jansen', 'Arshdeep Singh', 'Yuzvendra Chahal', 'Vijaykumar Vyshak', 'Sai Sudharsan', 'Shubman Gill', 'Jos Buttler', 'Sherfane Rutherford', 'Rahul Tewatia', 'Shahrukh Khan', 'Arshad Khan', 'Sai Kishore', 'Rashid Khan', 'Kagiso Rabada', 'Mohammed Siraj', 'Prasidh Krishna', 'Wanindu Hasaranga', 'Moeen Ali', 'Abdul Samad', 'Avesh Khan', 'Bhuvneshwar Kumar', 'Matheesha Pathirana', 'Ishant Sharma', 'Hardik Pandya', 'Mujeeb ur Rahman', 'KL Rahul', 'Kumar Kartikeya', 'Vijay Shankar', 'Jamie Overton', 'Manish Pandey', 'Nehal Wadhera', 'Lockie Ferguson', 'Kusal Mendis', 'Akash Deep', 'Raj Bawa', 'Devon Conway', 'Mukesh Choudhary', 'Jaydev Unadkat', 'Washington Sundar', 'Jasprit Bumrah', 'Anshul Kamboj', 'Himmat Singh', 'Karn Sharma', 'Karun Nair', 'Josh Inglis', 'Anrich Nortje', 'Rahul Chahar', 'Manoj Bhandage', 'Harpreet Brar', 'Donovan Ferreira', 'Romario Shepherd', 'Ayush Mhatre', 'Rahmanullah Gurbaz', 'Dushmantha Chameera', 'Dewald Brevis', 'Chetan Sakariya', 'Rovman Powell', 'Corbin Bosch', 'Mayank Yadav', 'Karim Janat', 'Anukul Roy', 'Akash Madhwal', 'Gerald Coetzee', 'Lungi Ngidi', 'T Natarajan', 'Sachin Baby', 'Urvil Patel']
+espn_names = ["Mitchell Owen","Kwena Maphaka","Mayank Agarwwal","Harsh Dubey","Atharva Taide","William O'Rourke",'Aniket Verma', 'Simarjeet Singh', 'Fazalhaq Farooqi', 'Vignesh Puthur', 'Satyanarayana Raju', 'Manimaran Siddharth', 'Digvesh Rathi', 'Prince Yadav', 'Vipraj Nigam', 'Wiaan Mulder', 'Zeeshan Ansari', 'Ashwani Kumar', 'Yudhvir Singh Charak', 'Yash Thakur', 'Kulwant Khejroliya', 'Eeshan Malinga', 'Shaikh Rasheed', 'Xavier Bartlett', 'Vaibhav Suryavanshi', 'Jacob Bethell', 'Kunal Singh Rathore', 'Akash Singh', 'Madhav Tiwari','Musheer Khan','Mustafizur Rahman','Kusal Mendis','Kyle Jamieson','Vaibhav Arora', 'Quinton de Kock', 'Sunil Narine', 'Ajinkya Rahane', 'Venkatesh Iyer', 'Angkrish Raghuvanshi', 'Rinku Singh', 'Andre Russell', 'Ramandeep Singh', 'Harshit Rana', 'Spencer Johnson', 'Varun Chakaravarthy', 'Suyash Sharma', 'Phil Salt', 'Virat Kohli', 'Devdutt Padikkal', 'Rajat Patidar', 'Liam Livingstone', 'Jitesh Sharma', 'Tim David', 'Krunal Pandya', 'Rasikh Salam Dar', 'Josh Hazlewood', 'Yash Dayal', 'Adam Zampa', 'Abhishek Sharma', 'Travis Head', 'Ishan Kishan', 'Nitish Reddy', 'Heinrich Klaasen', 'Abhinav Manohar', 'Pat Cummins', 'Harshal Patel', 'Mohammed Shami', 'Yashasvi Jaiswal', 'Sanju Samson', 'Riyan Parag', 'Nitish Rana', 'Dhruv Jurel', 'Shimron Hetmyer', 'Shubham Dubey', 'Jofra Archer', 'Maheesh Theekshana', 'Tushar Deshpande', 'Sandeep Sharma', 'Rohit Sharma', 'Ryan Rickelton', 'Will Jacks', 'Suryakumar Yadav', 'Tilak Varma', 'Robin Minz', 'Naman Dhir', 'Mitchell Santner', 'Deepak Chahar', 'Trent Boult', 'Khaleel Ahmed', 'Rachin Ravindra', 'Rahul Tripathi', 'Ruturaj Gaikwad', 'Shivam Dube', 'Deepak Hooda', 'Sam Curran', 'Ravindra Jadeja', 'MS Dhoni', 'Ravichandran Ashwin', 'Noor Ahmad', 'Nathan Ellis', 'Aiden Markram', 'Mitchell Marsh', 'Nicholas Pooran', 'Rishabh Pant', 'David Miller', 'Ayush Badoni', 'Shardul Thakur', 'Shahbaz Ahmed', 'Ravi Bishnoi', 'Mukesh Kumar', 'Jake Fraser-McGurk', 'Faf du Plessis', 'Abishek Porel', 'Sameer Rizvi', 'Axar Patel', 'Tristan Stubbs', 'Ashutosh Sharma', 'Mitchell Starc', 'Kuldeep Yadav', 'Mohit Sharma', 'Priyansh Arya', 'Prabhsimran Singh', 'Shreyas Iyer', 'Azmatullah Omarzai', 'Glenn Maxwell', 'Marcus Stoinis', 'Shashank Singh', 'Suryansh Shedge', 'Marco Jansen', 'Arshdeep Singh', 'Yuzvendra Chahal', 'Vijaykumar Vyshak', 'Sai Sudharsan', 'Shubman Gill', 'Jos Buttler', 'Sherfane Rutherford', 'Rahul Tewatia', 'Shahrukh Khan', 'Arshad Khan', 'Sai Kishore', 'Rashid Khan', 'Kagiso Rabada', 'Mohammed Siraj', 'Prasidh Krishna', 'Wanindu Hasaranga', 'Moeen Ali', 'Abdul Samad', 'Avesh Khan', 'Bhuvneshwar Kumar', 'Matheesha Pathirana', 'Ishant Sharma', 'Hardik Pandya', 'Mujeeb ur Rahman', 'KL Rahul', 'Kumar Kartikeya', 'Vijay Shankar', 'Jamie Overton', 'Manish Pandey', 'Nehal Wadhera', 'Lockie Ferguson', 'Kamindu Mendis', 'Akash Deep', 'Raj Bawa', 'Devon Conway', 'Mukesh Choudhary', 'Jaydev Unadkat', 'Washington Sundar', 'Jasprit Bumrah', 'Anshul Kamboj', 'Himmat Singh', 'Karn Sharma', 'Karun Nair', 'Josh Inglis', 'Anrich Nortje', 'Rahul Chahar', 'Manoj Bhandage', 'Harpreet Brar', 'Donovan Ferreira', 'Romario Shepherd', 'Ayush Mhatre', 'Rahmanullah Gurbaz', 'Dushmantha Chameera', 'Dewald Brevis', 'Chetan Sakariya', 'Rovman Powell', 'Corbin Bosch', 'Mayank Yadav', 'Karim Janat', 'Anukul Roy', 'Akash Madhwal', 'Gerald Coetzee', 'Lungi Ngidi', 'T Natarajan', 'Sachin Baby', 'Urvil Patel']
 
 team_names_sf = ["KKR","GT","MI","CSK","RR","RCB","PBKS","DC","SRH","LSG"]
 team_names_ff = ["Kolkata Knight Riders", "Gujarat Titans", "Mumbai Indians", "Chennai Super Kings","Rajasthan Royals","Royal Challengers Bengaluru", "Punjab Kings","Delhi Capitals","Sunrisers Hyderabad","Lucknow Super Giants"]
@@ -69,6 +69,29 @@ class Score:
         self.json_filename = json_filename
         self.url,self.full_player_list,self.player_list,self.winner,self.man_of_the_match,self.catchers,self.stumpers,self.main_runouters,self.secondary_runouters,self.bowled,self.lbw,self.innings_list,self.batsmen_list,self.bowlers_info = self.scorecard()
     
+    @classmethod
+    def from_data(cls,json_filename, url, full_player_list, player_list, winner,
+                  man_of_the_match, catchers, stumpers, main_runouters,
+                  secondary_runouters, bowled, lbw, innings_list, 
+                  batsmen_list, bowlers_info):
+        obj = cls.__new__(cls)  # bypass __init__
+        obj.json_filename = json_filename
+        obj.url = url
+        obj.full_player_list = full_player_list
+        obj.player_list = player_list
+        obj.winner = winner
+        obj.man_of_the_match = man_of_the_match
+        obj.catchers = catchers
+        obj.stumpers = stumpers
+        obj.main_runouters = main_runouters
+        obj.secondary_runouters = secondary_runouters
+        obj.bowled = bowled
+        obj.lbw = lbw
+        obj.innings_list = innings_list
+        obj.batsmen_list = batsmen_list
+        obj.bowlers_info = bowlers_info
+        return obj
+    
     def scorecard(self):
         # Define the file path
         file_path = "filtered_ipl_json/"+self.json_filename
@@ -92,31 +115,31 @@ class Score:
         matches = [
     "KKR vs RCB",
     "SRH vs RR",
-    "MI vs CSK",
+    "CSK vs MI",
     "DC vs LSG",
-    "PBKS vs GT",
+    "GT vs PBKS",
     "RR vs KKR",
     "SRH vs LSG",
     "CSK vs RCB",
     "GT vs MI",
-    "SRH vs DC",
+    "DC vs SRH",
     "RR vs CSK",
-    "KKR vs MI",
+    "MI vs KKR",
     "LSG vs PBKS",
     "RCB vs GT",
     "KKR vs SRH",
     "LSG vs MI",
-    "DC vs CSK",
-    "RR vs PBKS",
+    "CSK vs DC",
+    "PBKS vs RR",
+    "KKR vs LSG",
     "SRH vs GT",
-    "RCB vs MI",
-    "LSG vs KKR",
+    "MI vs RCB",
     "PBKS vs CSK",
     "GT vs RR",
     "RCB vs DC",
     "CSK vs KKR",
-    "GT vs LSG",
-    "PBKS vs SRH",
+    "LSG vs GT",
+    "SRH vs PBKS",
     "RR vs RCB",
     "DC vs MI",
     "LSG vs CSK",
@@ -125,10 +148,10 @@ class Score:
     "MI vs SRH",
     "RCB vs PBKS",
     "GT vs DC",
-    "LSG vs RR",
+    "RR vs LSG",
     "PBKS vs RCB",
-    "CSK vs MI",
-    "GT vs KKR",
+    "MI vs CSK",
+    "KKR vs GT",
     "LSG vs DC",
     "SRH vs MI",
     "RCB vs RR",
@@ -137,26 +160,26 @@ class Score:
     "MI vs LSG",
     "DC vs RCB",
     "RR vs GT",
-    "KKR vs DC",
+    "DC vs KKR",
     "CSK vs PBKS",
-    "MI vs RR",
+    "RR vs MI",
     "GT vs SRH",
     "RCB vs CSK",
     "KKR vs RR",
     "PBKS vs LSG",
-    "DC vs SRH",
+    "SRH vs DC",
     "MI vs GT",
     "KKR vs CSK",
     "RCB vs KKR",
-    "PBKS vs RR",
+    "RR vs PBKS",
     "DC vs GT",
     "LSG vs SRH",
     "CSK vs RR",
     "MI vs DC",
-    "LSG vs GT",
+    "GT vs LSG",
     "SRH vs RCB",
     "PBKS vs DC",
-    "CSK vs GT",
+    "GT vs CSK",
     "SRH vs KKR",
     "MI vs PBKS",
     "LSG vs RCB",
@@ -165,7 +188,10 @@ class Score:
     "Qualifier 2",
     "Final"
 ]
-        url = matches[file_number - 1473438]
+        match_number = file_number - 1473438
+        if file_number>1473494:
+            match_number -= 1
+        url = matches[match_number]
 
         if 'player_of_match' in info.keys():
             man_of_the_match = info['player_of_match'][0]
@@ -263,6 +289,8 @@ class Score:
                             extra_type = list(ball['extras'].keys())[0]
                             if extra_type in ['legbyes','byes']:
                                 runs = 0
+                            elif extra_type in ['wides','noballs']:
+                                bowlers_stats[bowler]['Overs'] -= 1
                         bowlers_stats[bowler]['Runs'] += runs
                         if runs == 0:
                             bowlers_stats[bowler]['0s'] += 1
@@ -457,7 +485,6 @@ class Series:
         match_objects = ipl
 
         match_names_list = list(match_objects.keys())
-        print(match_names_list)
         if len(generated_json_list)>len(ipl):
             if len(generated_json_list) != 0:
                 for match in generated_json_list:
@@ -579,7 +606,7 @@ class Series:
 
 
 if __name__ == "__main__":
-    match_score = Score("1473468.json")
+    match_score = Score("1473503.json")
     match_score.printing_scorecard()
-    database = "ipl2025matches_cricsheets.pkl"
-    ipl2025 = Series(database)
+    # database = "ipl2025matches_cricsheets.pkl"
+    # ipl2025 = Series(database)

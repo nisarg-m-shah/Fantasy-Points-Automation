@@ -9,31 +9,31 @@ roles = ["BAT","BAT","AR","AR","BOWL",'AR','BOWL','WK','BOWL','WK','BOWL','BOWL'
 matches = [
     "KKR vs RCB",
     "SRH vs RR",
-    "MI vs CSK",
+    "CSK vs MI",
     "DC vs LSG",
-    "PBKS vs GT",
+    "GT vs PBKS",
     "RR vs KKR",
     "SRH vs LSG",
     "CSK vs RCB",
     "GT vs MI",
-    "SRH vs DC",
+    "DC vs SRH",
     "RR vs CSK",
-    "KKR vs MI",
+    "MI vs KKR",
     "LSG vs PBKS",
     "RCB vs GT",
     "KKR vs SRH",
     "LSG vs MI",
-    "DC vs CSK",
-    "RR vs PBKS",
+    "CSK vs DC",
+    "PBKS vs RR",
+    "KKR vs LSG",
     "SRH vs GT",
-    "RCB vs MI",
-    "LSG vs KKR",
+    "MI vs RCB",
     "PBKS vs CSK",
     "GT vs RR",
     "RCB vs DC",
     "CSK vs KKR",
-    "GT vs LSG",
-    "PBKS vs SRH",
+    "LSG vs GT",
+    "SRH vs PBKS",
     "RR vs RCB",
     "DC vs MI",
     "LSG vs CSK",
@@ -42,10 +42,10 @@ matches = [
     "MI vs SRH",
     "RCB vs PBKS",
     "GT vs DC",
-    "LSG vs RR",
+    "RR vs LSG",
     "PBKS vs RCB",
-    "CSK vs MI",
-    "GT vs KKR",
+    "MI vs CSK",
+    "KKR vs GT",
     "LSG vs DC",
     "SRH vs MI",
     "RCB vs RR",
@@ -54,26 +54,26 @@ matches = [
     "MI vs LSG",
     "DC vs RCB",
     "RR vs GT",
-    "KKR vs DC",
+    "DC vs KKR",
     "CSK vs PBKS",
-    "MI vs RR",
+    "RR vs MI",
     "GT vs SRH",
     "RCB vs CSK",
     "KKR vs RR",
     "PBKS vs LSG",
-    "DC vs SRH",
+    "SRH vs DC",
     "MI vs GT",
     "KKR vs CSK",
     "RCB vs KKR",
-    "PBKS vs RR",
+    "RR vs PBKS",
     "DC vs GT",
     "LSG vs SRH",
     "CSK vs RR",
     "MI vs DC",
-    "LSG vs GT",
+    "GT vs LSG",
     "SRH vs RCB",
     "PBKS vs DC",
-    "CSK vs GT",
+    "GT vs CSK",
     "SRH vs KKR",
     "MI vs PBKS",
     "LSG vs RCB",
@@ -413,7 +413,7 @@ class Match:
         ).fillna(0).infer_objects(copy=False)
 if __name__ == '__main__':
     # Load the object (class definition is included!)
-    with open("ipl2025matches.pkl", "rb") as file:
+    with open("ipl2025matches_cricsheets.pkl", "rb") as file:
         ipl2025 = dill.load(file)
 
     begin = time.time()
@@ -448,34 +448,41 @@ if __name__ == '__main__':
     #urlll = "https://www.espncricinfo.com/series/ipl-2025-1449924/kolkata-knight-riders-vs-royal-challengers-bengaluru-1st-match-1473438/full-scorecard"
     #urlll = "https://www.espncricinfo.com/series/ipl-2025-1449924/sunrisers-hyderabad-vs-rajasthan-royals-2nd-match-1473439/full-scorecard"
     #urlll = "https://www.espncricinfo.com/series/ipl-2025-1449924/kolkata-knight-riders-vs-gujarat-titans-39th-match-1473476/full-scorecard"
-    urlll = "https://www.espncricinfo.com/series/ipl-2025-1449924/rajasthan-royals-vs-mumbai-indians-50th-match-1473487/full-scorecard"
+    #urlll = "https://www.espncricinfo.com/series/ipl-2025-1449924/rajasthan-royals-vs-mumbai-indians-50th-match-1473487/full-scorecard"
+    urlll = "MI vs DC"
     match_object = match_objects[urlll]
 
     # match_object = match_objects[60]
     match_object.printing_scorecard()
-    teams = {'Gujju Gang':['Varun Chakaravarthy','Travis Head','Prasidh Krishna','Harshit Rana','Rahul Chahar','Mukesh Choudhary','Ishant Sharma','Jaydev Unadkat','Mukesh Kumar','Abdul Samad','Riyan Parag','Khaleel Ahmed','Avesh Khan','Faf du Plessis','Arjun Tendulkar','Mohammed Shami','Shivam Dube','Lockie Ferguson','Josh Hazlewood','Prabhsimran Singh','Rishabh Pant','Corbin Bosch','Mohammed Siraj','Marcus Stoinis','Harpreet Brar','Rahmanullah Gurbaz','Rashid Khan','Washington Sundar'],
-             'Hilarious Hooligans':['Yashasvi Jaiswal','Axar Patel','Hardik Pandya','Heinrich Klaasen','Rinku Singh','Nehal Wadhera','Romario Shepherd','Manav Suthar','Vijaykumar Vyshak','Himmat Singh','Ayush Badoni','Liam Livingstone','Nathan Ellis','Moeen Ali','Karn Sharma','Shimron Hetmyer','Mayank Yadav','Abhinav Manohar','Ashutosh Sharma','Rachin Ravindra','Shahrukh Khan','Anrich Nortje','Mayank Markande','Yuzvendra Chahal','Tushar Deshpande','Noor Ahmad','Kagiso Rabada','Marco Jansen'],
-             'Tormented Titans':['Virat Kohli','Suryakumar Yadav','Kuldeep Yadav','Abhishek Sharma','Jitesh Sharma','Harnoor Singh','Bhuvneshwar Kumar','Abishek Porel','Angkrish Raghuvanshi','Dhruv Jurel','David Miller','Anuj Rawat','Josh Inglis','Kumar Kartikeya','Akash Deep','Rahul Tewatia','Ramandeep Singh','Sherfane Rutherford','Glenn Maxwell','Mitchell Owen','Sandeep Sharma','Shamar Joseph','Pat Cummins','Quinton de Kock','Ravichandran Ashwin'],
-             'La Furia Roja':['Shreyas Iyer','Sai Sudharsan','Phil Salt','Jasprit Bumrah','Swastik Chikara','Rajvardhan Hangargekar','Manoj Bhandage','Nitish Rana','Rasikh Dar Salam','Deepak Chahar','MS Dhoni','Aaron Hardie','Priyansh Arya','Sameer Rizvi','Mitchell Santner','Manish Pandey','Suyash Sharma','Kamlesh Nagarkoti','Will Jacks','Azmatullah Omarzai','Adam Zampa','Ravichandran Smaran','Spencer Johnson','Jamie Overton','Shashank Singh','Rovman Powell','Suryansh Shedge','Maheesh Theekshana'],
-             'Supa Jinx Strikas':['Shubman Gill',['Ayush Mhatre','Ruturaj Gaikwad'],'Sai Kishore','Nitish Reddy','Mohit Sharma','Raj Bawa','Ishan Kishan','Mitchell Marsh','Karim Janat','Yash Dayal','Bevon Jacobs','Ryan Rickelton','Rajat Patidar','Tristan Stubbs','Gerald Coetzee','Glenn Phillips','Dasun Shanaka','Tim David','Ravi Bishnoi','Donovan Ferreira','Jayant Yadav','Trent Boult','Jofra Archer','Akash Madhwal','Darshan Nalkande','Kwena Maphaka'],
-             'Raging Raptors':['KL Rahul','Venkatesh Iyer','Mitchell Starc','Arshdeep Singh','Shardul Thakur','Ravindra Jadeja','Aiden Markram','Sachin Baby','Dushmantha Chameera','Naman Dhir','Karun Nair','Wanindu Hasaranga','Arshad Khan','Devdutt Padikkal','Robin Minz','Shahbaz Ahmed','Mohsin Khan','Krunal Pandya','Sanju Samson','Jos Buttler','Atharva Taide','Musheer Khan','Devon Conway'],
+    teams = {'Gujju Gang':['Varun Chakaravarthy','Travis Head','Prasidh Krishna','Kyle Jamieson','Harshit Rana','Rahul Chahar','Mukesh Choudhary','Ishant Sharma','Jaydev Unadkat','Mukesh Kumar','Abdul Samad','Riyan Parag','Khaleel Ahmed','Avesh Khan','Faf du Plessis','Arjun Tendulkar','Mohammed Shami','Shivam Dube','Lockie Ferguson','Josh Hazlewood','Prabhsimran Singh','Rishabh Pant','Corbin Bosch','Mohammed Siraj','Marcus Stoinis','Harpreet Brar','Rahmanullah Gurbaz','Rashid Khan','Washington Sundar'],
+             'Hilarious Hooligans':['Yashasvi Jaiswal','Axar Patel','Hardik Pandya',"William O'Rourke",'Heinrich Klaasen','Rinku Singh','Nehal Wadhera','Romario Shepherd','Manav Suthar','Vijaykumar Vyshak','Himmat Singh','Ayush Badoni','Liam Livingstone','Nathan Ellis','Moeen Ali','Karn Sharma','Shimron Hetmyer','Mayank Yadav','Abhinav Manohar','Ashutosh Sharma','Rachin Ravindra','Shahrukh Khan','Anrich Nortje','Mayank Markande','Yuzvendra Chahal','Tushar Deshpande','Noor Ahmad','Kagiso Rabada','Marco Jansen'],
+             'Tormented Titans':['Virat Kohli','Suryakumar Yadav','Kuldeep Yadav','Mitchell Owen','Abhishek Sharma','Jitesh Sharma','Harnoor Singh','Bhuvneshwar Kumar','Abishek Porel','Angkrish Raghuvanshi','Dhruv Jurel','David Miller','Anuj Rawat','Josh Inglis','Kumar Kartikeya','Akash Deep','Rahul Tewatia','Ramandeep Singh','Sherfane Rutherford','Glenn Maxwell','Sandeep Sharma','Shamar Joseph','Pat Cummins','Quinton de Kock','Ravichandran Ashwin'],
+             'La Furia Roja':['Shreyas Iyer','Sai Sudharsan','Phil Salt','Harsh Dubey','Lhuan dre Pretorius','Jasprit Bumrah','Swastik Chikara','Rajvardhan Hangargekar','Manoj Bhandage','Nitish Rana','Rasikh Dar Salam','Deepak Chahar','MS Dhoni','Aaron Hardie','Priyansh Arya','Sameer Rizvi','Mitchell Santner','Manish Pandey','Suyash Sharma','Kamlesh Nagarkoti','Will Jacks','Azmatullah Omarzai','Adam Zampa','Spencer Johnson','Jamie Overton','Shashank Singh','Rovman Powell','Suryansh Shedge','Maheesh Theekshana'],
+             'Supa Jinx Strikas':['Shubman Gill',['Ayush Mhatre','Ruturaj Gaikwad'],'Sai Kishore','Nitish Reddy','Mohit Sharma','Raj Bawa','Ishan Kishan','Mitchell Marsh','Karim Janat','Yash Dayal','Bevon Jacobs','Ryan Rickelton','Rajat Patidar','Tristan Stubbs','Gerald Coetzee','Glenn Phillips','Tim David','Ravi Bishnoi','Donovan Ferreira','Jayant Yadav','Trent Boult','Jofra Archer','Akash Madhwal','Darshan Nalkande','Kwena Maphaka'],
+             'Raging Raptors':['KL Rahul','Venkatesh Iyer',['Mitchell Starc','Mustafizur Rahman'],'Kusal Mendis','Arshdeep Singh','Mayank Agarwal','Shardul Thakur','Ravindra Jadeja','Aiden Markram','Sachin Baby','Dushmantha Chameera','Naman Dhir','Karun Nair','Wanindu Hasaranga','Arshad Khan','Devdutt Padikkal','Robin Minz','Shahbaz Ahmed','Mohsin Khan','Krunal Pandya','Sanju Samson','Jos Buttler','Atharva Taide','Musheer Khan','Devon Conway'],
              'The Travelling Bankers':['Sunil Narine','Andre Russell','Nicholas Pooran','Harshal Patel','Umran Malik','Chetan Sakariya','T Natarajan','Ajinkya Rahane','Shreyas Gopal','Tilak Varma','Vijay Shankar','Shubham Dubey','Anukul Roy','Deepak Hooda','Rahul Tripathi','Lungi Ngidi','Matheesha Pathirana','Vaibhav Arora','Jake Fraser-McGurk','Sam Curran','Rohit Sharma','Mujeeb Ur Rahman','Anshul Kamboj','Mahipal Lomror']
              }
-
-    boosters = {'Gujju Gang':{'https://www.espncricinfo.com/series/ipl-2025-1449924/kolkata-knight-riders-vs-gujarat-titans-39th-match-1473476/full-scorecard':"Double Power","https://www.espncricinfo.com/series/ipl-2025-1449924/sunrisers-hyderabad-vs-mumbai-indians-41st-match-1473478/full-scorecard":"Batting Powerplay"},
-             'Hilarious Hooligans':{"https://www.espncricinfo.com/series/ipl-2025-1449924/chennai-super-kings-vs-punjab-kings-49th-match-1473486/full-scorecard":"Bowling Powerplay","https://www.espncricinfo.com/series/ipl-2025-1449924/rajasthan-royals-vs-mumbai-indians-50th-match-1473487/full-scorecard":"Double Power"},
-             'Tormented Titans':{"https://www.espncricinfo.com/series/ipl-2025-1449924/sunrisers-hyderabad-vs-delhi-capitals-55th-match-1473492/live-cricket-score":"Bowling Powerplay"},
-             'La Furia Roja':{"https://www.espncricinfo.com/series/ipl-2025-1449924/kolkata-knight-riders-vs-punjab-kings-44th-match-1473481/full-scorecard":"Batting Powrrplay"},
-             'Supa Jinx Strikas':{'https://www.espncricinfo.com/series/ipl-2025-1449924/mumbai-indians-vs-sunrisers-hyderabad-33rd-match-1473470/full-scorecard':'Batting Powerplay',"https://www.espncricinfo.com/series/ipl-2025-1449924/rajasthan-royals-vs-mumbai-indians-50th-match-1473487/full-scorecard":"Bowling Powerplay","https://www.espncricinfo.com/series/ipl-2025-1449924/gujarat-titans-vs-sunrisers-hyderabad-51st-match-1473488/full-scorecard":"Triple Captain"},
-             'Raging Raptors':{'https://www.espncricinfo.com/series/ipl-2025-1449924/delhi-capitals-vs-rajasthan-royals-32nd-match-1473469/full-scorecard':'Batting Powerplay',"https://www.espncricinfo.com/series/ipl-2025-1449924/lucknow-super-giants-vs-delhi-capitals-40th-match-1473477/full-scorecard":"Double Power","https://www.espncricinfo.com/series/ipl-2025-1449924/mumbai-indians-vs-delhi-capitals-66th-match-1473503/live-cricket-score":"Triple Captain","https://www.espncricinfo.com/series/ipl-2025-1449924/punjab-kings-vs-delhi-capitals-58th-match-1473495/live-cricket-score":"Bowling Powerplay"},
-             'The Travelling Bankers':{"https://www.espncricinfo.com/series/ipl-2025-1449924/kolkata-knight-riders-vs-lucknow-super-giants-21st-match-1473456/full-scorecard":"Batting Powerplay","https://www.espncricinfo.com/series/ipl-2025-1449924/kolkata-knight-riders-vs-punjab-kings-44th-match-1473481/full-scorecard":"Bowling Powerplay"}
+    # boosters = {'Gujju Gang':{"https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/royal-challengers-bengaluru-vs-kolkata-knight-riders-10th-match-1422128/full-scorecard":"Triple Power"},
+    #          'Hilarious Hooligans':{"https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/royal-challengers-bengaluru-vs-kolkata-knight-riders-10th-match-1422128/full-scorecard":"Double Power"},
+    #          'Tormented Titans':{"https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/royal-challengers-bengaluru-vs-kolkata-knight-riders-10th-match-1422128/full-scorecard":"Batting Powerplay"},
+    #          'La Furia Roja':{"https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/royal-challengers-bengaluru-vs-kolkata-knight-riders-10th-match-1422128/full-scorecard":"Bowling Powerplay"},
+    #          'Supa Jinx Strikas':{"https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/royal-challengers-bengaluru-vs-kolkata-knight-riders-10th-match-1422128/full-scorecard":"Double Power","https://www.espncricinfo.com/series/indian-premier-league-2024-1410320/kolkata-knight-riders-vs-sunrisers-hyderabad-3rd-match-1422121/full-scorecard":"Triple Captain"},
+    #          'Raging Raptors':{},
+    #          'The Travelling Bankers':{}
+    #          } #for example Change this later
+    boosters = {'Gujju Gang':{"KKR vs GT":"Double Power","SRH vs MI":"Batting Powerplay","KKR vs RR":"Triple Captain","Eliminator":"Bowling Powerplay"},
+             'Hilarious Hooligans':{"CSK vs PBKS":"Bowling Powerplay","RR vs MI":"Double Power","KKR vs RR":"Triple Captain","SRH vs DC":"Batting Powerplay"},
+             'Tormented Titans':{"SRH vs DC":"Bowling Powerplay","SRH vs RCB":"Double Power"},
+             'La Furia Roja':{"KKR vs PBKS":"Batting Powerplay","PBKS vs DC":"Triple Captain"},
+             'Supa Jinx Strikas':{'MI vs SRH':'Batting Powerplay',"RR vs MI":"Bowling Powerplay","GT vs SRH":"Triple Captain","GT vs CSK":"Double Power"},
+             'Raging Raptors':{'DC vs RR':'Batting Powerplay',"LSG vs DC":"Double Power","MI vs DC":"Triple Captain","PBKS vs DC":"Bowling Powerplay"},
+             'The Travelling Bankers':{"KKR vs LSG":"Batting Powerplay","KKR vs PBKS":"Bowling Powerplay","SRH vs KKR":"Triple Captain","KKR vs CSK":"Double Power"}
              }
 
     match = Match(teams,match_object,boosters)
     print()
     team_breakdown = match.match_points_breakdown
     print(team_breakdown)
-    print(team_breakdown['Ayush Mhatre'])
     print()
     General_points_list = match.general_player_points_list
     print(General_points_list)
