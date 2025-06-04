@@ -251,6 +251,8 @@ class Score:
         for innings_number in range(1,len(overs_lists)+1):
             innings = overs_lists[innings_number-1]
             innings_name = innings_name_list[innings_number-1]
+            bowling_team_number = innings_number%len(innings_name_list)
+            bowling_team = innings_name_list[bowling_team_number]
             for over in innings:
                 maiden_counter = 0
                 bowler_of_over = over['deliveries'][0]['bowler']
@@ -313,35 +315,49 @@ class Score:
                                     if fielder_main in cricsheet_names:
                                         fielder_main = espn_name(fielder_main)
                                         main_runouters.append(fielder_main)
+                                        if fielder_main not in player_list[bowling_team]:
+                                            player_list[bowling_team].append(fielder_main)
                                 elif len(fielders) == 2:
                                     fielder_main = fielders[1]['name']
                                     if fielder_main in cricsheet_names:
                                         fielder_main = espn_name(fielder_main)
                                         main_runouters.append(fielder_main)
+                                        if fielder_main not in player_list[bowling_team]:
+                                            player_list[bowling_team].append(fielder_main)
                                     fielder_secondary = fielders[0]['name']
                                     if fielder_secondary in cricsheet_names:
                                         fielder_secondary = espn_name(fielder_secondary)
                                         main_runouters.append(fielder_secondary)
+                                        if fielder_secondary not in player_list[bowling_team]:
+                                            player_list[bowling_team].append(fielder_secondary)
                                 elif len(fielders) == 3:
                                     fielder_main = fielders[2]['name']
                                     if fielder_main in cricsheet_names:
                                         fielder_main = espn_name(fielder_main)
                                         main_runouters.append(fielder_main)
+                                        if fielder_main not in player_list[bowling_team]:
+                                            player_list[bowling_team].append(fielder_main)
                                     fielder_secondary = fielders[1]['name']
                                     if fielder_secondary in cricsheet_names:
                                         fielder_secondary = espn_name(fielder_secondary)
                                         main_runouters.append(fielder_secondary)
+                                        if fielder_secondary not in player_list[bowling_team]:
+                                            player_list[bowling_team].append(fielder_secondary)
                             if ball['wickets'][0]['kind'] == 'caught':
                                 #print(ball['wickets'][0]['fielders'][0]['name'])
                                 catcher = ball['wickets'][0]['fielders'][0]['name']
                                 if catcher in cricsheet_names:
                                     catcher = espn_name(catcher)
                                     catchers.append(catcher)
+                                    if catcher not in player_list[bowling_team]:
+                                        player_list[bowling_team].append(catcher)
                             if ball['wickets'][0]['kind'] == 'stumped':
                                 stumper = ball['wickets'][0]['fielders'][0]['name']
                                 if stumper in cricsheet_names:
                                     stumper = espn_name(stumper)
                                     stumpers.append(stumper)
+                                    if stumper not in player_list[bowling_team]:
+                                        player_list[bowling_team].append(stumper)
                             if ball['wickets'][0]['kind'] == 'caught and bowled':
                                 catchers.append(bowler)
 
